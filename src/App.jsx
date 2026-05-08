@@ -36,7 +36,8 @@ function App() {
   // 计算实际攻击力(考虑水生机制)
   const getActualAtk = (insect, underwater) => {
     if (insect.specialMechanism === 'aquatic') {
-      return underwater ? insect.atk * 0.9 : insect.atk * 0.0;
+      const multiplier = insect.aquaticMultiplier || { underwater: 0.9, land: 0.0 };
+      return underwater ? insect.atk * multiplier.underwater : insect.atk * multiplier.land;
     }
     return insect.atk;
   };

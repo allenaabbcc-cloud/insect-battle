@@ -240,5 +240,44 @@
       "lifecycle": "产卵于土壤中,孵化后为小蜗牛",
       "description": "蜗牛是一种软体动物,有着螺旋形的外壳保护身体。它们移动缓慢,通过腹足分泌粘液来润滑爬行路径。蜗牛是素食者,以植物为食。它们的粘液不仅帮助移动,还能保护身体免受伤害。"
     }
+  },
+  {
+    "id": 8,
+    "name": "仰泳蝽",
+    "className": "飞虫班",
+    "features": "游泳足,静如呆子动如疯子",
+    "ultimate": "疯子拳",
+    "weakness": "翅膀弱",
+    "naturalEnemy": "青蛙",
+    "atk": 90,
+    "type": "水",
+    "specialMechanism": "aquatic",
+    "mechanismDesc": "水下ATK100%,水上ATK70%",
+    "aquaticMultiplier": {
+      "underwater": 1.0,
+      "land": 0.7
+    },
+    "createdAt": "2026-05-08",
+    "realImage": "https://aka.doubaocdn.com/s/AaBb1wNsrX",
+    "samImage": "/sam-images/backswimmer.jpg",
+    "location": {
+      "lat": 40.00,
+      "lng": 116.40,
+      "label": "亚洲,中国淡水水域"
+    },
+    "funFacts": [
+      "仰泳蝽是仰着游泳的昆虫!",
+      "它们用后腿像桨一样划水前进!",
+      "虽然叫蝽,但它们是凶猛的捕食者!",
+      "仰泳蝽的名字来源于它游泳的姿势!",
+      "它们是水面上的伏击高手!"
+    ],
+    "knowledge": {
+      "scientificName": "Notonectidae",
+      "habitat": "全球各地的淡水湖泊、池塘",
+      "diet": "小型水生昆虫、蝌蚪、小鱼",
+      "lifecycle": "不完全变态,若虫在水中生活",
+      "description": "仰泳蝽是一种水生昆虫,以其独特的仰泳姿势而得名。它们用后腿作为桨划水,擅长在水面上伏击猎物。虽然体型不大,但它们是凶猛的捕食者,会捕食比自己大的猎物。"
+    }
   }
 ]

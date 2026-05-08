@@ -20,7 +20,8 @@ const WorldMap = ({ onBack, onSelectCard }) => {
     4: { x: 30, y: 35, label: '北美洲' },
     5: { x: 72, y: 45, label: '亚洲' },
     6: { x: 78, y: 52, label: '中国' },
-    7: { x: 52, y: 42, label: '法国' }
+    7: { x: 52, y: 42, label: '法国' },
+    8: { x: 76, y: 48, label: '北京' }
   };
 
   return (
@@ -124,6 +125,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                     {insect.name === '虎头蜂' && '🐝'}
                     {insect.name === '龙虱' && '🐌'}
                     {insect.name === '蜗牛' && '🐌'}
+                    {insect.name === '仰泳蝽' && '🦟'}
                   </div>
                   
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-white font-bold text-center w-full px-1">
