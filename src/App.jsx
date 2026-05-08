@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import insects from './data/insects.json';
 import Card from './components/Card';
 import CardGallery from './components/CardGallery';
@@ -24,8 +24,45 @@ function App() {
     winStreak: 0,
     currentStreak: 0
   });
+  
+  // 新增:战斗环境状态
+  const [isUnderwater, setIsUnderwater] = useState(false);
+  
+  // 新增:中毒状态
+  const [playerPoisoned, setPlayerPoisoned] = useState(false);
+  const [enemyPoisoned, setEnemyPoisoned] = useState(false);
+  const [poisonCountdown, setPoisonCountdown] = useState(0);
 
-  const generateBattleCommentary = (winner, loser, isNaturalEnemy, isWeaknessCrit) => {
+  // 计算实际攻击力(考虑水生机制)
+  const getActualAtk = (insect, underwater) => {
+    if (insect.specialMechanism === 'aquatic') {
+      return underwater ? insect.atk * 0.9 : insect.atk * 0.0;
+    }
+    return insect.atk;
+  };
+
+  // 计算蜗牛Debuff后的攻击力
+  const getDebuffedAtk = (insect, hasDebuff) => {
+    if (hasDebuff && insect.specialMechanism === 'debuff') {
+      return insect.atk * 0.8; // 中毒状态,ATK下降20%
+    }
+    return insect.atk;
+  };
+
+  // 中毒效果处理
+  useEffect(() => {
+    if ((playerPoisoned || enemyPoisoned) && poisonCountdown > 0) {
+      const timer = setTimeout(() => {
+        setPoisonCountdown(prev => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [poisonCountdown, playerPoisoned, enemyPoisoned]);
+
+  const generateBattleCommentary = (winner, loser, isNaturalEnemy, isWeaknessCrit, isPoisonKill) => {
+    if (isPoisonKill) {
+      return `${winner.name} 的 ${winner.ultimate} 让 ${loser.name} 中毒了！毒液发作，3秒后血条清零！`;
+    }
     if (isNaturalEnemy) {
       return `${winner.name} 是 ${loser.name} 的天敌！利用天敌压制，轻松获胜！`;
     }
@@ -57,14 +94,24 @@ function App() {
   const startBattle = (card) => {
     setPlayerCard(card);
     
-    const enemyIndex = Math.floor(Math.random() * insects.length);
-    const enemy = insects[enemyIndex];
+    // 获取敌方昆虫(排除玩家选择的)
+    const availableEnemies = insects.filter(i => i.id !== card.id);
+    const enemyIndex = Math.floor(Math.random() * availableEnemies.length);
+    const enemy = availableEnemies[enemyIndex];
     setEnemyCard(enemy);
     
+    // 重置状态
     setBattleLog([]);
     setGameResult(null);
     setBattleCommentary('');
     setRandomFact(null);
+    setPlayerPoisoned(false);
+    setEnemyPoisoned(false);
+    setPoisonCountdown(0);
+    
+    // 记录战斗环境
+    const envText = isUnderwater ? '🌊 水下战斗' : '🏜️ 陆地战斗';
+    setBattleLog(prev => [...prev, `【${envText}】`]);
     
     setTimeout(() => {
       setBattleLog(prev => [...prev, `${card.name} 准备出战！`]);
@@ -76,7 +123,44 @@ function App() {
           let winner, loser;
           let isNaturalEnemy = false;
           let isWeaknessCrit = false;
+          let isPoisonKill = false;
           
+          // 计算实际攻击力
+          const playerAtk = getActualAtk(card, isUnderwater);
+          const enemyAtk = getActualAtk(enemy, isUnderwater);
+          
+          // 检查龙虱水生机制
+          if (card.specialMechanism === 'aquatic') {
+            setBattleLog(prev => [...prev, `💧 ${card.name} 的水生机制生效！实际攻击力：${playerAtk}`]);
+          }
+          if (enemy.specialMechanism === 'aquatic') {
+            setBattleLog(prev => [...prev, `💧 ${enemy.name} 的水生机制生效！实际攻击力：${enemyAtk}`]);
+          }
+          
+          // 检查黑寡妇毒牙机制
+          const checkPoisonKill = (attacker, defender, attackerIsPlayer) => {
+            if (attacker.specialMechanism === 'poison_kill') {
+              const defenderAtk = getActualAtk(defender, isUnderwater);
+              if (defenderAtk < attacker.atk) {
+                isPoisonKill = true;
+                if (attackerIsPlayer) {
+                  setEnemyPoisoned(true);
+                  setPoisonCountdown(3);
+                  setBattleLog(prev => [...prev, `☠️ 黑寡妇的毒牙命中！${defender.name} 中毒了！`]);
+                  setBattleLog(prev => [...prev, `⏱️ 3...2...1...毒发身亡！`]);
+                } else {
+                  setPlayerPoisoned(true);
+                  setPoisonCountdown(3);
+                  setBattleLog(prev => [...prev, `☠️ 黑寡妇的毒牙命中！${defender.name} 中毒了！`]);
+                  setBattleLog(prev => [...prev, `⏱️ 3...2...1...毒发身亡！`]);
+                }
+                return true;
+              }
+            }
+            return false;
+          };
+          
+          // 检查天敌
           if (enemy.name === card.naturalEnemy) {
             winner = enemy;
             loser = card;
@@ -88,9 +172,13 @@ function App() {
             isNaturalEnemy = true;
             setBattleLog(prev => [...prev, `🔥 天敌压制！${card.name} 是 ${enemy.name} 的天敌！`]);
           } else {
-            if (card.atk !== enemy.atk) {
-              const underdog = card.atk < enemy.atk ? card : enemy;
-              const favorite = card.atk < enemy.atk ? enemy : card;
+            // 普通战斗逻辑
+            const effectivePlayerAtk = playerAtk;
+            const effectiveEnemyAtk = enemyAtk;
+            
+            if (effectivePlayerAtk !== effectiveEnemyAtk) {
+              const underdog = effectivePlayerAtk < effectiveEnemyAtk ? card : enemy;
+              const favorite = effectivePlayerAtk < effectiveEnemyAtk ? enemy : card;
               const diceRoll = Math.floor(Math.random() * 20) + 1;
               
               setBattleLog(prev => [...prev, `🎲 ${underdog.name} 投出了 ${diceRoll} 点！`]);
@@ -109,7 +197,6 @@ function App() {
               setGameResult('draw');
               setBattleCommentary(`势均力敌！${card.name} 和 ${enemy.name} 打平了！`);
               setRandomFact(getRandomFact(card));
-              // 更新统计
               setPlayerStats(prev => ({
                 ...prev,
                 totalBattles: prev.totalBattles + 1,
@@ -119,32 +206,42 @@ function App() {
             }
           }
           
-          const commentary = generateBattleCommentary(winner, loser, isNaturalEnemy, isWeaknessCrit);
+          // 检查蜗牛粘液炸弹debuff
+          if (winner.specialMechanism === 'debuff') {
+            setBattleLog(prev => [...prev, `🐌 ${winner.name} 使用粘液炸弹！${loser.name} 进入中毒状态，下一场ATK下降20%！`]);
+          }
+          
+          // 生成战斗解说
+          const commentary = generateBattleCommentary(winner, loser, isNaturalEnemy, isWeaknessCrit, isPoisonKill);
           setBattleCommentary(commentary);
           
           const fact = getRandomFact(winner);
           setRandomFact(fact);
           
-          if (winner === card) {
-            setGameResult('victory');
-            setBattleLog(prev => [...prev, `🎉 胜利！${card.name} 获胜！`]);
-            setPlayerStats(prev => ({
-              ...prev,
-              totalBattles: prev.totalBattles + 1,
-              wins: prev.wins + 1,
-              currentStreak: prev.currentStreak + 1,
-              winStreak: Math.max(prev.winStreak, prev.currentStreak + 1)
-            }));
-          } else {
-            setGameResult('defeat');
-            setBattleLog(prev => [...prev, `💀 失败！${enemy.name} 获胜！`]);
-            setPlayerStats(prev => ({
-              ...prev,
-              totalBattles: prev.totalBattles + 1,
-              losses: prev.losses + 1,
-              currentStreak: 0
-            }));
-          }
+          // 延迟显示结果,让中毒效果先播放
+          setTimeout(() => {
+            if (winner === card) {
+              setGameResult('victory');
+              setBattleLog(prev => [...prev, `🎉 胜利！${card.name} 获胜！`]);
+              setPlayerStats(prev => ({
+                ...prev,
+                totalBattles: prev.totalBattles + 1,
+                wins: prev.wins + 1,
+                currentStreak: prev.currentStreak + 1,
+                winStreak: Math.max(prev.winStreak, prev.currentStreak + 1)
+              }));
+            } else {
+              setGameResult('defeat');
+              setBattleLog(prev => [...prev, `💀 失败！${enemy.name} 获胜！`]);
+              setPlayerStats(prev => ({
+                ...prev,
+                totalBattles: prev.totalBattles + 1,
+                losses: prev.losses + 1,
+                currentStreak: 0
+              }));
+            }
+          }, isPoisonKill ? 3500 : 0);
+          
         }, 800);
       }, 600);
     }, 400);
@@ -157,6 +254,9 @@ function App() {
     setGameResult(null);
     setBattleCommentary('');
     setRandomFact(null);
+    setPlayerPoisoned(false);
+    setEnemyPoisoned(false);
+    setPoisonCountdown(0);
   };
 
   if (gameState === 'gallery') {
@@ -220,6 +320,37 @@ function App() {
               <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
                 🎮 选择你的英雄
               </h2>
+              
+              {/* 战斗环境选择 */}
+              <div className="mb-4 bg-indigo-900/50 rounded-xl p-4 border border-indigo-500/50">
+                <div className="text-indigo-300 font-bold mb-3 text-center">⚔️ 战斗环境</div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setIsUnderwater(false)}
+                    className={`flex-1 py-2 px-3 rounded-lg font-bold transition-all ${
+                      !isUnderwater 
+                        ? 'bg-yellow-500 text-white shadow-lg' 
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    🏜️ 陆地
+                  </button>
+                  <button
+                    onClick={() => setIsUnderwater(true)}
+                    className={`flex-1 py-2 px-3 rounded-lg font-bold transition-all ${
+                      isUnderwater 
+                        ? 'bg-blue-500 text-white shadow-lg' 
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    🌊 水下
+                  </button>
+                </div>
+                <div className="text-xs text-indigo-300 mt-2 text-center">
+                  💡 龙虱水下ATK:90% 陆地ATK:0%
+                </div>
+              </div>
+              
               <div className="flex flex-wrap justify-center gap-4">
                 {insects.map((insect) => (
                   <Card
@@ -240,10 +371,26 @@ function App() {
                 ⚔️ 战斗场地
               </h2>
               
+              {/* 中毒状态显示 */}
+              {(playerPoisoned || enemyPoisoned) && (
+                <div className="mb-4 bg-red-900/50 rounded-xl p-3 border border-red-500 animate-pulse">
+                  <div className="text-red-300 font-bold text-center">
+                    ☠️ 中毒状态！倒计时：{poisonCountdown}
+                  </div>
+                </div>
+              )}
+              
               <div className="space-y-4">
                 <div className="flex justify-center">
                   {playerCard && (
-                    <Card insect={playerCard} isSmall />
+                    <div className="relative">
+                      <Card insect={playerCard} isSmall />
+                      {playerPoisoned && (
+                        <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full animate-bounce">
+                          ☠️ 中毒
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
                 
@@ -255,14 +402,21 @@ function App() {
                 
                 <div className="flex justify-center">
                   {enemyCard && (
-                    <Card insect={enemyCard} isEnemy isSmall />
+                    <div className="relative">
+                      <Card insect={enemyCard} isEnemy isSmall />
+                      {enemyPoisoned && (
+                        <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full animate-bounce">
+                          ☠️ 中毒
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
               
               <div className="mt-6 bg-black/50 rounded-xl p-4 min-h-32">
                 <h3 className="text-yellow-400 font-bold mb-2">📜 战斗日志</h3>
-                <div className="space-y-1">
+                <div className="space-y-1 max-h-40 overflow-y-auto">
                   {battleLog.map((log, index) => (
                     <div key={index} className="text-gray-200 text-sm">
                       {log}
@@ -289,12 +443,56 @@ function App() {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <div className="text-green-400">{playerCard.name}</div>
-                        <div className="text-white">攻击：{playerCard.atk}</div>
+                        <div className="text-white">
+                          攻击：
+                          {playerCard.specialMechanism === 'aquatic' ? (
+                            <span className={isUnderwater ? 'text-blue-400' : 'text-red-400'}>
+                              {isUnderwater ? playerCard.atk * 0.9 : 0}
+                              <span className="text-xs">({isUnderwater ? '水下' : '陆地'})</span>
+                            </span>
+                          ) : (
+                            <span className="text-green-300">{playerCard.atk}</span>
+                          )}
+                        </div>
+                        {playerCard.specialMechanism && (
+                          <div className="text-xs text-purple-400 mt-1">
+                            {playerCard.specialMechanism === 'poison_kill' && '☠️ 毒牙机制'}
+                            {playerCard.specialMechanism === 'debuff' && '🐌 粘液炸弹'}
+                            {playerCard.specialMechanism === 'aquatic' && '💧 水生机制'}
+                          </div>
+                        )}
                       </div>
                       <div>
                         <div className="text-red-400">{enemyCard.name}</div>
-                        <div className="text-white">攻击：{enemyCard.atk}</div>
+                        <div className="text-white">
+                          攻击：
+                          {enemyCard.specialMechanism === 'aquatic' ? (
+                            <span className={isUnderwater ? 'text-blue-400' : 'text-red-400'}>
+                              {isUnderwater ? enemyCard.atk * 0.9 : 0}
+                              <span className="text-xs">({isUnderwater ? '水下' : '陆地'})</span>
+                            </span>
+                          ) : (
+                            <span className="text-red-300">{enemyCard.atk}</span>
+                          )}
+                        </div>
+                        {enemyCard.specialMechanism && (
+                          <div className="text-xs text-purple-400 mt-1">
+                            {enemyCard.specialMechanism === 'poison_kill' && '☠️ 毒牙机制'}
+                            {enemyCard.specialMechanism === 'debuff' && '🐌 粘液炸弹'}
+                            {enemyCard.specialMechanism === 'aquatic' && '💧 水生机制'}
+                          </div>
+                        )}
                       </div>
+                    </div>
+                  </div>
+                  
+                  {/* 机制说明 */}
+                  <div className="bg-purple-900/30 rounded-xl p-3 border border-purple-500/30">
+                    <div className="text-purple-300 font-bold mb-2 text-sm">📖 特殊机制说明</div>
+                    <div className="text-xs text-purple-200 space-y-1">
+                      <div>☠️ <strong>黑寡妇</strong>: ATK&lt;97的对手直接中毒,3秒后血条清零</div>
+                      <div>🐌 <strong>蜗牛</strong>: 使用粘液炸弹,对手下场ATK-20%</div>
+                      <div>💧 <strong>龙虱</strong>: 水下ATK90%,陆地ATK0%</div>
                     </div>
                   </div>
                 </div>

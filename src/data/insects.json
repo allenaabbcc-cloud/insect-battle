@@ -3,231 +3,242 @@
     "id": 1,
     "name": "巴西游走蛛",
     "className": "毒虫班",
-    "features": "剧毒，速度快",
+    "features": "剧毒,速度快",
     "ultimate": "毒液注射",
     "weakness": "外骨骼软",
     "naturalEnemy": "蛛蜂",
     "atk": 95,
     "type": "毒",
     "createdAt": "2025-05-07",
-    "realImage": "https://aka.doubaocdn.com/s/3n351wNrtr",
+    "realImage": "https://aka.doubaocdn.com/s/SYQA1wNsq6",
     "samImage": "/sam-images/brazilian-spider.jpg",
     "location": {
       "lat": -15.78,
       "lng": -47.93,
-      "label": "巴西，南美洲"
+      "label": "巴西,南美洲"
     },
     "funFacts": [
-      "巴西游走蛛被吉尼斯世界纪录列为'最危险的蜘蛛'！",
-      "它也被称为'香蕉蜘蛛'，因为经常躲在香蕉运输里。",
-      "成年雌性足展可达15厘米，相当于成年人手掌大小！",
-      "科学家正在研究它的毒液治疗勃起功能障碍的可能性！",
-      "它不会结网，而是主动游荡捕猎，像个刺客！"
+      "巴西游走蛛被吉尼斯世界纪录列为'最危险的蜘蛛'!",
+      "它也被称为'香蕉蜘蛛',因为经常躲在香蕉运输里。",
+      "成年雌性足展可达15厘米,相当于成年人手掌大小!",
+      "科学家正在研究它的毒液治疗勃起功能障碍的可能性!",
+      "它不会结网,而是主动游荡捕猎,像个刺客!"
     ],
     "knowledge": {
       "scientificName": "Phoneutria nigriventer",
       "habitat": "南美洲和中美洲的热带雨林",
       "diet": "蟋蟀、大型昆虫、小型蜥蜴、老鼠",
       "lifecycle": "1-2年",
-      "description": "巴西游走蛛是世界上最毒的蜘蛛之一，拥有极强的神经毒素。它们不结网，而是主动在地面游走捕猎，因此得名'游走蛛'。它们有独特的红色螯肢，在感到威胁时会高高举起警告敌人。"
+      "description": "巴西游走蛛是世界上最毒的蜘蛛之一,拥有极强的神经毒素。它们不结网,而是主动在地面游走捕猎,因此得名'游走蛛'。它们有独特的红色螯肢,在感到威胁时会高高举起警告敌人。"
     }
   },
   {
     "id": 2,
     "name": "豆娘稚虫",
     "className": "水生班",
-    "features": "水下呼吸，下唇像面具一样弹出捕食",
+    "features": "水下呼吸,下唇像面具一样弹出捕食",
     "ultimate": "面具突袭",
     "weakness": "离开水面行动缓慢",
     "naturalEnemy": "龙虱",
     "atk": 35,
     "type": "水",
     "createdAt": "2025-05-07",
-    "realImage": "https://aka.doubaocdn.com/s/djAg1wNru5",
+    "realImage": "https://aka.doubaocdn.com/s/aPi41wNsqI",
     "samImage": "/sam-images/damselfly.jpg",
     "location": {
       "lat": 51.51,
       "lng": -0.13,
-      "label": "欧洲，世界各地淡水水域"
+      "label": "欧洲,世界各地淡水水域"
     },
     "funFacts": [
-      "豆娘稚虫的'面具'捕食器只需25毫秒就能弹射出去！",
-      "它们在水中生活数月到数年才会变成成虫！",
-      "豆娘水虿的尾鳃既可以呼吸，又能当桨划水！",
-      "古代石炭纪的豆娘祖先翼展可达75厘米！",
-      "它们是蚊子的天敌，是天然的除蚊小能手！"
+      "豆娘稚虫的'面具'捕食器只需25毫秒就能弹射出去!",
+      "它们在水中生活数月到数年才会变成成虫!",
+      "豆娘水虿的尾鳃既可以呼吸,又能当桨划水!",
+      "古代石炭纪的豆娘祖先翼展可达75厘米!",
+      "它们是蚊子的天敌,是天然的除蚊小能手!"
     ],
     "knowledge": {
       "scientificName": "Zygoptera",
       "habitat": "湖泊、池塘、溪流等各种淡水环境",
       "diet": "水生昆虫、浮游动物、甚至小鱼苗",
-      "lifecycle": "数月到数年（稚虫期），成虫数周到数月",
-      "description": "豆娘稚虫（水虿）是水下的伏击型捕食者。它们拥有自然界最酷的捕食器官——一个可折叠的'面罩'状下唇，能瞬间弹出捕获猎物。它们的身体细长，尾部有3个叶状尾鳃用于呼吸。"
+      "lifecycle": "数月到数年(稚虫期),成虫数周到数月",
+      "description": "豆娘稚虫(水虿)是水下的伏击型捕食者。它们拥有自然界最酷的捕食器官——一个可折叠的'面罩'状下唇,能瞬间弹出捕获猎物。它们的身体细长,尾部有3个叶状尾鳃用于呼吸。"
     }
   },
   {
     "id": 3,
     "name": "避日蛛",
     "className": "杂虫班",
-    "features": "适应49℃高温，极其凶猛",
+    "features": "适应49℃高温,极其凶猛",
     "ultimate": "大颚咬破",
     "weakness": "腹部柔软",
     "naturalEnemy": "大王虎甲",
     "atk": 70,
     "type": "力量",
     "createdAt": "2025-05-08",
-    "realImage": "https://aka.doubaocdn.com/s/7V9f1wNru5",
+    "realImage": "https://aka.doubaocdn.com/s/xdF61wNsqW",
     "samImage": "/sam-images/sun-spider.jpg",
     "location": {
       "lat": 25.27,
       "lng": 55.30,
-      "label": "中东，撒哈拉沙漠地区"
+      "label": "中东,撒哈拉沙漠地区"
     },
     "funFacts": [
-      "避日蛛不是真正的蜘蛛！它属于蛛形纲的另一个目！",
-      "一战时士兵们在埃及用它们来'斗蜘蛛'赌博！",
-      "虽然看起来吓人，但它其实是无毒的！",
-      "传说它会爬进骆驼肚子里大吃特吃——这是假的！",
-      "它的速度能达到每小时16公里，在蜘蛛界算'闪电侠'！"
+      "避日蛛不是真正的蜘蛛!它属于蛛形纲的另一个目!",
+      "一战时士兵们在埃及用它们来'斗蜘蛛'赌博!",
+      "虽然看起来吓人,但它其实是无毒的!",
+      "传说它会爬进骆驼肚子里大吃特吃——这是假的!",
+      "它的速度能达到每小时16公里,在蜘蛛界算'闪电侠'!"
     ],
     "knowledge": {
       "scientificName": "Solifugae",
       "habitat": "非洲、中东、美洲的沙漠和干热地区",
-      "diet": "昆虫、蜥蜴、蛇、小鸟，什么都吃！",
+      "diet": "昆虫、蜥蜴、蛇、小鸟,什么都吃!",
       "lifecycle": "约1年",
-      "description": "避日蛛（又称风蝎、太阳蛛）是极其凶猛的捕食者。它们有巨大的螯肢（占身体1/3长度），能像锯子一样将猎物嚼碎。虽然外表恐怖，但其实没有毒腺。它们用消化酶将猎物溶解后吸食。"
+      "description": "避日蛛(又称风蝎、太阳蛛)是极其凶猛的捕食者。它们有巨大的螯肢(占身体1/3长度),能像锯子一样将猎物嚼碎。虽然外表恐怖,但其实没有毒腺。它们用消化酶将猎物溶解后吸食。"
     }
   },
   {
     "id": 4,
     "name": "黑雾寡妇蜘蛛",
     "className": "毒虫班",
-    "features": "有红色沙漏纹，非主动攻击",
+    "features": "有红色沙漏纹,非主动攻击",
     "ultimate": "毒牙穿刺",
     "weakness": "防御力差",
     "naturalEnemy": "泥蜂",
     "atk": 97,
     "type": "毒",
+    "specialMechanism": "poison_kill",
+    "mechanismDesc": "战斗中若对手ATK低于97,则对手直接中毒,3秒后血条清零",
     "createdAt": "2026-05-08",
-    "realImage": "https://aka.doubaocdn.com/s/3Npz1wNru5",
+    "realImage": "https://aka.doubaocdn.com/s/kCgV1wNsqk",
     "samImage": "/sam-images/black-widow.jpg",
     "location": {
       "lat": 37.77,
       "lng": -96.44,
-      "label": "北美洲，全球温暖地区"
+      "label": "北美洲,全球温暖地区"
     },
     "funFacts": [
-      "黑寡妇蜘蛛是世界上最著名的毒蜘蛛！",
-      "雌性会吃掉雄性配偶，因此得名'寡妇'！",
-      "腹部的红色沙漏图案是它的标志性特征！",
-      "它的毒液比响尾蛇还要毒15倍！",
-      "虽然毒，但性格温和，非主动攻击！"
+      "黑寡妇蜘蛛是世界上最著名的毒蜘蛛!",
+      "雌性会吃掉雄性配偶,因此得名'寡妇'!",
+      "腹部的红色沙漏图案是它的标志性特征!",
+      "它的毒液比响尾蛇还要毒15倍!",
+      "虽然毒,但性格温和,非主动攻击!"
     ],
     "knowledge": {
       "scientificName": "Latrodectus mactans",
-      "habitat": "全球温暖地区，喜欢阴暗角落",
-      "diet": "昆虫，有时也捕食小蜘蛛",
-      "lifecycle": "雌性1-3年，雄性约6个月",
-      "description": "黑寡妇蜘蛛是一种具有强烈神经毒素的蜘蛛。雌性通常是黑色的，腹部有红色沙漏形状的标记。虽然名声可怕，但它们通常很害羞，只有在受到威胁时才会咬人。"
+      "habitat": "全球温暖地区,喜欢阴暗角落",
+      "diet": "昆虫,有时也捕食小蜘蛛",
+      "lifecycle": "雌性1-3年,雄性约6个月",
+      "description": "黑寡妇蜘蛛是一种具有强烈神经毒素的蜘蛛。雌性通常是黑色的,腹部有红色沙漏形状的标记。虽然名声可怕,但它们通常很害羞,只有在受到威胁时才会咬人。"
     }
   },
   {
     "id": 5,
     "name": "虎头蜂",
     "className": "飞虫班",
-    "features": "黑黄条纹，攻击性强",
+    "features": "黑黄条纹,攻击性强",
     "ultimate": "毒针刺腹",
     "weakness": "视力不好",
     "naturalEnemy": "鸟",
     "atk": 99,
     "type": "毒",
     "createdAt": "2026-05-08",
-    "realImage": "https://aka.doubaocdn.com/s/zrmE1wNrtr",
+    "realImage": "https://aka.doubaocdn.com/s/mQ2x1wNsqw",
     "samImage": "/sam-images/hornet.jpg",
     "location": {
       "lat": 35.86,
       "lng": 104.19,
-      "label": "亚洲，中国及周边地区"
+      "label": "亚洲,中国及周边地区"
     },
     "funFacts": [
-      "虎头蜂是世界上最大的黄蜂之一！",
-      "它们的毒针可以反复蜇人，非常危险！",
-      "虎头蜂的蜂巢可以达到篮球大小！",
-      "一只虎头蜂一分钟能杀死40只蜜蜂！",
-      "它们的毒液含有神经毒素，非常厉害！"
+      "虎头蜂是世界上最大的黄蜂之一!",
+      "它们的毒针可以反复蜇人,非常危险!",
+      "虎头蜂的蜂巢可以达到篮球大小!",
+      "一只虎头蜂一分钟能杀死40只蜜蜂!",
+      "它们的毒液含有神经毒素,非常厉害!"
     ],
     "knowledge": {
       "scientificName": "Vespa mandarinia",
       "habitat": "东亚地区的森林和山区",
-      "diet": "昆虫、花蜜、水果，甚至小蜜蜂",
-      "lifecycle": "每年春季开始筑巢，冬季死亡",
-      "description": "虎头蜂是一种大型胡蜂，以其凶猛的攻击性和强大的毒性而闻名。它们有着鲜明的黑黄相间条纹，头部较大呈黄色，因此得名'虎头蜂'。它们是社会性昆虫，会建造大型纸质蜂巢。"
+      "diet": "昆虫、花蜜、水果,甚至小蜜蜂",
+      "lifecycle": "每年春季开始筑巢,冬季死亡",
+      "description": "虎头蜂是一种大型胡蜂,以其凶猛的攻击性和强大的毒性而闻名。它们有着鲜明的黑黄相间条纹,头部较大呈黄色,因此得名'虎头蜂'。它们是社会性昆虫,会建造大型纸质蜂巢。"
     }
   },
   {
     "id": 6,
     "name": "龙虱",
     "className": "甲虫班",
-    "features": "短触角，水下猎手",
+    "features": "短触角,水下猎手",
     "ultimate": "装死诱敌",
     "weakness": "离开水不能行动",
     "naturalEnemy": "青蛙",
     "atk": 90,
     "type": "水",
+    "specialMechanism": "aquatic",
+    "mechanismDesc": "水下战斗ATK为90%,陆地战斗ATK为0%",
+    "aquaticMultiplier": {
+      "underwater": 0.9,
+      "land": 0.0
+    },
     "createdAt": "2026-05-08",
-    "realImage": "https://aka.doubaocdn.com/s/FiCX1wNru5",
+    "realImage": "https://aka.doubaocdn.com/s/Zfq71wNsrA",
     "samImage": "/sam-images/dytiscidae.jpg",
     "location": {
       "lat": 30.59,
       "lng": 114.31,
-      "label": "亚洲，中国湖泊河流"
+      "label": "亚洲,中国湖泊河流"
     },
     "funFacts": [
-      "龙虱是水下的顶级捕食者！",
-      "它们可以在水下憋气30分钟以上！",
-      "龙虱会装死引诱猎物靠近！",
-      "幼虫被称为'水老虎'，非常凶猛！",
-      "它们是很好的中药材，营养丰富！"
+      "龙虱是水下的顶级捕食者!",
+      "它们可以在水下憋气30分钟以上!",
+      "龙虱会装死引诱猎物靠近!",
+      "幼虫被称为'水老虎',非常凶猛!",
+      "它们是很好的中药材,营养丰富!"
     ],
     "knowledge": {
       "scientificName": "Dytiscidae",
       "habitat": "全球各地的淡水湖泊、池塘、河流",
       "diet": "小鱼、蝌蚪、水生昆虫等肉食",
-      "lifecycle": "完全变态，幼虫阶段在水中生活",
-      "description": "龙虱是一种水生甲虫，身体呈流线型，适合在水中快速游动。它们是凶猛的捕食者，会捕食小鱼、蝌蚪等小型水生生物。龙虱有一个独特的本领——可以在水下储存空气，延长潜水时间。它们还会利用装死的方式引诱猎物靠近。"
+      "lifecycle": "完全变态,幼虫阶段在水中生活",
+      "description": "龙虱是一种水生甲虫,身体呈流线型,适合在水中快速游动。它们是凶猛的捕食者,会捕食小鱼、蝌蚪等小型水生生物。龙虱有一个独特的本领——可以在水下储存空气,延长潜水时间。它们还会利用装死的方式引诱猎物靠近。"
     }
   },
   {
     "id": 7,
     "name": "蜗牛",
     "className": "杂虫班",
-    "features": "大单眼皮，行动缓慢",
+    "features": "大单眼皮,行动缓慢",
     "ultimate": "粘液炸弹",
     "weakness": "移动差",
     "naturalEnemy": "萤火虫幼虫",
     "atk": 70,
     "type": "力量",
+    "specialMechanism": "debuff",
+    "mechanismDesc": "使用粘液炸弹后,对手下一场ATK下降20%(中毒状态)",
+    "debuffMultiplier": 0.8,
     "createdAt": "2026-05-08",
-    "realImage": "https://aka.doubaocdn.com/s/zrmE1wNrtr",
+    "realImage": "https://aka.doubaocdn.com/s/02y91wNsrM",
     "samImage": "/sam-images/snail.jpg",
     "location": {
       "lat": 45.00,
       "lng": 10.00,
-      "label": "欧洲，世界各地"
+      "label": "欧洲,世界各地"
     },
     "funFacts": [
-      "蜗牛是世界上牙齿最多的动物，有25600颗牙齿！",
-      "它们的爬行速度大约是每小时0.04公里！",
-      "蜗牛可以不吃东西睡三年！",
-      "它们的粘液可以帮助在刀刃上爬行而不受伤！",
-      "蜗牛是雌雄同体的动物！"
+      "蜗牛是世界上牙齿最多的动物,有25600颗牙齿!",
+      "它们的爬行速度大约是每小时0.04公里!",
+      "蜗牛可以不吃东西睡三年!",
+      "它们的粘液可以帮助在刀刃上爬行而不受伤!",
+      "蜗牛是雌雄同体的动物!"
     ],
     "knowledge": {
       "scientificName": "Gastropoda",
-      "habitat": "全球各地，从森林到花园都有分布",
+      "habitat": "全球各地,从森林到花园都有分布",
       "diet": "植物叶子、蔬菜等素食",
-      "lifecycle": "产卵于土壤中，孵化后为小蜗牛",
-      "description": "蜗牛是一种软体动物，有着螺旋形的外壳保护身体。它们移动缓慢，通过腹足分泌粘液来润滑爬行路径。蜗牛是素食者，以植物为食。它们的粘液不仅帮助移动，还能保护身体免受伤害。"
+      "lifecycle": "产卵于土壤中,孵化后为小蜗牛",
+      "description": "蜗牛是一种软体动物,有着螺旋形的外壳保护身体。它们移动缓慢,通过腹足分泌粘液来润滑爬行路径。蜗牛是素食者,以植物为食。它们的粘液不仅帮助移动,还能保护身体免受伤害。"
     }
   }
 ]
