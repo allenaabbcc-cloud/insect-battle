@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "巴西游走蛛",
+    "className": "毒虫班",
+    "features": "剧毒，速度快",
+    "ultimate": "毒液注射",
+    "weakness": "外骨骼软",
+    "naturalEnemy": "蛛蜂",
+    "atk": 95,
+    "type": "毒",
+    "createdAt": "2025-05-07",
+    "realImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Phoneutria_nigriventer_01.jpg/800px-Phoneutria_nigriventer_01.jpg",
+    "samImage": "/sam-images/brazilian-spider.jpg",
+    "funFacts": [
+      "巴西游走蛛被吉尼斯世界纪录列为'最危险的蜘蛛'！",
+      "它也被称为'香蕉蜘蛛'，因为经常躲在香蕉运输里。",
+      "成年雌性足展可达15厘米，相当于成年人手掌大小！",
+      "科学家正在研究它的毒液治疗勃起功能障碍的可能性！",
+      "它不会结网，而是主动游荡捕猎，像个刺客！"
+    ],
+    "knowledge": {
+      "scientificName": "Phoneutria nigriventer",
+      "habitat": "南美洲和中美洲的热带雨林",
+      "diet": "蟋蟀、大型昆虫、小型蜥蜴、老鼠",
+      "lifecycle": "1-2年",
+      "description": "巴西游走蛛是世界上最毒的蜘蛛之一，拥有极强的神经毒素。它们不结网，而是主动在地面游走捕猎，因此得名'游走蛛'。它们有独特的红色螯肢，在感到威胁时会高高举起警告敌人。"
+    }
+  },
+  {
+    "id": 2,
+    "name": "豆娘稚虫",
+    "className": "水生班",
+    "features": "水下呼吸，下唇像面具一样弹出捕食",
+    "ultimate": "面具突袭",
+    "weakness": "离开水面行动缓慢",
+    "naturalEnemy": "龙虱",
+    "atk": 35,
+    "type": "水",
+    "createdAt": "2025-05-07",
+    "realImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Coenagrion_puella_Nymphe_Richard_Bartz.jpg/800px-Coenagrion_puella_Nymphe_Richard_Bartz.jpg",
+    "samImage": "/sam-images/damselfly.jpg",
+    "funFacts": [
+      "豆娘稚虫的'面具'捕食器只需25毫秒就能弹射出去！",
+      "它们在水中生活数月到数年才会变成成虫！",
+      "豆娘水虿的尾鳃既可以呼吸，又能当桨划水！",
+      "古代石炭纪的豆娘祖先翼展可达75厘米！",
+      "它们是蚊子的天敌，是天然的除蚊小能手！"
+    ],
+    "knowledge": {
+      "scientificName": "Zygoptera",
+      "habitat": "湖泊、池塘、溪流等各种淡水环境",
+      "diet": "水生昆虫、浮游动物、甚至小鱼苗",
+      "lifecycle": "数月到数年（稚虫期），成虫数周到数月",
+      "description": "豆娘稚虫（水虿）是水下的伏击型捕食者。它们拥有自然界最酷的捕食器官——一个可折叠的'面罩'状下唇，能瞬间弹出捕获猎物。它们的身体细长，尾部有3个叶状尾鳃用于呼吸。"
+    }
+  },
+  {
+    "id": 3,
+    "name": "避日蛛",
+    "className": "杂虫班",
+    "features": "适应49℃高温，极其凶猛",
+    "ultimate": "大颚咬破",
+    "weakness": "腹部柔软",
+    "naturalEnemy": "大王虎甲",
+    "atk": 70,
+    "type": "力量",
+    "createdAt": "2025-05-08",
+    "realImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Solpuga_spider1.jpg/800px-Solpuga_spider1.jpg",
+    "samImage": "/sam-images/sun-spider.jpg",
+    "funFacts": [
+      "避日蛛不是真正的蜘蛛！它属于蛛形纲的另一个目！",
+      "一战时士兵们在埃及用它们来'斗蜘蛛'赌博！",
+      "虽然看起来吓人，但它其实是无毒的！",
+      "传说它会爬进骆驼肚子里大吃特吃——这是假的！",
+      "它的速度能达到每小时16公里，在蜘蛛界算'闪电侠'！"
+    ],
+    "knowledge": {
+      "scientificName": "Solifugae",
+      "habitat": "非洲、中东、美洲的沙漠和干热地区",
+      "diet": "昆虫、蜥蜴、蛇、小鸟，什么都吃！",
+      "lifecycle": "约1年",
+      "description": "避日蛛（又称风蝎、太阳蛛）是极其凶猛的捕食者。它们有巨大的螯肢（占身体1/3长度），能像锯子一样将猎物嚼碎。虽然外表恐怖，但其实没有毒腺。它们用消化酶将猎物溶解后吸食。"
+    }
+  }
+]
