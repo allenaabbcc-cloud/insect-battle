@@ -19,7 +19,8 @@ const WorldMap = ({ onBack, onSelectCard }) => {
     3: { x: 65, y: 55, label: '中东' },
     4: { x: 30, y: 35, label: '北美洲' },
     5: { x: 72, y: 45, label: '亚洲' },
-    6: { x: 78, y: 52, label: '中国' }
+    6: { x: 78, y: 52, label: '中国' },
+    7: { x: 52, y: 42, label: '法国' }
   };
 
   return (
@@ -122,6 +123,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                     {insect.name === '黑雾寡妇蜘蛛' && '🕷️'}
                     {insect.name === '虎头蜂' && '🐝'}
                     {insect.name === '龙虱' && '🐌'}
+                    {insect.name === '蜗牛' && '🐌'}
                   </div>
                   
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-white font-bold text-center w-full px-1">
@@ -152,6 +154,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                           {insect.name === '黑雾寡妇蜘蛛' && '🕷️'}
                           {insect.name === '虎头蜂' && '🐝'}
                           {insect.name === '龙虱' && '🐌'}
+                          {insect.name === '蜗牛' && '🐌'}
                         </span>
                       </div>
                       <h3 className="text-white font-bold text-center mb-1">{insect.name}</h3>
@@ -197,6 +200,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                     {insect.name === '黑雾寡妇蜘蛛' && '🕷️'}
                     {insect.name === '虎头蜂' && '🐝'}
                     {insect.name === '龙虱' && '🐌'}
+                    {insect.name === '蜗牛' && '🐌'}
                   </div>
                   <div>
                     <h3 className="text-white font-bold">{insect.name}</h3>

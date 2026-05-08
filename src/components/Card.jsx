@@ -406,6 +406,95 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
           </circle>
         </svg>
       );
+    } else if (insect.name === '蜗牛') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="snailArtBg" cx="40%" cy="50%" r="60%">
+              <stop offset="0%" stopColor="#4a5a3a"/>
+              <stop offset="50%" stopColor="#3a4a2a"/>
+              <stop offset="100%" stopColor="#1a2a1a"/>
+            </radialGradient>
+            <filter id="snailGlow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          <rect fill="url(#snailArtBg)" width="300" height="300"/>
+          
+          {[...Array(20)].map((_, i) => (
+            <ellipse 
+              key={i}
+              cx={20 + (i * 14) % 260}
+              cy={50 + (i * 12) % 200}
+              rx={2 + (i % 3)}
+              ry={1 + (i % 2)}
+              fill={i % 2 === 0 ? '#8a9a6a' : '#6a7a4a'}
+              opacity={0.3}
+            />
+          ))}
+          
+          <g filter="url(#snailGlow)">
+            <ellipse cx="180" cy="160" rx="50" ry="45" fill="#5a4a3a" stroke="#6a5a4a" strokeWidth="3"/>
+            
+            <path d="M130 160 Q150 140 180 155" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
+            <path d="M130 170 Q150 150 180 165" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
+            <path d="M130 180 Q150 160 180 175" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
+            <path d="M130 190 Q150 170 180 185" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
+            
+            <ellipse cx="195" cy="140" rx="20" ry="15" fill="#6a5a4a"/>
+            <ellipse cx="190" cy="135" rx="8" ry="6" fill="#7a6a5a"/>
+            
+            <ellipse cx="100" cy="190" rx="40" ry="25" fill="#8a7a5a"/>
+            <ellipse cx="100" cy="190" rx="35" ry="20" fill="#a99a7a"/>
+            
+            <ellipse cx="70" cy="200" rx="25" ry="15" fill="#b9aa8a"/>
+            <ellipse cx="70" cy="200" rx="20" ry="12" fill="#c9ba9a"/>
+            
+            <ellipse cx="50" cy="200" rx="15" ry="10" fill="#d9caaa"/>
+            
+            <circle cx="75" cy="180" r="8" fill="#d9caaa"/>
+            <circle cx="85" cy="180" r="8" fill="#d9caaa"/>
+            
+            <circle cx="75" cy="178" r="4" fill="#3a2a1a"/>
+            <circle cx="85" cy="178" r="4" fill="#3a2a1a"/>
+            <circle cx="73" cy="176" r="1.5" fill="#fff"/>
+            <circle cx="83" cy="176" r="1.5" fill="#fff">
+              <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            
+            <path d="M78 188 Q80 192 82 188" stroke="#3a2a1a" strokeWidth="1.5" fill="none"/>
+            
+            <path d="M60 195 Q55 205 50 215" stroke="#6a5a4a" strokeWidth="1.5" fill="none"/>
+            <path d="M95 195 Q100 205 105 215" stroke="#6a5a4a" strokeWidth="1.5" fill="none"/>
+            
+            <ellipse cx="65" cy="220" rx="8" ry="4" fill="#a99a7a"/>
+            <ellipse cx="95" cy="220" rx="8" ry="4" fill="#a99a7a"/>
+            
+            <ellipse cx="70" cy="225" rx="15" ry="8" fill="#c9ba9a" opacity="0.7"/>
+          </g>
+          
+          {[...Array(6)].map((_, i) => (
+            <ellipse 
+              key={i}
+              cx={45 + i * 15}
+              cy={230 + (i % 2) * 5}
+              rx={6 + i}
+              ry={3}
+              fill="#a99a7a"
+              opacity={0.4 - i * 0.05}
+            />
+          ))}
+          
+          <circle cx="145" cy="180" r="2" fill="#8a9a6a" opacity="0.5">
+            <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      );
     } else {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
