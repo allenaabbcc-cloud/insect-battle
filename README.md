@@ -1,16 +1,47 @@
-# React + Vite
+# Sam的昆虫大作战 🐛⚔️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个有趣的卡牌对战游戏，专为小朋友设计！
 
-Currently, two official plugins are available:
+## 游戏特点
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🎮 简单好玩的卡牌对战系统
+- 🐛 包含真实的昆虫科普知识
+- 👦 Sam的手工昆虫图片展示
+- 🎨 精美的炉石传说风格UI
+- ⚡ 有趣的战斗机制
 
-## React Compiler
+## 昆虫英雄们
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. 🕷️ **巴西游走蛛** - 毒属性，必杀技：毒液注射
+2. 🦗 **豆娘稚虫** - 水属性，必杀技：面具突袭  
+3. 🦂 **避日蛛** - 力量属性，必杀技：大颚咬破
 
-## Expanding the ESLint configuration
+## 如何运行
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# 安装依赖
+npm install
+
+# 开发模式
+npm run dev
+
+# 构建项目
+npm run build
+
+# 预览生产版本
+npm run preview
+```
+
+## 使用的技术
+
+- React + Vite
+- Tailwind CSS
+- JavaScript
+
+## 作者
+
+🎮 Sam 和爸爸 ❤️
+
+## License
+
+MIT

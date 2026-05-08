@@ -3,6 +3,7 @@ import insects from './data/insects.json';
 import Card from './components/Card';
 import CardGallery from './components/CardGallery';
 import CardDetail from './components/CardDetail';
+import WorldMap from './components/WorldMap';
 
 function App() {
   const [gameState, setGameState] = useState('battle');
@@ -137,6 +138,10 @@ function App() {
     return <CardDetail insect={selectedCard} onBack={() => setGameState('gallery')} />;
   }
 
+  if (gameState === 'map') {
+    return <WorldMap onBack={() => setGameState('battle')} onSelectCard={(card) => { setSelectedCard(card); setGameState('detail'); }} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
       <div className="container mx-auto px-4 py-8">
@@ -150,6 +155,12 @@ function App() {
               className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all"
             >
               📚 英雄卡牌图鉴
+            </button>
+            <button
+              onClick={() => setGameState('map')}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+            >
+              🌍 昆虫世界地图
             </button>
           </div>
         </div>
