@@ -279,5 +279,71 @@
       "lifecycle": "不完全变态,若虫在水中生活",
       "description": "仰泳蝽是一种水生昆虫,以其独特的仰泳姿势而得名。它们用后腿作为桨划水,擅长在水面上伏击猎物。虽然体型不大,但它们是凶猛的捕食者,会捕食比自己大的猎物。"
     }
+  },
+  {
+    "id": 9,
+    "name": "屎壳郎",
+    "className": "甲虫班",
+    "features": "一对巨大的手,勤劳的清洁工",
+    "ultimate": "粪粪攻击",
+    "weakness": "行动慢",
+    "naturalEnemy": "鸟",
+    "atk": 70,
+    "type": "力量",
+    "createdAt": "2026-05-08",
+    "realImage": "https://aka.doubaocdn.com/s/ZaFg1wNsrQ",
+    "samImage": "/sam-images/dung-beetle.jpg",
+    "location": {
+      "lat": -23.55,
+      "lng": 46.63,
+      "label": "非洲草原"
+    },
+    "funFacts": [
+      "屎壳郎被称为'自然界的清洁工'!",
+      "它们能推动比自己重1000倍的粪球!",
+      "古埃及人把屎壳郎当作神圣的象征!",
+      "有些屎壳郎会用银河导航滚粪球!",
+      "它们的粪球是幼虫的食物和摇篮!"
+    ],
+    "knowledge": {
+      "scientificName": "Scarabaeidae",
+      "habitat": "全球各地,尤其在草原和牧场",
+      "diet": "动物粪便",
+      "lifecycle": "完全变态,幼虫在粪球中发育",
+      "description": "屎壳郎是一种有趣的甲虫,以动物粪便为食。它们会把粪便滚成球,然后推到安全的地方储存或产卵。虽然听起来不太优雅,但它们是自然界中重要的分解者,帮助清理环境。"
+    }
+  },
+  {
+    "id": 10,
+    "name": "螽斯",
+    "className": "飞虫班",
+    "features": "跳跃足,歌声响亮",
+    "ultimate": "力量巨大",
+    "weakness": "体重重",
+    "naturalEnemy": "鸟",
+    "atk": 50,
+    "type": "力量",
+    "createdAt": "2026-05-08",
+    "realImage": "https://aka.doubaocdn.com/s/LqGh1wNsrT",
+    "samImage": "/sam-images/katydid.jpg",
+    "location": {
+      "lat": 40.00,
+      "lng": 105.00,
+      "label": "亚洲草原"
+    },
+    "funFacts": [
+      "螽斯就是我们常说的'蝈蝈'!",
+      "雄性螽斯会用翅膀摩擦发出响亮的叫声!",
+      "它们的后腿非常有力,能跳很高很远!",
+      "有些螽斯是肉食性的,会捕食小昆虫!",
+      "在中国文化中,蝈蝈是受欢迎的宠物!"
+    ],
+    "knowledge": {
+      "scientificName": "Tettigoniidae",
+      "habitat": "全球各地的草地、森林",
+      "diet": "植物叶子、小昆虫",
+      "lifecycle": "不完全变态,若虫形态类似成虫",
+      "description": "螽斯是一种大型直翅目昆虫,俗称蝈蝈或纺织娘。它们以其响亮的鸣叫声而闻名,雄性通过摩擦前翅来吸引雌性。它们有强壮的后腿,擅长跳跃。"
+    }
   }
 ]
