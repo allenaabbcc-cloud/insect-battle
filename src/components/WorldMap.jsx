@@ -1,60 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import insects from '../data/insects.json';
 
 const WorldMap = ({ onBack, onSelectCard }) => {
-  const mapRef = useRef(null);
   const [hoveredInsect, setHoveredInsect] = useState(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const lastMouse = useRef({ x: 0, y: 0 });
-
-  const mapWidth = 800;
-  const mapHeight = 500;
-
-  // 简单的墨卡托投影
-  const latLngToXY = (lat, lng) => {
-    const x = (lng + 180) * (mapWidth / 360);
-    const latRad = (lat * Math.PI) / 180;
-    const mercN = Math.log(Math.tan(Math.PI / 4 + latRad / 2));
-    const y = mapHeight / 2 - (mapWidth * mercN) / (2 * Math.PI);
-    return { x, y };
-  };
-
-  useEffect(() => {
-    let animationId;
-    const animate = () => {
-      if (!isDragging) {
-        setRotation(prev => ({
-          x: prev.x,
-          y: prev.y + 0.1
-        }));
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [isDragging]);
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    lastMouse.current = { x: e.clientX, y: e.clientY };
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      const dx = e.clientX - lastMouse.current.x;
-      const dy = e.clientY - lastMouse.current.y;
-      setRotation(prev => ({
-        x: prev.x + dy * 0.3,
-        y: prev.y + dx * 0.3
-      }));
-      lastMouse.current = { x: e.clientX, y: e.clientY };
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
 
   const getInsectColor = (type) => {
     switch (type) {
@@ -65,8 +13,14 @@ const WorldMap = ({ onBack, onSelectCard }) => {
     }
   };
 
+  const insectPositions = {
+    1: { x: 25, y: 55, label: '巴西' },
+    2: { x: 50, y: 40, label: '欧洲' },
+    3: { x: 65, y: 55, label: '中东' }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <button
@@ -78,107 +32,55 @@ const WorldMap = ({ onBack, onSelectCard }) => {
           <h1 className="text-4xl font-black text-yellow-400 drop-shadow-lg">
             🌍 昆虫世界地图 🌍
           </h1>
-          <div className="w-32 text-yellow-200 text-sm">
-            {isDragging ? '🖱️ 拖动中...' : '✨ 可拖拽旋转'}
-          </div>
+          <div className="w-32"></div>
         </div>
 
-        <div 
-          ref={mapRef}
-          className="relative mx-auto bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-yellow-500/50"
-          style={{ width: mapWidth, height: mapHeight, cursor: isDragging ? 'grabbing' : 'grab' }}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        >
-          {/* 星星背景 */}
-          <div className="absolute inset-0">
-            {[...Array(100)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute rounded-full bg-white"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  width: `${1 + Math.random() * 2}px`,
-                  height: `${1 + Math.random() * 2}px`,
-                  opacity: 0.3 + Math.random() * 0.7,
-                  animation: `pulse ${1 + Math.random() * 3}s ease-in-out infinite`
-                }}
-              />
-            ))}
+        <div className="relative mx-auto bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl overflow-hidden shadow-2xl border-4 border-yellow-500/50" style={{ height: '600px' }}>
+          {/* 装饰性元素 */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-blue-300 rounded-full blur-xl"></div>
+            <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-200 rounded-full blur-xl"></div>
           </div>
 
-          {/* 地图网格 */}
-          <svg width={mapWidth} height={mapHeight} className="absolute inset-0">
-            <defs>
-              <radialGradient id="earthGradient" cx="50%" cy="50%" r="60%">
-                <stop offset="0%" stopColor="#1e3a5f" />
-                <stop offset="50%" stopColor="#0f2744" />
-                <stop offset="100%" stopColor="#050d18" />
-              </radialGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
+          {/* 各大洲 - 手绘风格 */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            {/* 北美洲 */}
+            <path d="M15 15 Q10 25 12 35 Q15 40 20 38 Q25 35 22 25 Q20 20 15 15 Z" fill="#3a7d44" stroke="#2d5a32" strokeWidth="0.5" />
             
-            {/* 地球背景 */}
-            <circle cx={mapWidth/2} cy={mapHeight/2} r={200} fill="url(#earthGradient)" />
+            {/* 南美洲 */}
+            <path d="M20 45 Q18 55 22 65 Q28 72 30 68 Q32 60 28 50 Q25 45 20 45 Z" fill="#4a9a54" stroke="#3a7d44" strokeWidth="0.5" />
             
-            {/* 简化的世界地图 - 大陆轮廓 */}
-            <g transform={`rotate(${rotation.y} ${mapWidth/2} ${mapHeight/2})`}>
-              {/* 美洲 */}
-              <path
-                d="M 100 150 Q 80 180 100 250 Q 150 280 180 250 Q 200 200 180 150 Q 150 120 100 150 Z"
-                fill="#2d5016"
-                stroke="#4a7c23"
-                strokeWidth="2"
-              />
-              
-              {/* 欧洲/非洲 */}
-              <path
-                d="M 350 130 Q 380 120 420 150 Q 450 200 430 280 Q 380 320 340 280 Q 320 200 350 130 Z"
-                fill="#3d6b1f"
-                stroke="#5a8a2d"
-                strokeWidth="2"
-              />
-              
-              {/* 亚洲/澳洲 */}
-              <path
-                d="M 450 120 Q 550 100 650 150 Q 680 220 650 280 Q 580 310 500 270 Q 450 200 450 120 Z"
-                fill="#4a7c23"
-                stroke="#6b9a35"
-                strokeWidth="2"
-              />
-              
-              {/* 澳洲 */}
-              <path
-                d="M 600 350 Q 650 340 680 370 Q 670 410 620 420 Q 580 400 600 350 Z"
-                fill="#5a8a2d"
-                stroke="#7ba63f"
-                strokeWidth="2"
-              />
-            </g>
+            {/* 欧洲 */}
+            <path d="M45 25 Q42 30 45 35 Q50 38 52 33 Q55 28 50 25 Z" fill="#5ab064" stroke="#4a9a54" strokeWidth="0.5" />
+            
+            {/* 非洲 */}
+            <path d="M48 38 Q45 48 50 60 Q58 68 60 60 Q62 50 58 40 Q55 38 48 38 Z" fill="#6ac074" stroke="#5ab064" strokeWidth="0.5" />
+            
+            {/* 亚洲 */}
+            <path d="M55 20 Q65 15 80 20 Q85 30 75 35 Q65 38 60 32 Q55 28 55 20 Z" fill="#7ad084" stroke="#6ac074" strokeWidth="0.5" />
+            
+            {/* 大洋洲 */}
+            <path d="M75 65 Q85 62 88 70 Q85 78 75 75 Q70 72 75 65 Z" fill="#8ae094" stroke="#7ad084" strokeWidth="0.5" />
+            
+            {/* 北极 */}
+            <circle cx="50" cy="5" r="8" fill="#e0f0ff" opacity="0.7" />
+            
+            {/* 南极 */}
+            <ellipse cx="50" cy="95" rx="25" ry="5" fill="#e0f0ff" opacity="0.7" />
           </svg>
 
           {/* 昆虫标记 */}
           {insects.map((insect) => {
-            const pos = latLngToXY(insect.location.lat, insect.location.lng);
+            const pos = insectPositions[insect.id];
             const colors = getInsectColor(insect.type);
             
             return (
               <div
                 key={insect.id}
-                className="absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-125"
+                className="absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-125 z-10"
                 style={{
-                  left: pos.x,
-                  top: pos.y,
-                  zIndex: hoveredInsect?.id === insect.id ? 100 : 10,
+                  left: `${pos.x}%`,
+                  top: `${pos.y}%`
                 }}
                 onMouseEnter={() => setHoveredInsect(insect)}
                 onMouseLeave={() => setHoveredInsect(null)}
@@ -188,8 +90,8 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                 <div 
                   className="absolute inset-0 rounded-full animate-ping"
                   style={{
-                    width: '60px',
-                    height: '60px',
+                    width: '80px',
+                    height: '80px',
                     backgroundColor: colors.glow,
                     transform: 'translate(-50%, -50%)',
                     left: '50%',
@@ -199,55 +101,59 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                 
                 {/* 主要卡片 */}
                 <div
-                  className="relative w-16 h-20 rounded-lg border-3 shadow-xl overflow-hidden transform"
+                  className="relative w-18 h-24 rounded-xl border-3 shadow-xl overflow-hidden transform"
                   style={{
                     backgroundColor: colors.secondary,
                     borderColor: colors.primary,
-                    boxShadow: `0 0 20px ${colors.glow}`
+                    boxShadow: `0 0 30px ${colors.glow}`
                   }}
                 >
                   <div className="absolute top-1 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white">
                     {insect.type === '毒' ? '☠️' : insect.type === '水' ? '💧' : '💪'}
                   </div>
                   
-                  <div className="flex items-center justify-center h-full text-2xl">
+                  <div className="flex items-center justify-center h-14 text-3xl">
                     {insect.name === '巴西游走蛛' && '🕷️'}
                     {insect.name === '豆娘稚虫' && '🦗'}
                     {insect.name === '避日蛛' && '🦂'}
                   </div>
                   
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] text-white font-bold text-center w-full px-1">
-                    {insect.name.substring(0, 4)}
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-white font-bold text-center w-full px-1">
+                    {insect.name.substring(0, 6)}
                   </div>
+                </div>
+
+                {/* 位置标签 */}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                  📍 {pos.label}
                 </div>
 
                 {/* 悬停卡片 */}
                 {hoveredInsect?.id === insect.id && (
-                  <div className="absolute top-[-180px] left-1/2 transform -translate-x-1/2 z-50">
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50">
                     <div
-                      className="w-48 p-3 rounded-xl shadow-2xl border-3"
+                      className="w-56 p-4 rounded-xl shadow-2xl border-3"
                       style={{
                         background: `linear-gradient(145deg, ${colors.secondary}, #1a1a2e)`,
                         borderColor: colors.primary
                       }}
                     >
                       <div className="text-center mb-2">
-                        <span className="text-3xl">
+                        <span className="text-4xl">
                           {insect.name === '巴西游走蛛' && '🕷️'}
                           {insect.name === '豆娘稚虫' && '🦗'}
                           {insect.name === '避日蛛' && '🦂'}
                         </span>
                       </div>
                       <h3 className="text-white font-bold text-center mb-1">{insect.name}</h3>
-                      <p className="text-gray-300 text-xs text-center mb-2">{insect.className}</p>
-                      <div className="bg-black/30 rounded-lg p-2">
-                        <p className="text-yellow-300 text-xs text-center">📍 {insect.location.label}</p>
+                      <p className="text-gray-300 text-sm text-center mb-2">{insect.className}</p>
+                      <div className="bg-black/30 rounded-lg p-2 mb-2">
+                        <p className="text-yellow-300 text-xs text-center">📍 {pos.label}</p>
                       </div>
-                      <div className="mt-2 text-center">
-                        <span className="text-xs text-gray-400">点击查看详情 →</span>
+                      <div className="text-center">
+                        <p className="text-xs text-gray-400">点击查看详情 →</p>
                       </div>
                     </div>
-                    {/* 小三角 */}
                     <div 
                       className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[12px] mx-auto"
                       style={{
@@ -266,6 +172,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           {insects.map((insect) => {
             const colors = getInsectColor(insect.type);
+            const pos = insectPositions[insect.id];
             return (
               <div
                 key={insect.id}
@@ -282,7 +189,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                   <div>
                     <h3 className="text-white font-bold">{insect.name}</h3>
                     <p className="text-gray-400 text-sm">{insect.className}</p>
-                    <p className="text-yellow-400 text-xs">📍 {insect.location.label}</p>
+                    <p className="text-yellow-400 text-xs">📍 {pos.label}</p>
                   </div>
                 </div>
               </div>
@@ -291,7 +198,7 @@ const WorldMap = ({ onBack, onSelectCard }) => {
         </div>
 
         <div className="mt-8 text-center text-yellow-200">
-          <p className="text-lg">💡 拖拽地图可以旋转探索！点击标记查看昆虫详情！</p>
+          <p className="text-lg">💡 点击地图上的昆虫标记查看详情！</p>
         </div>
       </div>
     </div>
