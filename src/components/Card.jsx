@@ -127,6 +127,115 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
           <path d="M165 230 Q175 260 180 290" stroke="#2a5a4a" strokeWidth="8" fill="none" strokeLinecap="round"/>
         </svg>
       );
+    } else if (insect.name === '黑雾寡妇蜘蛛') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="widowArtBg" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#1a0510"/>
+              <stop offset="50%" stopColor="#0d0208"/>
+              <stop offset="100%" stopColor="#050104"/>
+            </radialGradient>
+            <filter id="widowGlow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <linearGradient id="webGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#666" stopOpacity="0.6"/>
+              <stop offset="100%" stopColor="#333" stopOpacity="0.3"/>
+            </linearGradient>
+          </defs>
+          
+          <rect fill="url(#widowArtBg)" width="300" height="300"/>
+          
+          <path d="M50 50 Q150 100 50 250" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          <path d="M100 30 Q150 150 100 270" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          <path d="M200 50 Q150 120 200 250" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          <path d="M250 30 Q150 150 250 270" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          <path d="M30 100 Q150 150 270 100" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          <path d="M40 180 Q150 150 260 180" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
+          
+          {[...Array(20)].map((_, i) => (
+            <circle 
+              key={i}
+              cx={20 + (i * 14) % 260}
+              cy={30 + (i * 16) % 240}
+              r={1 + (i % 3)}
+              fill="#ff0044"
+              opacity={0.2 + (i % 5) * 0.15}
+            >
+              <animate attributeName="opacity" values={`${0.2 + (i % 5) * 0.15};0.8;${0.2 + (i % 5) * 0.15}`} dur={`${2 + i * 0.3}s`} repeatCount="indefinite"/>
+              <animate attributeName="r" values={`${1 + (i % 3)};${2 + (i % 3)};${1 + (i % 3)}`} dur={`${1.5 + i * 0.2}s`} repeatCount="indefinite"/>
+            </circle>
+          ))}
+          
+          <g filter="url(#widowGlow)">
+            <ellipse cx="150" cy="180" rx="55" ry="65" fill="#111" stroke="#222" strokeWidth="2"/>
+            
+            <ellipse cx="150" cy="120" rx="40" ry="42" fill="#1a1a1a" stroke="#333" strokeWidth="2"/>
+            
+            <circle cx="130" cy="105" r="12" fill="#111" stroke="#333" strokeWidth="2"/>
+            <circle cx="170" cy="105" r="12" fill="#111" stroke="#333" strokeWidth="2"/>
+            <circle cx="128" cy="103" r="6" fill="#ff3366"/>
+            <circle cx="168" cy="103" r="6" fill="#ff3366"/>
+            <circle cx="126" cy="101" r="2" fill="#fff"/>
+            <circle cx="166" cy="101" r="2" fill="#fff">
+              <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            
+            <path d="M135 130 L125 160 L145 145 Z" fill="#0a0a0a" stroke="#222" strokeWidth="2"/>
+            <path d="M165 130 L175 160 L155 145 Z" fill="#0a0a0a" stroke="#222" strokeWidth="2"/>
+            
+            <path d="M145 135 L140 120" stroke="#ff3366" strokeWidth="4" fill="none" strokeLinecap="round"/>
+            <path d="M155 135 L160 120" stroke="#ff3366" strokeWidth="4" fill="none" strokeLinecap="round">
+              <animate attributeName="stroke-width" values="4;6;4" dur="0.5s" repeatCount="indefinite"/>
+            </path>
+          </g>
+          
+          <g>
+            <path d="M150 150 L150 80" stroke="#111" strokeWidth="4"/>
+            <path d="M150 80 L130 60" stroke="#111" strokeWidth="3"/>
+            <path d="M150 80 L170 60" stroke="#111" strokeWidth="3"/>
+            <path d="M150 80 L125 75" stroke="#111" strokeWidth="2"/>
+            <path d="M150 80 L175 75" stroke="#111" strokeWidth="2"/>
+          </g>
+          
+          <g>
+            <path d="M150 245 L120 280" stroke="#111" strokeWidth="4"/>
+            <path d="M150 245 L180 280" stroke="#111" strokeWidth="4"/>
+            <path d="M150 230 L115 265" stroke="#111" strokeWidth="3"/>
+            <path d="M150 230 L185 265" stroke="#111" strokeWidth="3"/>
+            <path d="M150 215 L120 245" stroke="#111" strokeWidth="2"/>
+            <path d="M150 215 L180 245" stroke="#111" strokeWidth="2"/>
+          </g>
+          
+          <g>
+            <path d="M95 170 L50 150" stroke="#111" strokeWidth="3"/>
+            <path d="M95 175 L45 185" stroke="#111" strokeWidth="3"/>
+            <path d="M95 180 L55 215" stroke="#111" strokeWidth="3"/>
+            
+            <path d="M205 170 L250 150" stroke="#111" strokeWidth="3"/>
+            <path d="M205 175 L255 185" stroke="#111" strokeWidth="3"/>
+            <path d="M205 180 L245 215" stroke="#111" strokeWidth="3"/>
+          </g>
+          
+          <g>
+            <path d="M150 170 L150 165 L170 165 L170 180 L155 180" fill="#ff0044" stroke="#ff6688" strokeWidth="1"/>
+            <path d="M155 165 L155 175 L165 175" fill="#111"/>
+          </g>
+          
+          <circle cx="148" cy="195" r="5" fill="#ff0044" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="152" cy="198" r="3" fill="#ff6688" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      );
     } else {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
@@ -146,7 +255,6 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
               cx={15 + (i * 12) % 270}
               cy={160 + (i * 9) % 120}
               rx={3 + (i % 3)}
-              ry={2 + (i % 2)}
               fill={i % 2 === 0 ? '#8a6040' : '#6a4525'}
               opacity="0.5"
             />
@@ -234,6 +342,51 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
                 <div className="text-2xl">💦</div>
               </div>
             ))}
+          </div>
+        </div>
+      );
+    } else if (insect.name === '黑雾寡妇蜘蛛') {
+      return (
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-7xl animate-pulse">🕷️</div>
+          </div>
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(8)].map((_, i) => (
+              <div 
+                key={i}
+                className="absolute"
+                style={{
+                  left: `${15 + (i % 4) * 20}%`,
+                  top: `${35 + Math.floor(i / 4) * 30}%`,
+                  animation: `spin 1.5s linear infinite`,
+                  animationDelay: `${i * 0.15}s`
+                }}
+              >
+                <div className="text-3xl" style={{color: '#ff0044'}}>❤️</div>
+              </div>
+            ))}
+          </div>
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(12)].map((_, i) => (
+              <div 
+                key={i}
+                className="absolute"
+                style={{
+                  left: `${50 + Math.cos(i * 30 * Math.PI / 180) * 30}%`,
+                  top: `${50 + Math.sin(i * 30 * Math.PI / 180) * 35}%`,
+                  animation: `pulse 0.8s ease-in-out infinite`,
+                  animationDelay: `${i * 0.05}s`
+                }}
+              >
+                <div className="text-xl">💜</div>
+              </div>
+            ))}
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-4xl font-bold text-red-500 animate-bounce" style={{textShadow: '0 0 20px #ff0044'}}>
+              毒牙穿刺！
+            </div>
           </div>
         </div>
       );
