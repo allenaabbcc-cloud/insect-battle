@@ -97,5 +97,38 @@
       "lifecycle": "约1年",
       "description": "避日蛛（又称风蝎、太阳蛛）是极其凶猛的捕食者。它们有巨大的螯肢（占身体1/3长度），能像锯子一样将猎物嚼碎。虽然外表恐怖，但其实没有毒腺。它们用消化酶将猎物溶解后吸食。"
     }
+  },
+  {
+    "id": 4,
+    "name": "黑雾寡妇蜘蛛",
+    "className": "毒虫班",
+    "features": "有红色沙漏纹，非主动攻击",
+    "ultimate": "毒牙穿刺",
+    "weakness": "防御力差",
+    "naturalEnemy": "泥蜂",
+    "atk": 85,
+    "type": "毒",
+    "createdAt": "2026-05-08",
+    "realImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Latrodectus_mactans_Female_01.jpg/800px-Latrodectus_mactans_Female_01.jpg",
+    "samImage": "/sam-images/black-widow.jpg",
+    "location": {
+      "lat": 37.77,
+      "lng": -96.44,
+      "label": "北美洲，全球温暖地区"
+    },
+    "funFacts": [
+      "黑寡妇蜘蛛是世界上最著名的毒蜘蛛！",
+      "雌性会吃掉雄性配偶，因此得名'寡妇'！",
+      "腹部的红色沙漏图案是它的标志性特征！",
+      "它的毒液比响尾蛇还要毒15倍！",
+      "虽然毒，但性格温和，非主动攻击！"
+    ],
+    "knowledge": {
+      "scientificName": "Latrodectus mactans",
+      "habitat": "全球温暖地区，喜欢阴暗角落",
+      "diet": "昆虫，有时也捕食小蜘蛛",
+      "lifecycle": "雌性1-3年，雄性约6个月",
+      "description": "黑寡妇蜘蛛是一种具有强烈神经毒素的蜘蛛。雌性通常是黑色的，腹部有红色沙漏形状的标记。虽然名声可怕，但它们通常很害羞，只有在受到威胁时才会咬人。"
+    }
   }
 ]
