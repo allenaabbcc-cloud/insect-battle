@@ -236,6 +236,94 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
           </circle>
         </svg>
       );
+    } else if (insect.name === '虎头蜂') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="hornetArtBg" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#1a1505"/>
+              <stop offset="50%" stopColor="#0d0a02"/>
+              <stop offset="100%" stopColor="#050401"/>
+            </radialGradient>
+            <filter id="hornetGlow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          <rect fill="url(#hornetArtBg)" width="300" height="300"/>
+          
+          {[...Array(15)].map((_, i) => (
+            <circle 
+              key={i}
+              cx={30 + (i * 18) % 240}
+              cy={50 + (i * 14) % 200}
+              r={2 + (i % 4)}
+              fill={i % 2 === 0 ? '#ffcc00' : '#ff6600'}
+              opacity={0.3 + (i % 4) * 0.15}
+            >
+              <animate attributeName="opacity" values={`${0.3 + (i % 4) * 0.15};0.9;${0.3 + (i % 4) * 0.15}`} dur={`${2 + i * 0.25}s`} repeatCount="indefinite"/>
+            </circle>
+          ))}
+          
+          <g filter="url(#hornetGlow)">
+            <ellipse cx="150" cy="160" rx="50" ry="45" fill="#111" stroke="#222" strokeWidth="2"/>
+            
+            <ellipse cx="150" cy="160" rx="45" ry="35" fill="#ffcc00"/>
+            <ellipse cx="150" cy="160" rx="45" ry="35" fill="url(#hornetBody)"/>
+            
+            <rect x="105" y="145" width="90" height="30" fill="#111" rx="5"/>
+            <rect x="120" y="145" width="20" height="30" fill="#ffcc00"/>
+            <rect x="160" y="145" width="20" height="30" fill="#ffcc00"/>
+            
+            <ellipse cx="150" cy="115" rx="35" ry="30" fill="#ffcc00" stroke="#111" strokeWidth="2"/>
+            
+            <circle cx="130" cy="108" r="15" fill="#111"/>
+            <circle cx="170" cy="108" r="15" fill="#111"/>
+            <circle cx="128" cy="106" r="7" fill="#ff4400"/>
+            <circle cx="168" cy="106" r="7" fill="#ff4400"/>
+            <circle cx="126" cy="104" r="3" fill="#fff">
+              <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="166" cy="104" r="3" fill="#fff">
+              <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" repeatCount="indefinite"/>
+            </circle>
+            
+            <path d="M140 125 L135 145 L148 138 Z" fill="#111"/>
+            <path d="M160 125 L165 145 L152 138 Z" fill="#111"/>
+            
+            <path d="M130 135 L110 115" stroke="#111" strokeWidth="3" fill="none"/>
+            <path d="M130 138 L108 145" stroke="#111" strokeWidth="3" fill="none"/>
+            <path d="M170 135 L190 115" stroke="#111" strokeWidth="3" fill="none"/>
+            <path d="M170 138 L192 145" stroke="#111" strokeWidth="3" fill="none"/>
+            
+            <path d="M145 175 L140 220 L135 250" stroke="#111" strokeWidth="4" fill="none"/>
+            <path d="M155 175 L160 220 L165 250" stroke="#111" strokeWidth="4" fill="none"/>
+            
+            <ellipse cx="150" cy="255" rx="20" ry="25" fill="#ffcc00" stroke="#111" strokeWidth="2"/>
+            <rect x="135" y="255" width="30" height="15" fill="#111"/>
+            
+            <path d="M150 280 L150 295" stroke="#ff4444" strokeWidth="4" fill="none" strokeLinecap="round">
+              <animate attributeName="stroke-width" values="4;6;4" dur="0.8s" repeatCount="indefinite"/>
+            </path>
+          </g>
+          
+          <g>
+            <ellipse cx="95" cy="100" rx="35" ry="20" fill="#2a2a2a" opacity="0.8" transform="rotate(-30 95 100)"/>
+            <ellipse cx="205" cy="100" rx="35" ry="20" fill="#2a2a2a" opacity="0.8" transform="rotate(30 205 100)"/>
+            <ellipse cx="95" cy="100" rx="30" ry="15" fill="#3a3a3a" transform="rotate(-30 95 100)"/>
+            <ellipse cx="205" cy="100" rx="30" ry="15" fill="#3a3a3a" transform="rotate(30 205 100)"/>
+          </g>
+          
+          <circle cx="148" cy="170" r="4" fill="#ff6600" opacity="0.7">
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      );
     } else {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">

@@ -130,5 +130,38 @@
       "lifecycle": "雌性1-3年，雄性约6个月",
       "description": "黑寡妇蜘蛛是一种具有强烈神经毒素的蜘蛛。雌性通常是黑色的，腹部有红色沙漏形状的标记。虽然名声可怕，但它们通常很害羞，只有在受到威胁时才会咬人。"
     }
+  },
+  {
+    "id": 5,
+    "name": "虎头蜂",
+    "className": "飞虫班",
+    "features": "黑黄条纹，攻击性强",
+    "ultimate": "毒针刺腹",
+    "weakness": "视力不好",
+    "naturalEnemy": "鸟",
+    "atk": 70,
+    "type": "毒",
+    "createdAt": "2026-05-08",
+    "realImage": "https://aka.doubaocdn.com/s/zrmE1wNrtr",
+    "samImage": "/sam-images/hornet.jpg",
+    "location": {
+      "lat": 35.86,
+      "lng": 104.19,
+      "label": "亚洲，中国及周边地区"
+    },
+    "funFacts": [
+      "虎头蜂是世界上最大的黄蜂之一！",
+      "它们的毒针可以反复蜇人，非常危险！",
+      "虎头蜂的蜂巢可以达到篮球大小！",
+      "一只虎头蜂一分钟能杀死40只蜜蜂！",
+      "它们的毒液含有神经毒素，非常厉害！"
+    ],
+    "knowledge": {
+      "scientificName": "Vespa mandarinia",
+      "habitat": "东亚地区的森林和山区",
+      "diet": "昆虫、花蜜、水果，甚至小蜜蜂",
+      "lifecycle": "每年春季开始筑巢，冬季死亡",
+      "description": "虎头蜂是一种大型胡蜂，以其凶猛的攻击性和强大的毒性而闻名。它们有着鲜明的黑黄相间条纹，头部较大呈黄色，因此得名'虎头蜂'。它们是社会性昆虫，会建造大型纸质蜂巢。"
+    }
   }
 ]
