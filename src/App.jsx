@@ -4,6 +4,8 @@ import Card from './components/Card';
 import CardGallery from './components/CardGallery';
 import CardDetail from './components/CardDetail';
 import WorldMap from './components/WorldMap';
+import Achievements from './components/Achievements';
+import CreationCenter from './components/CreationCenter';
 
 function App() {
   const [gameState, setGameState] = useState('battle');
@@ -14,6 +16,14 @@ function App() {
   const [gameResult, setGameResult] = useState(null);
   const [battleCommentary, setBattleCommentary] = useState('');
   const [randomFact, setRandomFact] = useState(null);
+  const [customInsects, setCustomInsects] = useState([]);
+  const [playerStats, setPlayerStats] = useState({
+    totalBattles: 0,
+    wins: 0,
+    losses: 0,
+    winStreak: 0,
+    currentStreak: 0
+  });
 
   const generateBattleCommentary = (winner, loser, isNaturalEnemy, isWeaknessCrit) => {
     if (isNaturalEnemy) {
@@ -99,6 +109,12 @@ function App() {
               setGameResult('draw');
               setBattleCommentary(`势均力敌！${card.name} 和 ${enemy.name} 打平了！`);
               setRandomFact(getRandomFact(card));
+              // 更新统计
+              setPlayerStats(prev => ({
+                ...prev,
+                totalBattles: prev.totalBattles + 1,
+                currentStreak: 0
+              }));
               return;
             }
           }
@@ -112,9 +128,22 @@ function App() {
           if (winner === card) {
             setGameResult('victory');
             setBattleLog(prev => [...prev, `🎉 胜利！${card.name} 获胜！`]);
+            setPlayerStats(prev => ({
+              ...prev,
+              totalBattles: prev.totalBattles + 1,
+              wins: prev.wins + 1,
+              currentStreak: prev.currentStreak + 1,
+              winStreak: Math.max(prev.winStreak, prev.currentStreak + 1)
+            }));
           } else {
             setGameResult('defeat');
-            setBattleLog(prev => [...prev, `💀 失败...${enemy.name} 获胜...`]);
+            setBattleLog(prev => [...prev, `💀 失败！${enemy.name} 获胜！`]);
+            setPlayerStats(prev => ({
+              ...prev,
+              totalBattles: prev.totalBattles + 1,
+              losses: prev.losses + 1,
+              currentStreak: 0
+            }));
           }
         }, 800);
       }, 600);
@@ -142,32 +171,52 @@ function App() {
     return <WorldMap onBack={() => setGameState('battle')} onSelectCard={(card) => { setSelectedCard(card); setGameState('detail'); }} />;
   }
 
+  if (gameState === 'achievements') {
+    return <Achievements onBack={() => setGameState('battle')} playerStats={playerStats} />;
+  }
+
+  if (gameState === 'creation') {
+    return <CreationCenter onBack={() => setGameState('battle')} customInsects={customInsects} setCustomInsects={setCustomInsects} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-black text-yellow-400 drop-shadow-lg mb-2">
+          <h1 className="text-4xl md:text-5xl font-black text-yellow-400 drop-shadow-lg mb-4">
             🐛 Sam的昆虫大作战 🐛
           </h1>
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex flex-wrap justify-center gap-3 mt-4">
             <button
               onClick={() => setGameState('gallery')}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
             >
-              📚 英雄卡牌图鉴
+              📚 英雄图鉴
             </button>
             <button
               onClick={() => setGameState('map')}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
             >
-              🌍 昆虫世界地图
+              🌍 世界地图
+            </button>
+            <button
+              onClick={() => setGameState('achievements')}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+            >
+              🏆 成就系统
+            </button>
+            <button
+              onClick={() => setGameState('creation')}
+              className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-400 hover:to-teal-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+            >
+              🎨 创作中心
             </button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-4">
-            <div className="bg-black/40 rounded-2xl p-6 border border-purple-500/30">
+            <div className="bg-black/40 rounded-2xl p-6 border border-purple-500/50">
               <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
                 🎮 选择你的英雄
               </h2>
@@ -186,7 +235,7 @@ function App() {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="bg-black/40 rounded-2xl p-6 border border-blue-500/30">
+            <div className="bg-black/40 rounded-2xl p-6 border border-blue-500/50">
               <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
                 ⚔️ 战斗场地
               </h2>
@@ -220,7 +269,7 @@ function App() {
                     </div>
                   ))}
                   {battleLog.length === 0 && (
-                    <div className="text-gray-500 text-sm">选择你的英雄开始战斗...</div>
+                    <div className="text-gray-500 text-sm">选择你的英雄开始战斗！</div>
                   )}
                 </div>
               </div>
@@ -228,7 +277,7 @@ function App() {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="bg-black/40 rounded-2xl p-6 border border-yellow-500/30">
+            <div className="bg-black/40 rounded-2xl p-6 border border-yellow-500/50">
               <h2 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
                 📊 战斗信息
               </h2>
@@ -240,11 +289,11 @@ function App() {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <div className="text-green-400">{playerCard.name}</div>
-                        <div className="text-white">攻击: {playerCard.atk}</div>
+                        <div className="text-white">攻击：{playerCard.atk}</div>
                       </div>
                       <div>
                         <div className="text-red-400">{enemyCard.name}</div>
-                        <div className="text-white">攻击: {enemyCard.atk}</div>
+                        <div className="text-white">攻击：{enemyCard.atk}</div>
                       </div>
                     </div>
                   </div>
@@ -270,9 +319,9 @@ function App() {
                   ${gameResult === 'defeat' ? 'text-red-300' : ''}
                   ${gameResult === 'draw' ? 'text-yellow-300' : ''}
                 `}>
-                  {gameResult === 'victory' && '🎉 VICTORY 🎉'}
-                  {gameResult === 'defeat' && '💀 DEFEAT 💀'}
-                  {gameResult === 'draw' && '⚖️ DRAW ⚖️'}
+                  {gameResult === 'victory' && '🎉 胜利！🎉'}
+                  {gameResult === 'defeat' && '💀 失败！💀'}
+                  {gameResult === 'draw' && '⚖️ 平局！⚖️'}
                 </div>
                 
                 <div className="space-y-4">

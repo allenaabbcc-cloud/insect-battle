@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "初出茅庐",
+    "description": "完成第一场战斗",
+    "icon": "🥇",
+    "rarity": "common",
+    "unlocked": false
+  },
+  {
+    "id": 2,
+    "name": "百战百胜",
+    "description": "连续赢得10场战斗",
+    "icon": "🏆",
+    "rarity": "rare",
+    "unlocked": false
+  },
+  {
+    "id": 3,
+    "name": "昆虫猎人",
+    "description": "在图鉴中查看过所有昆虫",
+    "icon": "🦗",
+    "rarity": "common",
+    "unlocked": false
+  },
+  {
+    "id": 4,
+    "name": "知识小博士",
+    "description": "查看过所有昆虫的详细知识",
+    "icon": "📚",
+    "rarity": "rare",
+    "unlocked": false
+  },
+  {
+    "id": 5,
+    "name": "天网恢恢",
+    "description": "使用天敌压制获胜",
+    "icon": "🕸️",
+    "rarity": "rare",
+    "unlocked": false
+  },
+  {
+    "id": 6,
+    "name": "弱点暴击王",
+    "description": "触发弱点暴击赢得战斗",
+    "icon": "💥",
+    "rarity": "rare",
+    "unlocked": false
+  },
+  {
+    "id": 7,
+    "name": "地图探险家",
+    "description": "在世界地图上查看过所有昆虫位置",
+    "icon": "🌍",
+    "rarity": "common",
+    "unlocked": false
+  },
+  {
+    "id": 8,
+    "name": "昆虫艺术家",
+    "description": "在创作中心创建过1个昆虫",
+    "icon": "🎨",
+    "rarity": "rare",
+    "unlocked": false
+  },
+  {
+    "id": 9,
+    "name": "昆虫大师",
+    "description": "解锁所有成就",
+    "icon": "👑",
+    "rarity": "legendary",
+    "unlocked": false
+  },
+  {
+    "id": 10,
+    "name": "Sam专属成就",
+    "description": "这是专门为Sam准备的专属成就！",
+    "icon": "⭐",
+    "rarity": "legendary",
+    "unlocked": false
+  }
+]
