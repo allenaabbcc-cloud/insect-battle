@@ -1,0 +1,677 @@
+[
+  {
+    "id": "1",
+    "baseName": "巴西游走蛛",
+    "className": "毒虫班",
+    "type": "毒",
+    "location": "南美洲巴西热带雨林",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "游走蛛宝宝",
+        "atk": 25,
+        "ultimate": "小毒牙",
+        "weakness": "火",
+        "naturalEnemy": "小鸟",
+        "features": "小小的蜘蛛宝宝,有8只眼睛,会吐丝",
+        "description": "刚孵化的小蜘蛛,还需要在妈妈的照顾下成长"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年游走蛛",
+        "atk": 55,
+        "ultimate": "毒液喷射",
+        "weakness": "火",
+        "naturalEnemy": "寄生蜂",
+        "features": "少年蜘蛛,学会了游走捕猎技巧",
+        "description": "已经学会自己捕猎,毒性慢慢变强"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "巴西游走蛛",
+        "atk": 80,
+        "ultimate": "剧毒蛛网",
+        "weakness": "火",
+        "naturalEnemy": "大蜾蠃",
+        "features": "成熟的巴西游走蛛,毒性强烈,行动敏捷",
+        "description": "世界上最毒的蜘蛛之一,战斗经验丰富"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "2",
+    "baseName": "豆娘稚虫",
+    "className": "水虫班",
+    "type": "水",
+    "location": "全球各地淡水区域",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "卵",
+        "name": "豆娘卵",
+        "atk": 15,
+        "ultimate": "慢慢孵化",
+        "weakness": "鱼",
+        "naturalEnemy": "微生物",
+        "features": "小小的卵,需要在水中孵化",
+        "description": "生命刚刚开始,在水中静静等待孵化"
+      },
+      {
+        "stage": "S",
+        "rank": "若虫",
+        "name": "豆娘稚虫",
+        "atk": 35,
+        "ultimate": "稚虫捕食",
+        "weakness": "鱼",
+        "naturalEnemy": "小鱼",
+        "features": "水生稚虫,用鳃呼吸,会捕食蚊子幼虫",
+        "description": "在水中生活,用鳃呼吸,开始学习捕猎技巧"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "豆娘成虫",
+        "atk": 60,
+        "ultimate": "空中猎手",
+        "weakness": "鸟",
+        "naturalEnemy": "鸟",
+        "features": "美丽的豆娘,翅膀透明闪亮,在空中飞舞",
+        "description": "经过1-3年的水下生活,终于羽化成美丽的成虫"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "3",
+    "baseName": "避日蛛",
+    "className": "沙漠虫班",
+    "type": "力量",
+    "location": "中东沙漠和干燥地区",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "若虫",
+        "name": "小避日蛛若虫",
+        "atk": 20,
+        "ultimate": "小螯肢",
+        "weakness": "干燥",
+        "naturalEnemy": "蚂蚁",
+        "features": "小小的若虫,在沙地下生活",
+        "description": "刚刚孵化的小生命,在沙地下躲避烈日"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年避日蛛",
+        "atk": 50,
+        "ultimate": "快速螯肢攻击",
+        "weakness": "水",
+        "naturalEnemy": "小型蜥蜴",
+        "features": "少年避日蛛,学会用大螯肢捕猎",
+        "description": "身体长大,螯肢变得有力,开始捕猎小动物"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "避日蛛成虫",
+        "atk": 75,
+        "ultimate": "强力钳击",
+        "weakness": "水",
+        "naturalEnemy": "大型蜥蜴",
+        "features": "成熟的避日蛛,有巨大的螯肢,行动如风",
+        "description": "速度极快,每秒能跑1米多,沙漠中的顶级猎手"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "4",
+    "baseName": "黑雾寡妇蜘蛛",
+    "className": "毒虫班",
+    "type": "毒",
+    "location": "北美洲和世界各地",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "小狼蛛宝宝",
+        "atk": 18,
+        "ultimate": "小毒液",
+        "weakness": "鸟",
+        "naturalEnemy": "蚂蚁",
+        "features": "小小的蜘蛛卵,刚孵化出来",
+        "description": "刚出生的小蜘蛛,需要群体的保护"
+      },
+      {
+        "stage": "S",
+        "rank": "若虫",
+        "name": "年轻狼蛛",
+        "atk": 48,
+        "ultimate": "麻痹毒液",
+        "weakness": "火",
+        "naturalEnemy": "寄生蜂",
+        "features": "年轻的狼蛛,学会团队狩猎",
+        "description": "独立性变强,开始学习使用毒液"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "黑雾寡妇蜘蛛",
+        "atk": 78,
+        "ultimate": "致命神经毒素",
+        "weakness": "火",
+        "naturalEnemy": "寡妇蛛蜂",
+        "features": "恐怖的黑雾寡妇,有剧毒的毒液",
+        "description": "毒性比响尾蛇毒液还毒15倍,令人闻风丧胆"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "5",
+    "baseName": "虎头蜂",
+    "className": "飞虫班",
+    "type": "力量",
+    "location": "亚洲各地",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "虎头蜂幼虫",
+        "atk": 20,
+        "ultimate": "蠕动",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "白色的幼虫,由工蜂喂养",
+        "description": "完全依赖蜂群的照顾,慢慢成长中"
+      },
+      {
+        "stage": "S",
+        "rank": "工蜂",
+        "name": "虎头蜂工蜂",
+        "atk": 55,
+        "ultimate": "毒针攻击",
+        "weakness": "烟",
+        "naturalEnemy": "食虫鸟",
+        "features": "工蜂,负责采集食物和保卫蜂巢",
+        "description": "成为勤劳的工蜂,为蜂群贡献力量"
+      },
+      {
+        "stage": "SS",
+        "rank": "蜂后",
+        "name": "虎头蜂蜂后",
+        "atk": 88,
+        "ultimate": "致命毒针雨",
+        "weakness": "火",
+        "naturalEnemy": "蜂鹰",
+        "features": "强大的蜂后,有毒针,可以连续攻击",
+        "description": "亚洲最大的黄蜂,毒性强烈,攻击力惊人"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "6",
+    "baseName": "龙虱",
+    "className": "水虫班",
+    "type": "水",
+    "location": "中国和亚洲各地的池塘",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "龙虱幼虫",
+        "atk": 22,
+        "ultimate": "小小鳃",
+        "weakness": "鱼",
+        "naturalEnemy": "微生物",
+        "features": "水中生活的幼虫,非常凶猛",
+        "description": "凶猛的幼虫,已经开始捕食其他水生小动物"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年龙虱",
+        "atk": 52,
+        "ultimate": "储存空气",
+        "weakness": "鱼",
+        "naturalEnemy": "蝌蚪",
+        "features": "少年龙虱,在水中学习游泳和捕猎",
+        "description": "学会游泳,开始学会用背部的空气气泡呼吸"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "龙虱成虫",
+        "atk": 85,
+        "ultimate": "氧气储存",
+        "weakness": "鸟",
+        "naturalEnemy": "大鱼",
+        "features": "成熟的水下猎手,背着空气泡泡",
+        "description": "完全水生的甲虫,可以在水下待很长时间"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "7",
+    "baseName": "蜗牛",
+    "className": "软体班",
+    "type": "力量",
+    "location": "法国和欧洲潮湿地区",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼体",
+        "name": "小蜗牛",
+        "atk": 10,
+        "ultimate": "软软身体",
+        "weakness": "干燥",
+        "naturalEnemy": "甲虫",
+        "features": "刚出生的小蜗牛,壳还很软",
+        "description": "刚刚来到这个世界,壳还在慢慢变硬"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年蜗牛",
+        "atk": 30,
+        "ultimate": "黏液减速",
+        "weakness": "盐",
+        "naturalEnemy": "甲虫",
+        "features": "少年蜗牛,学会分泌黏液保护自己",
+        "description": "黏液变多,开始学会用黏液防御敌人"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "成年蜗牛",
+        "atk": 50,
+        "ultimate": "黏液领域",
+        "weakness": "盐",
+        "naturalEnemy": "画眉鸟",
+        "features": "成年蜗牛,壳变硬,黏液更强",
+        "description": "壳非常坚硬,黏液可以在地上画出防御圈"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "8",
+    "baseName": "仰泳蝽",
+    "className": "水虫班",
+    "type": "水",
+    "location": "北京和世界各地池塘",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "若虫",
+        "name": "仰泳蝽若虫",
+        "atk": 15,
+        "ultimate": "小小腿",
+        "weakness": "微生物",
+        "naturalEnemy": "微生物",
+        "features": "水中的小小若虫,学会仰泳",
+        "description": "小小的水生昆虫,开始学习倒挂游泳"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年仰泳蝽",
+        "atk": 40,
+        "ultimate": "划水躲避",
+        "weakness": "蝌蚪",
+        "naturalEnemy": "蝌蚪",
+        "features": "少年仰泳蝽,熟练掌握倒游技巧",
+        "description": "倒游技术越来越熟练,开始捕食小虫子"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "仰泳蝽成虫",
+        "atk": 65,
+        "ultimate": "快速倒游",
+        "weakness": "鱼",
+        "naturalEnemy": "大鱼",
+        "features": "成熟的仰泳蝽,倒挂着成为水面猎手",
+        "description": "水面上的顶级猎手,专门捕食其他昆虫"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "9",
+    "baseName": "屎壳郎",
+    "className": "甲虫班",
+    "type": "力量",
+    "location": "非洲大草原",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "小屎壳郎幼虫",
+        "atk": 18,
+        "ultimate": "蠕动",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "小小的幼虫,在粪球里成长",
+        "description": "在粪球中慢慢长大,学习推球技巧"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年屎壳郎",
+        "atk": 45,
+        "ultimate": "小粪球",
+        "weakness": "鸟类",
+        "naturalEnemy": "甲虫",
+        "features": "少年屎壳郎,学会推小粪球",
+        "description": "开始学习推粪球,力气越来越大"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "屎壳郎大力神",
+        "atk": 70,
+        "ultimate": "超级粪球",
+        "weakness": "鸟",
+        "naturalEnemy": "乌鸦",
+        "features": "大力神屎壳郎,能推动比自己大很多的粪球",
+        "description": "力量惊人,可以推动比自己重50倍的粪球"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "10",
+    "baseName": "螽斯",
+    "className": "直翅目",
+    "type": "力量",
+    "location": "蒙古和中国草原",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "若虫",
+        "name": "螽斯若虫",
+        "atk": 15,
+        "ultimate": "小小声",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "刚孵化的小若虫,还不会唱歌",
+        "description": "刚刚来到草地,还没有学会鸣叫"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年螽斯",
+        "atk": 42,
+        "ultimate": "翅膀摩擦",
+        "weakness": "蜘蛛",
+        "naturalEnemy": "蜘蛛",
+        "features": "少年螽斯,开始学习鸣叫",
+        "description": "翅膀慢慢发育,开始发出简单的声响"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "螽斯歌唱家",
+        "atk": 68,
+        "ultimate": "完美鸣唱",
+        "weakness": "鸟",
+        "naturalEnemy": "青蛙",
+        "features": "成熟的螽斯,能唱出动听的歌曲",
+        "description": "草原歌唱家,用翅膀摩擦唱出完美旋律"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "11",
+    "baseName": "独裁巨蝎",
+    "className": "毒虫班",
+    "type": "毒",
+    "location": "中东沙漠",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "宝宝",
+        "name": "小蝎子宝宝",
+        "atk": 30,
+        "ultimate": "小毒针",
+        "weakness": "干燥",
+        "naturalEnemy": "蚂蚁",
+        "features": "刚出生的小蝎子,趴在妈妈背上",
+        "description": "刚刚来到沙漠,需要妈妈的悉心照顾"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年蝎子",
+        "atk": 60,
+        "ultimate": "强效毒针",
+        "weakness": "蝎子蜂",
+        "naturalEnemy": "蜥蜴",
+        "features": "少年蝎子,学会使用毒针",
+        "description": "独立生活,毒针的毒性慢慢变强"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "独裁巨蝎",
+        "atk": 90,
+        "ultimate": "独裁毒针",
+        "weakness": "眼睛",
+        "naturalEnemy": "黑蝎子",
+        "features": "独裁巨蝎,有致命的毒针和巨大的螯肢",
+        "description": "中东沙漠最毒的蝎子,攻击速度快,毒性猛烈"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "12",
+    "baseName": "匆忙",
+    "className": "飞虫班",
+    "type": "力量",
+    "location": "亚洲各地",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "小苍蝇宝宝",
+        "atk": 25,
+        "ultimate": "蠕动",
+        "weakness": "蜘蛛网",
+        "naturalEnemy": "蜘蛛",
+        "features": "小小的蛆,在垃圾里成长",
+        "description": "在阴暗潮湿的地方慢慢成长"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年苍蝇",
+        "atk": 55,
+        "ultimate": "快速飞行",
+        "weakness": "蜘蛛网",
+        "naturalEnemy": "蜻蜓",
+        "features": "少年苍蝇,长出复眼,学会飞行",
+        "description": "长出翅膀和复眼,开始高速飞行"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "匆忙飞行者",
+        "atk": 90,
+        "ultimate": "疯狂冲刺",
+        "weakness": "青蛙",
+        "naturalEnemy": "青蛙",
+        "features": "超级飞行者,复眼能看到360度",
+        "description": "反应超快,每小时飞行6公里,大复眼无处可藏"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "13",
+    "baseName": "蚁狮",
+    "className": "幼虫班",
+    "type": "力量",
+    "location": "亚洲沙地",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "小小蚁狮",
+        "atk": 20,
+        "ultimate": "小小下颚",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "小小的幼虫,在沙地挖陷阱",
+        "description": "刚刚孵化,学习挖掘沙陷阱的技巧"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年蚁狮",
+        "atk": 42,
+        "ultimate": "沙陷阱",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "少年蚁狮,陷阱越做越好",
+        "description": "陷阱越来越完美,捕获更多猎物"
+      },
+      {
+        "stage": "SS",
+        "rank": "成虫",
+        "name": "蚁狮成虫",
+        "atk": 65,
+        "ultimate": "致命下颚",
+        "weakness": "鸟",
+        "naturalEnemy": "鸟",
+        "features": "成熟的蚁狮,挖出完美的圆锥陷阱",
+        "description": "成虫叫蚁狮蛾,样子完全不同,能展翅飞翔"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "14",
+    "baseName": "黄蜂",
+    "className": "飞虫班",
+    "type": "力量",
+    "location": "亚洲森林",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "黄蜂幼虫",
+        "atk": 22,
+        "ultimate": "蠕动",
+        "weakness": "蚂蚁",
+        "naturalEnemy": "蚂蚁",
+        "features": "白色的幼虫,由蜂群喂养",
+        "description": "完全依赖工蜂喂养,在蜂巢中成长"
+      },
+      {
+        "stage": "S",
+        "rank": "工蜂",
+        "name": "黄蜂工蜂",
+        "atk": 55,
+        "ultimate": "毒针攻击",
+        "weakness": "食虫鸟",
+        "naturalEnemy": "食虫鸟",
+        "features": "工蜂,负责采集和保卫",
+        "description": "成为勤劳的工蜂,为蜂群采集食物"
+      },
+      {
+        "stage": "SS",
+        "rank": "战士",
+        "name": "黄蜂战士",
+        "atk": 90,
+        "ultimate": "连续毒针",
+        "weakness": "蜘蛛网",
+        "naturalEnemy": "蜂鹰",
+        "features": "勇敢的战士,保护蜂群家园",
+        "description": "正义的英雄,用毒针保护弱小的昆虫"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  },
+  {
+    "id": "15",
+    "baseName": "化蛛侠",
+    "className": "毒虫班",
+    "type": "毒",
+    "location": "亚洲城市",
+    "stages": [
+      {
+        "stage": "A",
+        "rank": "幼虫",
+        "name": "小蜘蛛侠宝宝",
+        "atk": 28,
+        "ultimate": "小毒牙",
+        "weakness": "鸟",
+        "naturalEnemy": "蚂蚁",
+        "features": "小小的蜘蛛侠宝宝,学会爬墙",
+        "description": "刚刚成为蜘蛛侠,开始学习超级能力"
+      },
+      {
+        "stage": "S",
+        "rank": "少年",
+        "name": "少年蜘蛛侠",
+        "atk": 60,
+        "ultimate": "快速毒牙",
+        "weakness": "寄生蜂",
+        "naturalEnemy": "寄生蜂",
+        "features": "少年蜘蛛侠,学会了织网和毒牙",
+        "description": "学会了织蜘蛛网,开始行侠仗义"
+      },
+      {
+        "stage": "SS",
+        "rank": "英雄",
+        "name": "化蛛侠",
+        "atk": 99,
+        "ultimate": "超级毒牙",
+        "weakness": "大鸟",
+        "naturalEnemy": "大鸟",
+        "features": "化蛛侠!正义的英雄,用毒牙保护弱小",
+        "description": "城市守护者!会飞檐走壁,正义感爆棚"
+      }
+    ],
+    "expToS": 100,
+    "expToSS": 300,
+    "evolvable": true
+  }
+]

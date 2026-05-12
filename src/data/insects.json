@@ -345,5 +345,174 @@
       "lifecycle": "不完全变态,若虫形态类似成虫",
       "description": "螽斯是一种大型直翅目昆虫,俗称蝈蝈或纺织娘。它们以其响亮的鸣叫声而闻名,雄性通过摩擦前翅来吸引雌性。它们有强壮的后腿,擅长跳跃。"
     }
+  },
+  {
+    "id": 11,
+    "name": "独裁巨蝎",
+    "className": "毒虫班",
+    "features": "巨大的巨螯,独裁独霸",
+    "ultimate": "毒针",
+    "weakness": "眼睛",
+    "naturalEnemy": "黑蝎子",
+    "atk": 90,
+    "type": "毒",
+    "specialMechanism": "poison_kill",
+    "mechanismDesc": "战斗中若对手ATK低于90,则对手直接中毒",
+    "createdAt": "2026-05-09",
+    "realImage": "https://aka.doubaocdn.com/s/scorpion",
+    "samImage": "/sam-images/dictator-scorpion.jpg",
+    "location": {
+      "lat": 25.00,
+      "lng": 50.00,
+      "label": "中东沙漠"
+    },
+    "funFacts": [
+      "独裁巨蝎是Sam亲自设计的超级英雄!",
+      "它有巨大的钳子,可以夹碎任何对手!",
+      "尾巴上的毒针是它最厉害的武器!",
+      "它是沙漠中的统治者,非常霸气!",
+      "别看它凶,其实内心很温柔哦!"
+    ],
+    "knowledge": {
+      "scientificName": "Dictator Scorpion",
+      "habitat": "沙漠和干旱地区",
+      "diet": "昆虫、小鸟",
+      "lifecycle": "2-3年",
+      "description": "独裁巨蝎是Sam创造的独特英雄!它拥有巨大的螯钳和致命的毒针,是沙漠中的绝对统治者。虽然外表凶猛,但它只攻击真正的敌人。"
+    }
+  },
+  {
+    "id": 12,
+    "name": "匆忙",
+    "className": "飞虫班",
+    "features": "大复眼,投机",
+    "ultimate": "疯狂的子弹",
+    "weakness": "无",
+    "naturalEnemy": "鸟",
+    "atk": 90,
+    "type": "力量",
+    "createdAt": "2026-05-10",
+    "realImage": "https://aka.doubaocdn.com/s/fly",
+    "samImage": "/sam-images/hurry-fly.jpg",
+    "location": {
+      "lat": 35.00,
+      "lng": 110.00,
+      "label": "亚洲各地"
+    },
+    "funFacts": [
+      "匆忙是Sam设计的超级飞虫英雄!",
+      "它有超级大的复眼,可以看到四面八方!",
+      "必杀技疯狂的子弹超级厉害!",
+      "它总是很匆忙地飞来飞去!",
+      "它喜欢吃肉,是个小食肉动物!"
+    ],
+    "knowledge": {
+      "scientificName": "Hurry Fly",
+      "habitat": "各种环境",
+      "diet": "肉",
+      "lifecycle": "1年",
+      "description": "匆忙是Sam创造的飞虫班英雄!它性格投机,有大大的复眼,能够快速发现机会!必杀技是疯狂的子弹,可以迅速击败对手!"
+    }
+  },
+  {
+    "id": 13,
+    "name": "蚁狮",
+    "className": "幼虫班",
+    "features": "3对足,外强中干",
+    "ultimate": "下颚",
+    "weakness": "腹部",
+    "naturalEnemy": "鸟",
+    "atk": 65,
+    "type": "力量",
+    "createdAt": "2026-05-10",
+    "realImage": "https://aka.doubaocdn.com/s/antlion",
+    "samImage": "/sam-images/ant-lion.jpg",
+    "location": {
+      "lat": 30.00,
+      "lng": 105.00,
+      "label": "亚洲沙地"
+    },
+    "funFacts": [
+      "蚁狮是Sam设计的幼虫班英雄!",
+      "它虽然看起来吓人,其实外强中干!",
+      "它会在沙子里做陷阱抓蚂蚁吃!",
+      "大大的下颚是它的捕食利器!",
+      "腹部是它的弱点,要保护好哦!"
+    ],
+    "knowledge": {
+      "scientificName": "Antlion",
+      "habitat": "沙地",
+      "diet": "蚂蚁",
+      "lifecycle": "1年",
+      "description": "蚁狮是Sam创造的幼虫班英雄!它虽然外强中干,但很会吓人!它会在沙子里挖陷阱,等待蚂蚁掉进来。大大的下颚是它的主要武器!"
+    }
+  },
+  {
+    "id": 14,
+    "name": "黄蜂",
+    "className": "飞虫班",
+    "features": "大复眼,内心强大",
+    "ultimate": "毒针",
+    "weakness": "翅膀",
+    "naturalEnemy": "鸟",
+    "atk": 90,
+    "type": "毒",
+    "createdAt": "2026-05-10",
+    "realImage": "https://aka.doubaocdn.com/s/wasp",
+    "samImage": "/sam-images/yellow-wasp.jpg",
+    "location": {
+      "lat": 38.00,
+      "lng": 114.00,
+      "label": "亚洲森林"
+    },
+    "funFacts": [
+      "黄蜂是Sam设计的超级英雄!",
+      "它内心非常强大,从不害怕任何挑战!",
+      "大大的复眼让它可以看到很远的地方!",
+      "毒针是它的必杀技,威力超强!",
+      "它喜欢吃花粉,是个勤劳的小家伙!"
+    ],
+    "knowledge": {
+      "scientificName": "Wasp Hero",
+      "habitat": "森林",
+      "diet": "花粉",
+      "lifecycle": "1年",
+      "description": "黄蜂是Sam创造的飞虫班英雄!它内心强大,勇敢无畏!有大大的复眼和锋利的毒针!翅膀是它的弱点,所以战斗时要保护好哦!"
+    }
+  },
+  {
+    "id": 15,
+    "name": "化蛛侠",
+    "className": "毒虫班",
+    "features": "6条腿,恐怖",
+    "ultimate": "毒牙",
+    "weakness": "腹部",
+    "naturalEnemy": "大鸟",
+    "atk": 99,
+    "type": "毒",
+    "specialMechanism": "poison_kill",
+    "mechanismDesc": "战斗中若对手ATK低于99,则对手直接中毒,3秒后血条清零",
+    "createdAt": "2026-05-10",
+    "realImage": "https://aka.doubaocdn.com/s/spider-hero",
+    "samImage": "/sam-images/spider-man.jpg",
+    "location": {
+      "lat": 32.00,
+      "lng": 118.00,
+      "label": "亚洲城市"
+    },
+    "funFacts": [
+      "化蛛侠是Sam设计的最强英雄,攻击力99!",
+      "它有6条腿,可以快速移动!",
+      "虽然看起来恐怖,其实是正义的英雄!",
+      "毒牙是它的超级武器,超级厉害!",
+      "大鸟是它的天敌,要小心哦!"
+    ],
+    "knowledge": {
+      "scientificName": "Spider Hero",
+      "habitat": "城市和森林",
+      "diet": "肉",
+      "lifecycle": "2年",
+      "description": "化蛛侠是Sam创造的最强毒虫班英雄!攻击力高达99!它有6条腿和锋利的毒牙,虽然看起来恐怖,但内心是正义的英雄!专门打击坏人!"
+    }
   }
 ]

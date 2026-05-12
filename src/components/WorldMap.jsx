@@ -1,125 +1,239 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import insects from '../data/insects.json';
 
 const WorldMap = ({ onBack, onSelectCard }) => {
   const [hoveredInsect, setHoveredInsect] = useState(null);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
 
   const getInsectColor = (type) => {
     switch (type) {
-      case '毒': return { primary: '#FF4444', secondary: '#8B0000', glow: 'rgba(255, 68, 68, 0.5)' };
-      case '水': return { primary: '#64D2FF', secondary: '#1E90FF', glow: 'rgba(100, 210, 255, 0.5)' };
-      case '力量': return { primary: '#FFB84D', secondary: '#FF8C00', glow: 'rgba(255, 184, 77, 0.5)' };
-      default: return { primary: '#FFB84D', secondary: '#FF8C00', glow: 'rgba(255, 184, 77, 0.5)' };
+      case '毒': return { primary: '#FF4444', secondary: '#8B0000', glow: 'rgba(255, 68, 68, 0.6)' };
+      case '水': return { primary: '#64D2FF', secondary: '#1E90FF', glow: 'rgba(100, 210, 255, 0.6)' };
+      case '力量': return { primary: '#FFB84D', secondary: '#FF8C00', glow: 'rgba(255, 184, 77, 0.6)' };
+      default: return { primary: '#FFB84D', secondary: '#FF8C00', glow: 'rgba(255, 184, 77, 0.6)' };
     }
   };
 
   const insectPositions = {
-    1: { x: 25, y: 55, label: '巴西' },
-    2: { x: 50, y: 40, label: '欧洲' },
-    3: { x: 65, y: 55, label: '中东' },
-    4: { x: 30, y: 35, label: '北美洲' },
-    5: { x: 72, y: 45, label: '亚洲' },
-    6: { x: 78, y: 52, label: '中国' },
-    7: { x: 52, y: 42, label: '法国' },
-    8: { x: 76, y: 48, label: '北京' },
-    9: { x: 40, y: 65, label: '非洲' },
-    10: { x: 70, y: 50, label: '蒙古' }
+    1: { lat: -15, lng: -50, label: '巴西' },
+    2: { lat: 50, lng: 10, label: '欧洲' },
+    3: { lat: 30, lng: 45, label: '中东' },
+    4: { lat: 40, lng: -100, label: '北美洲' },
+    5: { lat: 35, lng: 120, label: '亚洲' },
+    6: { lat: 32, lng: 118, label: '中国' },
+    7: { lat: 48, lng: 2, label: '法国' },
+    8: { lat: 39, lng: 116, label: '北京' },
+    9: { lat: -5, lng: 20, label: '非洲' },
+    10: { lat: 45, lng: 105, label: '蒙古' },
+    11: { lat: 25, lng: 50, label: '中东沙漠' },
+    12: { lat: 35, lng: 110, label: '亚洲各地' },
+    13: { lat: 30, lng: 105, label: '亚洲沙地' },
+    14: { lat: 38, lng: 114, label: '亚洲森林' },
+    15: { lat: 32, lng: 118, label: '亚洲城市' }
   };
 
+  const latLngTo3D = (lat, lng, radius = 1) => {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lng + 180) * (Math.PI / 180);
+    
+    const x = -(radius * Math.sin(phi) * Math.cos(theta));
+    const y = radius * Math.cos(phi);
+    const z = radius * Math.sin(phi) * Math.sin(theta);
+    
+    return { x, y, z };
+  };
+
+  const projectToScreen = (point, sphereRadius, offsetX, offsetY) => {
+    const scale = sphereRadius * zoom;
+    const perspective = 500;
+    const scaleZ = perspective / (perspective + point.z * scale);
+    
+    return {
+      x: offsetX + point.x * scale * scaleZ,
+      y: offsetY + point.y * scale * scaleZ,
+      scale: scaleZ,
+      opacity: Math.max(0.3, Math.min(1, (point.z + 1) * 0.5))
+    };
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setLastPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    
+    const deltaX = e.clientX - lastPosition.x;
+    const deltaY = e.clientY - lastPosition.y;
+    
+    setRotation(prev => ({
+      x: Math.max(-30, Math.min(30, prev.x + deltaY * 0.3)),
+      y: prev.y + deltaX * 0.3
+    }));
+    
+    setLastPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleWheel = (e) => {
+    e.preventDefault();
+    setZoom(prev => Math.max(0.8, Math.min(2, prev - e.deltaY * 0.001)));
+  };
+
+  useEffect(() => {
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [isDragging, lastPosition]);
+
+  const sphereRadius = 150;
+  const offsetX = 300;
+  const offsetY = 280;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-100 p-4 md:p-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
           <button
             onClick={onBack}
-            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all"
           >
             ← 返回战斗
           </button>
-          <h1 className="text-4xl font-black text-yellow-400 drop-shadow-lg">
+          <h1 className="text-3xl md:text-4xl font-black text-amber-800 drop-shadow-lg">
             🌍 昆虫世界地图 🌍
           </h1>
-          <div className="w-32"></div>
+          <div className="w-24"></div>
         </div>
 
-        <div className="relative mx-auto bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-3xl overflow-hidden shadow-2xl border-4 border-yellow-500/50" style={{ height: '600px' }}>
-          {/* 装饰性元素 */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-10 left-10 w-32 h-32 bg-blue-300 rounded-full blur-xl"></div>
-            <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-200 rounded-full blur-xl"></div>
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <button
+            onClick={() => setZoom(prev => Math.min(2, prev + 0.2))}
+            className="w-12 h-12 bg-amber-200 hover:bg-amber-300 rounded-full flex items-center justify-center text-2xl shadow-md transition-all hover:scale-110"
+          >
+            +
+          </button>
+          <span className="text-amber-700 font-bold">{Math.round(zoom * 100)}%</span>
+          <button
+            onClick={() => setZoom(prev => Math.max(0.8, prev - 0.2))}
+            className="w-12 h-12 bg-amber-200 hover:bg-amber-300 rounded-full flex items-center justify-center text-2xl shadow-md transition-all hover:scale-110"
+          >
+            −
+          </button>
+        </div>
+
+        <div 
+          className="relative mx-auto rounded-full overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing"
+          style={{ 
+            width: '600px', 
+            height: '560px',
+            perspective: '1000px'
+          }}
+          onMouseDown={handleMouseDown}
+          onWheel={handleWheel}
+        >
+          <div 
+            className="absolute inset-0 rounded-full overflow-hidden"
+            style={{
+              background: 'linear-gradient(145deg, #0d1b2a 0%, #1b263b 50%, #0d1b2a 100%)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+            }}
+          >
+            <img
+              src="https://neeko-copilot.bytedance.net/api/text_to_image?prompt=realistic%20blue%20marble%20planet%20earth%20from%20space%20showing%20continents%20and%20oceans%20with%20atmosphere%20glow%20high%20resolution%20satellite%20view&image_size=square_hd"
+              alt="Earth"
+              className="w-full h-full object-cover"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${zoom})`,
+                transformOrigin: 'center'
+              }}
+            />
+            
+            <div 
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'radial-gradient(circle at 30% 40%, rgba(74, 144, 194, 0.2) 0%, transparent 50%)'
+              }}
+            />
           </div>
 
-          {/* 各大洲 - 手绘风格 */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-            {/* 北美洲 */}
-            <path d="M15 15 Q10 25 12 35 Q15 40 20 38 Q25 35 22 25 Q20 20 15 15 Z" fill="#3a7d44" stroke="#2d5a32" strokeWidth="0.5" />
-            
-            {/* 南美洲 */}
-            <path d="M20 45 Q18 55 22 65 Q28 72 30 68 Q32 60 28 50 Q25 45 20 45 Z" fill="#4a9a54" stroke="#3a7d44" strokeWidth="0.5" />
-            
-            {/* 欧洲 */}
-            <path d="M45 25 Q42 30 45 35 Q50 38 52 33 Q55 28 50 25 Z" fill="#5ab064" stroke="#4a9a54" strokeWidth="0.5" />
-            
-            {/* 非洲 */}
-            <path d="M48 38 Q45 48 50 60 Q58 68 60 60 Q62 50 58 40 Q55 38 48 38 Z" fill="#6ac074" stroke="#5ab064" strokeWidth="0.5" />
-            
-            {/* 亚洲 */}
-            <path d="M55 20 Q65 15 80 20 Q85 30 75 35 Q65 38 60 32 Q55 28 55 20 Z" fill="#7ad084" stroke="#6ac074" strokeWidth="0.5" />
-            
-            {/* 大洋洲 */}
-            <path d="M75 65 Q85 62 88 70 Q85 78 75 75 Q70 72 75 65 Z" fill="#8ae094" stroke="#7ad084" strokeWidth="0.5" />
-            
-            {/* 北极 */}
-            <circle cx="50" cy="5" r="8" fill="#e0f0ff" opacity="0.7" />
-            
-            {/* 南极 */}
-            <ellipse cx="50" cy="95" rx="25" ry="5" fill="#e0f0ff" opacity="0.7" />
-          </svg>
+          <svg 
+            className="absolute inset-0 w-full h-full pointer-events-none" 
+            viewBox="0 0 600 560"
+            style={{
+              transformStyle: 'preserve-3d',
+              transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`
+            }}
+          >
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
 
-          {/* 昆虫标记 */}
-          {insects.map((insect) => {
-            const pos = insectPositions[insect.id];
-            const colors = getInsectColor(insect.type);
-            
-            return (
-              <div
-                key={insect.id}
-                className="absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-125 z-10"
-                style={{
-                  left: `${pos.x}%`,
-                  top: `${pos.y}%`
-                }}
-                onMouseEnter={() => setHoveredInsect(insect)}
-                onMouseLeave={() => setHoveredInsect(null)}
-                onClick={() => onSelectCard(insect)}
-              >
-                {/* 发光效果 */}
-                <div 
-                  className="absolute inset-0 rounded-full animate-ping"
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    backgroundColor: colors.glow,
-                    transform: 'translate(-50%, -50%)',
-                    left: '50%',
-                    top: '50%'
+            {/* Insect markers */}
+            {insects.map((insect) => {
+              const pos = insectPositions[insect.id];
+              if (!pos) return null;
+              
+              const point3D = latLngTo3D(pos.lat, pos.lng);
+              const screenPos = projectToScreen(point3D, sphereRadius, offsetX, offsetY);
+              const colors = getInsectColor(insect.type);
+
+              return (
+                <g 
+                  key={insect.id}
+                  transform={`translate(${screenPos.x}, ${screenPos.y}) scale(${screenPos.scale * zoom})`}
+                  style={{ 
+                    opacity: screenPos.opacity,
+                    cursor: 'pointer',
+                    pointerEvents: 'auto'
                   }}
-                />
-                
-                {/* 主要卡片 */}
-                <div
-                  className="relative w-18 h-24 rounded-xl border-3 shadow-xl overflow-hidden transform"
-                  style={{
-                    backgroundColor: colors.secondary,
-                    borderColor: colors.primary,
-                    boxShadow: `0 0 30px ${colors.glow}`
-                  }}
+                  onMouseEnter={() => setHoveredInsect(insect)}
+                  onMouseLeave={() => setHoveredInsect(null)}
+                  onClick={() => onSelectCard(insect)}
                 >
-                  <div className="absolute top-1 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white">
-                    {insect.type === '毒' ? '☠️' : insect.type === '水' ? '💧' : '💪'}
-                  </div>
-                  
-                  <div className="flex items-center justify-center h-14 text-3xl">
+                  <circle 
+                    cx="0" 
+                    cy="0" 
+                    r="28" 
+                    fill={colors.secondary} 
+                    filter="url(#glow)"
+                    opacity="0.8"
+                  />
+                  <circle 
+                    cx="0" 
+                    cy="0" 
+                    r="22" 
+                    fill={colors.primary} 
+                  />
+                  <circle 
+                    cx="0" 
+                    cy="0" 
+                    r="16" 
+                    fill="white" 
+                  />
+                  <text 
+                    x="0" 
+                    y="7" 
+                    textAnchor="middle" 
+                    fontSize="14"
+                  >
                     {insect.name === '巴西游走蛛' && '🕷️'}
                     {insect.name === '豆娘稚虫' && '🦗'}
                     {insect.name === '避日蛛' && '🦂'}
@@ -130,76 +244,79 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                     {insect.name === '仰泳蝽' && '🦟'}
                     {insect.name === '屎壳郎' && '🪲'}
                     {insect.name === '螽斯' && '🦗'}
-                  </div>
+                    {insect.name === '独裁巨蝎' && '🦂'}
+                    {insect.name === '匆忙' && '🪰'}
+                    {insect.name === '蚁狮' && '🐜'}
+                    {insect.name === '黄蜂' && '🐝'}
+                    {insect.name === '化蛛侠' && '🕷️'}
+                  </text>
                   
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-white font-bold text-center w-full px-1">
-                    {insect.name.substring(0, 6)}
-                  </div>
-                </div>
-
-                {/* 位置标签 */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full whitespace-nowrap">
-                  📍 {pos.label}
-                </div>
-
-                {/* 悬停卡片 */}
-                {hoveredInsect?.id === insect.id && (
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50">
-                    <div
-                      className="w-56 p-4 rounded-xl shadow-2xl border-3"
-                      style={{
-                        background: `linear-gradient(145deg, ${colors.secondary}, #1a1a2e)`,
-                        borderColor: colors.primary
-                      }}
-                    >
-                      <div className="text-center mb-2">
-                        <span className="text-4xl">
-                          {insect.name === '巴西游走蛛' && '🕷️'}
-                          {insect.name === '豆娘稚虫' && '🦗'}
-                          {insect.name === '避日蛛' && '🦂'}
-                          {insect.name === '黑雾寡妇蜘蛛' && '🕷️'}
-                          {insect.name === '虎头蜂' && '🐝'}
-                          {insect.name === '龙虱' && '🐌'}
-                          {insect.name === '蜗牛' && '🐌'}
-                        </span>
-                      </div>
-                      <h3 className="text-white font-bold text-center mb-1">{insect.name}</h3>
-                      <p className="text-gray-300 text-sm text-center mb-2">{insect.className}</p>
-                      <div className="bg-black/30 rounded-lg p-2 mb-2">
-                        <p className="text-yellow-300 text-xs text-center">📍 {pos.label}</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xs text-gray-400">点击查看详情 →</p>
-                      </div>
-                    </div>
-                    <div 
-                      className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[12px] mx-auto"
-                      style={{
-                        borderLeftColor: 'transparent',
-                        borderRightColor: 'transparent',
-                        borderTopColor: colors.secondary
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                  {hoveredInsect?.id === insect.id && (
+                    <g>
+                      <rect 
+                        x="-55" 
+                        y="-50" 
+                        width="110" 
+                        height="65" 
+                        rx="12" 
+                        fill="rgba(0,0,0,0.9)" 
+                        filter="url(#glow)"
+                      />
+                      <text 
+                        x="0" 
+                        y="-22" 
+                        textAnchor="middle" 
+                        fill="white" 
+                        fontSize="11" 
+                        fontWeight="bold"
+                      >
+                        {insect.name}
+                      </text>
+                      <text 
+                        x="0" 
+                        y="-7" 
+                        textAnchor="middle" 
+                        fill="#FFB84D" 
+                        fontSize="10"
+                      >
+                        📍 {pos.label}
+                      </text>
+                      <text 
+                        x="0" 
+                        y="10" 
+                        textAnchor="middle" 
+                        fill="#64D2FF" 
+                        fontSize="10"
+                      >
+                        ⚔️ ATK: {insect.atk}
+                      </text>
+                    </g>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-6 text-center text-amber-600">
+          <p className="text-sm">💡 拖动地球旋转查看 | 使用滚轮或按钮缩放</p>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {insects.map((insect) => {
             const colors = getInsectColor(insect.type);
             const pos = insectPositions[insect.id];
+            if (!pos) return null;
+            
             return (
               <div
                 key={insect.id}
-                className="bg-black/40 rounded-xl p-4 border-2 transition-all hover:scale-105 cursor-pointer"
+                className="bg-white/80 backdrop-blur rounded-xl p-3 border-2 shadow-md transition-all hover:scale-105 cursor-pointer"
                 style={{ borderColor: colors.primary }}
                 onClick={() => onSelectCard(insect)}
               >
-                <div className="flex items-center gap-3">
-                  <div className="text-4xl">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">
                     {insect.name === '巴西游走蛛' && '🕷️'}
                     {insect.name === '豆娘稚虫' && '🦗'}
                     {insect.name === '避日蛛' && '🦂'}
@@ -207,11 +324,18 @@ const WorldMap = ({ onBack, onSelectCard }) => {
                     {insect.name === '虎头蜂' && '🐝'}
                     {insect.name === '龙虱' && '🐌'}
                     {insect.name === '蜗牛' && '🐌'}
-                  </div>
-                  <div>
-                    <h3 className="text-white font-bold">{insect.name}</h3>
-                    <p className="text-gray-400 text-sm">{insect.className}</p>
-                    <p className="text-yellow-400 text-xs">📍 {pos.label}</p>
+                    {insect.name === '仰泳蝽' && '🦟'}
+                    {insect.name === '屎壳郎' && '🪰'}
+                    {insect.name === '螽斯' && '🦗'}
+                    {insect.name === '独裁巨蝎' && '🦂'}
+                    {insect.name === '匆忙' && '🪰'}
+                    {insect.name === '蚁狮' && '🐜'}
+                    {insect.name === '黄蜂' && '🐝'}
+                    {insect.name === '化蛛侠' && '🕷️'}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-amber-800 font-bold text-sm truncate">{insect.name}</h3>
+                    <p className="text-amber-600 text-xs truncate">📍 {pos.label}</p>
                   </div>
                 </div>
               </div>
@@ -219,8 +343,8 @@ const WorldMap = ({ onBack, onSelectCard }) => {
           })}
         </div>
 
-        <div className="mt-8 text-center text-yellow-200">
-          <p className="text-lg">💡 点击地图上的昆虫标记查看详情！</p>
+        <div className="mt-6 text-center">
+          <p className="text-amber-700 text-lg">✨ 点击昆虫标记或卡片查看详情！</p>
         </div>
       </div>
     </div>

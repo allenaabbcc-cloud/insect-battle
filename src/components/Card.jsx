@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => {
+const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase, isCustom }) => {
   const typeColors = {
     '毒': {
       border: '#8B0000',
@@ -12,7 +12,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
     '水': {
       border: '#1E90FF',
       accent: '#64D2FF',
-      bg: 'linear-gradient(145deg, #05152a 0%, #103060 100%)',
+      bg: 'linear-gradient(145deg, #052040 0%, #103060 100%)',
       icon: '💧',
       glow: '0 0 20px rgba(100, 210, 255, 0.4)'
     },
@@ -25,534 +25,1137 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
     }
   };
 
-  const colors = typeColors[insect.type] || typeColors['力量'];
+  const customColors = {
+    border: '#4CAF50',
+    accent: '#8BC34A',
+    bg: 'linear-gradient(145deg, #1a3a05 0%, #2a5a10 100%)',
+    icon: '🎨',
+    glow: '0 0 20px rgba(76, 175, 80, 0.4)'
+  };
+
+  const colors = isCustom ? customColors : (typeColors[insect.type] || typeColors['力量']);
   
   const getCardArt = () => {
+    // 如果是自定义昆虫，显示可爱的通用角色
+    if (isCustom) {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="customBg" cx="50%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#E8F5E9"/>
+              <stop offset="100%" stopColor="#C8E6C9"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#customBg)" width="300" height="300"/>
+          
+          {/* Sparkles around */}
+          {[...Array(12)].map((_, i) => (
+            <text 
+              key={i}
+              x={40 + Math.cos(i * 30 * Math.PI / 180) * 90}
+              y={80 + Math.sin(i * 30 * Math.PI / 180) * 70}
+              fontSize={12 + (i % 3) * 4}
+              opacity={0.5}
+            >✨</text>
+          ))}
+          
+          {/* Cute custom character body */}
+          <ellipse cx="150" cy="180" rx="60" ry="55" fill="#4CAF50"/>
+          <ellipse cx="150" cy="175" rx="52" ry="48" fill="#66BB6A"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="115" rx="50" ry="45" fill="#81C784"/>
+          
+          {/* Super big cute eyes */}
+          <ellipse cx="120" cy="110" rx="26" ry="30" fill="white"/>
+          <ellipse cx="180" cy="110" rx="26" ry="30" fill="white"/>
+          <circle cx="124" cy="118" r="14" fill="#1B5E20"/>
+          <circle cx="184" cy="118" r="14" fill="#1B5E20"/>
+          <circle cx="118" cy="108" r="6" fill="white"/>
+          <circle cx="178" cy="108" r="6" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="98" cy="130" rx="16" ry="11" fill="#C8E6C9" opacity="0.8"/>
+          <ellipse cx="202" cy="130" rx="16" ry="11" fill="#C8E6C9" opacity="0.8"/>
+          
+          {/* Big happy smile */}
+          <path d="M132 142 Q150 162 168 142" stroke="#1B5E20" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          
+          {/* Little antennae */}
+          <ellipse cx="125" cy="65" rx="8" ry="25" fill="#81C784" transform="rotate(-20 125 65)"/>
+          <ellipse cx="175" cy="65" rx="8" ry="25" fill="#81C784" transform="rotate(20 175 65)"/>
+          <circle cx="118" cy="45" r="10" fill="#4CAF50"/>
+          <circle cx="182" cy="45" r="10" fill="#4CAF50"/>
+          
+          {/* Cute little wings or arms */}
+          <ellipse cx="90" cy="170" rx="25" ry="18" fill="#4CAF50" opacity="0.8" transform="rotate(-25 90 170)"/>
+          <ellipse cx="210" cy="170" rx="25" ry="18" fill="#4CAF50" opacity="0.8" transform="rotate(25 210 170)"/>
+          
+          {/* Custom hero badge */}
+          <text x="150" y="50" textAnchor="middle" fontSize="28">🎨</text>
+          
+          {/* Stars */}
+          <text x="65" y="75" fontSize="18">⭐</text>
+          <text x="220" y="80" fontSize="16">🌟</text>
+        </svg>
+      );
+    }
     if (insect.name === '巴西游走蛛') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="spiderArtBg" cx="50%" cy="40%" r="70%">
-              <stop offset="0%" stopColor="#2a1020"/>
-              <stop offset="100%" stopColor="#0d0308"/>
+            <radialGradient id="spiderCuteBg" cx="50%" cy="40%" r="70%">
+              <stop offset="0%" stopColor="#FFE4E1"/>
+              <stop offset="100%" stopColor="#FFB6C1"/>
             </radialGradient>
-            <filter id="spiderGlow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
+          <rect fill="url(#spiderCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#spiderArtBg)" width="300" height="300"/>
-          
-          {[...Array(15)].map((_, i) => (
+          {/* Sparkles */}
+          {[...Array(12)].map((_, i) => (
             <circle 
               key={i}
-              cx={30 + (i * 19) % 240}
-              cy={40 + (i * 17) % 220}
+              cx={40 + (i * 20) % 220}
+              cy={50 + (i * 15) % 200}
               r={2 + (i % 3)}
-              fill={i % 2 === 0 ? '#7fff00' : '#ff4444'}
-              opacity={0.4 + (i % 5) * 0.1}
+              fill={i % 2 === 0 ? '#FF69B4' : '#FFD700'}
+              opacity={0.6}
             >
-              <animate attributeName="cy" values={`${40 + (i * 17) % 220};${30 + (i * 17) % 220};${40 + (i * 17) % 220}`} dur={`${1.5 + i * 0.2}s`} repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;1;0.6" dur={`${1.5 + i * 0.1}s`} repeatCount="indefinite"/>
             </circle>
           ))}
           
-          <g filter="url(#spiderGlow)">
-            <ellipse cx="150" cy="170" rx="45" ry="55" fill="#4a1525"/>
-            <ellipse cx="150" cy="125" rx="35" ry="38" fill="#6a2535"/>
-            
-            <circle cx="135" cy="110" r="8" fill="#ff0000"/>
-            <circle cx="165" cy="110" r="8" fill="#ff0000"/>
-            <circle cx="140" cy="98" r="5" fill="#ff6666"/>
-            <circle cx="160" cy="98" r="5" fill="#ff6666"/>
-            
-            <path d="M140 130 L130 150 L148 140 Z" fill="#7a0010"/>
-            <path d="M160 130 L170 150 L152 140 Z" fill="#7a0010"/>
-          </g>
+          {/* Cute spider body */}
+          <ellipse cx="150" cy="180" rx="50" ry="55" fill="#8B4513"/>
+          <ellipse cx="150" cy="135" rx="40" ry="40" fill="#A0522D"/>
           
-          <ellipse cx="148" cy="152" rx="4" ry="6" fill="#7fff00">
-            <animate attributeName="ry" values="6;9;6" dur="2s" repeatCount="indefinite"/>
-          </ellipse>
-          <ellipse cx="152" cy="150" rx="3" ry="5" fill="#32cd32">
-            <animate attributeName="ry" values="5;8;5" dur="1.7s" repeatCount="indefinite"/>
-          </ellipse>
+          {/* Big cute eyes */}
+          <ellipse cx="130" cy="125" rx="20" ry="22" fill="white"/>
+          <ellipse cx="170" cy="125" rx="20" ry="22" fill="white"/>
+          <circle cx="132" cy="128" r="10" fill="#333"/>
+          <circle cx="172" cy="128" r="10" fill="#333"/>
+          <circle cx="128" cy="122" r="4" fill="white"/>
+          <circle cx="168" cy="122" r="4" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="115" cy="145" rx="12" ry="8" fill="#FFB6C1" opacity="0.7"/>
+          <ellipse cx="185" cy="145" rx="12" ry="8" fill="#FFB6C1" opacity="0.7"/>
+          
+          {/* Cute smile */}
+          <path d="M135 155 Q150 170 165 155" stroke="#5D4037" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Little fangs (but cute) */}
+          <ellipse cx="140" cy="160" rx="4" ry="6" fill="#FFE4E1"/>
+          <ellipse cx="160" cy="160" rx="4" ry="6" fill="#FFE4E1"/>
+          
+          {/* Cute legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2, 3].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (55 + j * 5)}
+                cy={150 + j * 15}
+                rx="8"
+                ry="25"
+                fill="#A0522D"
+                transform={`rotate(${side * (20 - j * 10)} ${150 + side * (55 + j * 5)} ${150 + j * 15})`}
+              />
+            ))
+          ))}
+          
+          {/* Little heart */}
+          <text x="150" y="80" textAnchor="middle" fontSize="24">❤️</text>
         </svg>
       );
     } else if (insect.name === '豆娘稚虫') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <linearGradient id="waterArtBg" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#0a2040"/>
-              <stop offset="50%" stopColor="#104070"/>
-              <stop offset="100%" stopColor="#052040"/>
+            <linearGradient id="damselflyCuteBg" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#E0F7FA"/>
+              <stop offset="100%" stopColor="#B2EBF2"/>
             </linearGradient>
           </defs>
+          <rect fill="url(#damselflyCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#waterArtBg)" width="300" height="300"/>
-          
-          {[...Array(20)].map((_, i) => (
+          {/* Bubbles */}
+          {[...Array(15)].map((_, i) => (
             <circle 
               key={i}
-              cx={20 + (i * 15) % 260}
-              cy={60 + (i * 13) % 200}
-              r={1.5 + (i % 3)}
-              fill={i % 3 === 0 ? '#80d0ff' : i % 3 === 1 ? '#60c0a0' : '#a0e0ff'}
-              opacity={0.3 + (i % 4) * 0.15}
+              cx={30 + (i * 18) % 240}
+              cy={80 + (i * 14) % 180}
+              r={4 + (i % 4)}
+              fill="#81D4FA"
+              opacity={0.5}
             >
-              <animate attributeName="cy" values={`${60 + (i * 13) % 200};${40 + (i * 13) % 200};${60 + (i * 13) % 200}`} dur={`${2 + i * 0.3}s`} repeatCount="indefinite"/>
+              <animate attributeName="cy" values={`${80 + (i * 14) % 180};${30 + (i * 14) % 180}`} dur={`${2 + i * 0.2}s`} repeatCount="indefinite"/>
             </circle>
           ))}
           
-          <g>
-            <ellipse cx="150" cy="180" rx="38" ry="50" fill="#3a6a4a"/>
-            <ellipse cx="150" cy="175" rx="32" ry="42" fill="#4a8a6a"/>
-            <ellipse cx="150" cy="105" rx="30" ry="25" fill="#5a9a7a"/>
-            
-            <ellipse cx="150" cy="95" rx="20" ry="12" fill="#2a4a3a"/>
-            <path d="M130 95 Q120 110 138 105" stroke="#1a3a2a" strokeWidth="5" fill="none" strokeLinecap="round"/>
-            <path d="M170 95 Q180 110 162 105" stroke="#1a3a2a" strokeWidth="5" fill="none" strokeLinecap="round"/>
-            
-            <ellipse cx="132" cy="98" rx="10" ry="8" fill="#1a3a2a"/>
-            <ellipse cx="168" cy="98" rx="10" ry="8" fill="#1a3a2a"/>
-            <circle cx="130" cy="96" r="3" fill="#6af0a0"/>
-            <circle cx="170" cy="96" r="3" fill="#6af0a0"/>
-          </g>
+          {/* Cute body */}
+          <ellipse cx="150" cy="185" rx="35" ry="50" fill="#4DB6AC"/>
+          <ellipse cx="150" cy="180" rx="28" ry="40" fill="#80CBC4"/>
           
-          <path d="M135 230 Q125 260 120 290" stroke="#2a5a4a" strokeWidth="8" fill="none" strokeLinecap="round"/>
-          <path d="M150 232 Q150 265 150 295" stroke="#4a8a6a" strokeWidth="6" fill="none" strokeLinecap="round"/>
-          <path d="M165 230 Q175 260 180 290" stroke="#2a5a4a" strokeWidth="8" fill="none" strokeLinecap="round"/>
+          {/* Head */}
+          <ellipse cx="150" cy="120" rx="35" ry="30" fill="#80CBC4"/>
+          
+          {/* Big round eyes */}
+          <ellipse cx="125" cy="115" rx="18" ry="20" fill="white"/>
+          <ellipse cx="175" cy="115" rx="18" ry="20" fill="white"/>
+          <circle cx="127" cy="118" r="9" fill="#00695C"/>
+          <circle cx="177" cy="118" r="9" fill="#00695C"/>
+          <circle cx="123" cy="112" r="4" fill="white"/>
+          <circle cx="173" cy="112" r="4" fill="white"/>
+          
+          {/* Blush */}
+          <ellipse cx="108" cy="130" rx="10" ry="7" fill="#FFCDD2" opacity="0.7"/>
+          <ellipse cx="192" cy="130" rx="10" ry="7" fill="#FFCDD2" opacity="0.7"/>
+          
+          {/* Little smile */}
+          <path d="M138 135 Q150 148 162 135" stroke="#004D40" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute mask (simplified) */}
+          <ellipse cx="150" cy="150" rx="20" ry="12" fill="#26A69A"/>
+          
+          {/* Tail gills (cute version) */}
+          <ellipse cx="135" cy="240" rx="12" ry="30" fill="#4DB6AC" opacity="0.8"/>
+          <ellipse cx="150" cy="245" rx="10" ry="35" fill="#80CBC4"/>
+          <ellipse cx="165" cy="240" rx="12" ry="30" fill="#4DB6AC" opacity="0.8"/>
+          
+          {/* Water droplet decorations */}
+          <text x="80" y="70" fontSize="20">💧</text>
+          <text x="200" y="60" fontSize="18">💦</text>
+        </svg>
+      );
+    } else if (insect.name === '避日蛛') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="sunspiderCuteBg" cx="50%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#FFF3E0"/>
+              <stop offset="100%" stopColor="#FFE0B2"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#sunspiderCuteBg)" width="300" height="300"/>
+          
+          {/* Sun rays */}
+          {[...Array(8)].map((_, i) => (
+            <ellipse 
+              key={i}
+              cx="150"
+              cy="150"
+              rx="15"
+              ry="100"
+              fill="#FFD54F"
+              opacity="0.3"
+              transform={`rotate(${i * 45} 150 150)`}
+            />
+          ))}
+          
+          {/* Cute body */}
+          <ellipse cx="150" cy="170" rx="55" ry="50" fill="#8D6E63"/>
+          <ellipse cx="150" cy="125" rx="45" ry="40" fill="#A1887F"/>
+          
+          {/* Big cute eyes */}
+          <ellipse cx="125" cy="118" rx="20" ry="22" fill="white"/>
+          <ellipse cx="175" cy="118" rx="20" ry="22" fill="white"/>
+          <circle cx="127" cy="122" r="10" fill="#5D4037"/>
+          <circle cx="177" cy="122" r="10" fill="#5D4037"/>
+          <circle cx="123" cy="114" r="4" fill="white"/>
+          <circle cx="173" cy="114" r="4" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="105" cy="135" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          <ellipse cx="195" cy="135" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          
+          {/* Cute big jaws (but friendly looking) */}
+          <ellipse cx="125" cy="155" rx="15" ry="20" fill="#6D4C41"/>
+          <ellipse cx="175" cy="155" rx="15" ry="20" fill="#6D4C41"/>
+          <ellipse cx="125" cy="155" rx="10" ry="15" fill="#8D6E63"/>
+          <ellipse cx="175" cy="155" rx="10" ry="15" fill="#8D6E63"/>
+          
+          {/* Smile */}
+          <path d="M135 165 Q150 178 165 165" stroke="#4E342E" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2, 3].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (60 + j * 8)}
+                cy={155 + j * 15}
+                rx="10"
+                ry="30"
+                fill="#A1887F"
+                transform={`rotate(${side * (25 - j * 8)} ${150 + side * (60 + j * 8)} ${155 + j * 15})`}
+              />
+            ))
+          ))}
+          
+          {/* Little sun */}
+          <text x="150" y="65" textAnchor="middle" fontSize="28">☀️</text>
         </svg>
       );
     } else if (insect.name === '黑雾寡妇蜘蛛') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="widowArtBg" cx="50%" cy="50%" r="70%">
-              <stop offset="0%" stopColor="#1a0510"/>
-              <stop offset="50%" stopColor="#0d0208"/>
-              <stop offset="100%" stopColor="#050104"/>
+            <radialGradient id="widowCuteBg" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#F3E5F5"/>
+              <stop offset="100%" stopColor="#E1BEE7"/>
             </radialGradient>
-            <filter id="widowGlow">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-            <linearGradient id="webGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#666" stopOpacity="0.6"/>
-              <stop offset="100%" stopColor="#333" stopOpacity="0.3"/>
-            </linearGradient>
           </defs>
+          <rect fill="url(#widowCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#widowArtBg)" width="300" height="300"/>
-          
-          <path d="M50 50 Q150 100 50 250" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          <path d="M100 30 Q150 150 100 270" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          <path d="M200 50 Q150 120 200 250" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          <path d="M250 30 Q150 150 250 270" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          <path d="M30 100 Q150 150 270 100" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          <path d="M40 180 Q150 150 260 180" stroke="url(#webGradient)" strokeWidth="1" fill="none"/>
-          
-          {[...Array(20)].map((_, i) => (
+          {/* Cute sparkles */}
+          {[...Array(12)].map((_, i) => (
             <circle 
               key={i}
-              cx={20 + (i * 14) % 260}
-              cy={30 + (i * 16) % 240}
-              r={1 + (i % 3)}
-              fill="#ff0044"
-              opacity={0.2 + (i % 5) * 0.15}
+              cx={35 + (i * 22) % 230}
+              cy={45 + (i * 18) % 210}
+              r={2 + (i % 3)}
+              fill={i % 2 === 0 ? '#E91E63' : '#9C27B0'}
+              opacity={0.6}
             >
-              <animate attributeName="opacity" values={`${0.2 + (i % 5) * 0.15};0.8;${0.2 + (i % 5) * 0.15}`} dur={`${2 + i * 0.3}s`} repeatCount="indefinite"/>
-              <animate attributeName="r" values={`${1 + (i % 3)};${2 + (i % 3)};${1 + (i % 3)}`} dur={`${1.5 + i * 0.2}s`} repeatCount="indefinite"/>
+              <animate attributeName="r" values={`${2 + (i % 3)};${4 + (i % 3)};${2 + (i % 3)}`} dur={`${1 + i * 0.15}s`} repeatCount="indefinite"/>
             </circle>
           ))}
           
-          <g filter="url(#widowGlow)">
-            <ellipse cx="150" cy="180" rx="55" ry="65" fill="#111" stroke="#222" strokeWidth="2"/>
-            
-            <ellipse cx="150" cy="120" rx="40" ry="42" fill="#1a1a1a" stroke="#333" strokeWidth="2"/>
-            
-            <circle cx="130" cy="105" r="12" fill="#111" stroke="#333" strokeWidth="2"/>
-            <circle cx="170" cy="105" r="12" fill="#111" stroke="#333" strokeWidth="2"/>
-            <circle cx="128" cy="103" r="6" fill="#ff3366"/>
-            <circle cx="168" cy="103" r="6" fill="#ff3366"/>
-            <circle cx="126" cy="101" r="2" fill="#fff"/>
-            <circle cx="166" cy="101" r="2" fill="#fff">
-              <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-            </circle>
-            
-            <path d="M135 130 L125 160 L145 145 Z" fill="#0a0a0a" stroke="#222" strokeWidth="2"/>
-            <path d="M165 130 L175 160 L155 145 Z" fill="#0a0a0a" stroke="#222" strokeWidth="2"/>
-            
-            <path d="M145 135 L140 120" stroke="#ff3366" strokeWidth="4" fill="none" strokeLinecap="round"/>
-            <path d="M155 135 L160 120" stroke="#ff3366" strokeWidth="4" fill="none" strokeLinecap="round">
-              <animate attributeName="stroke-width" values="4;6;4" dur="0.5s" repeatCount="indefinite"/>
-            </path>
-          </g>
+          {/* Cute spider body - round and chubby */}
+          <ellipse cx="150" cy="190" rx="60" ry="65" fill="#424242"/>
+          <ellipse cx="150" cy="135" rx="45" ry="45" fill="#616161"/>
           
-          <g>
-            <path d="M150 150 L150 80" stroke="#111" strokeWidth="4"/>
-            <path d="M150 80 L130 60" stroke="#111" strokeWidth="3"/>
-            <path d="M150 80 L170 60" stroke="#111" strokeWidth="3"/>
-            <path d="M150 80 L125 75" stroke="#111" strokeWidth="2"/>
-            <path d="M150 80 L175 75" stroke="#111" strokeWidth="2"/>
-          </g>
+          {/* Red hourglass (but cute heart shaped!) */}
+          <path d="M135 185 Q150 200 165 185 Q150 210 135 185" fill="#F44336"/>
+          <circle cx="150" cy="190" r="8" fill="#F44336"/>
           
-          <g>
-            <path d="M150 245 L120 280" stroke="#111" strokeWidth="4"/>
-            <path d="M150 245 L180 280" stroke="#111" strokeWidth="4"/>
-            <path d="M150 230 L115 265" stroke="#111" strokeWidth="3"/>
-            <path d="M150 230 L185 265" stroke="#111" strokeWidth="3"/>
-            <path d="M150 215 L120 245" stroke="#111" strokeWidth="2"/>
-            <path d="M150 215 L180 245" stroke="#111" strokeWidth="2"/>
-          </g>
+          {/* Super big cute eyes */}
+          <ellipse cx="128" cy="128" rx="22" ry="25" fill="white"/>
+          <ellipse cx="172" cy="128" rx="22" ry="25" fill="white"/>
+          <circle cx="130" cy="133" r="12" fill="#212121"/>
+          <circle cx="174" cy="133" r="12" fill="#212121"/>
+          <circle cx="125" cy="125" r="5" fill="white"/>
+          <circle cx="169" cy="125" r="5" fill="white"/>
           
-          <g>
-            <path d="M95 170 L50 150" stroke="#111" strokeWidth="3"/>
-            <path d="M95 175 L45 185" stroke="#111" strokeWidth="3"/>
-            <path d="M95 180 L55 215" stroke="#111" strokeWidth="3"/>
-            
-            <path d="M205 170 L250 150" stroke="#111" strokeWidth="3"/>
-            <path d="M205 175 L255 185" stroke="#111" strokeWidth="3"/>
-            <path d="M205 180 L245 215" stroke="#111" strokeWidth="3"/>
-          </g>
+          {/* Blush */}
+          <ellipse cx="105" cy="145" rx="14" ry="10" fill="#F8BBD9" opacity="0.8"/>
+          <ellipse cx="195" cy="145" rx="14" ry="10" fill="#F8BBD9" opacity="0.8"/>
           
-          <g>
-            <path d="M150 170 L150 165 L170 165 L170 180 L155 180" fill="#ff0044" stroke="#ff6688" strokeWidth="1"/>
-            <path d="M155 165 L155 175 L165 175" fill="#111"/>
-          </g>
+          {/* Cute little smile */}
+          <path d="M135 152 Q150 168 165 152" stroke="#424242" strokeWidth="3" fill="none" strokeLinecap="round"/>
           
-          <circle cx="148" cy="195" r="5" fill="#ff0044" opacity="0.6">
-            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="152" cy="198" r="3" fill="#ff6688" opacity="0.8">
-            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
-          </circle>
+          {/* Cute legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2, 3].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (62 + j * 6)}
+                cy={155 + j * 16}
+                rx="10"
+                ry="35"
+                fill="#616161"
+                transform={`rotate(${side * (22 - j * 7)} ${150 + side * (62 + j * 6)} ${155 + j * 16})`}
+              />
+            ))
+          ))}
+          
+          {/* Cute hearts */}
+          <text x="80" y="70" fontSize="22">💕</text>
+          <text x="200" y="65" fontSize="20">💖</text>
         </svg>
       );
     } else if (insect.name === '虎头蜂') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="hornetArtBg" cx="50%" cy="50%" r="70%">
-              <stop offset="0%" stopColor="#1a1505"/>
-              <stop offset="50%" stopColor="#0d0a02"/>
-              <stop offset="100%" stopColor="#050401"/>
+            <radialGradient id="hornetCuteBg" cx="50%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#FFFDE7"/>
+              <stop offset="100%" stopColor="#FFF9C4"/>
             </radialGradient>
-            <filter id="hornetGlow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
+          <rect fill="url(#hornetCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#hornetArtBg)" width="300" height="300"/>
-          
-          {[...Array(15)].map((_, i) => (
-            <circle 
+          {/* Little stars */}
+          {[...Array(10)].map((_, i) => (
+            <text 
               key={i}
-              cx={30 + (i * 18) % 240}
-              cy={50 + (i * 14) % 200}
-              r={2 + (i % 4)}
-              fill={i % 2 === 0 ? '#ffcc00' : '#ff6600'}
-              opacity={0.3 + (i % 4) * 0.15}
-            >
-              <animate attributeName="opacity" values={`${0.3 + (i % 4) * 0.15};0.9;${0.3 + (i % 4) * 0.15}`} dur={`${2 + i * 0.25}s`} repeatCount="indefinite"/>
-            </circle>
+              x={40 + (i * 24) % 220}
+              y={60 + (i * 20) % 180}
+              fontSize={12 + (i % 3) * 4}
+              opacity={0.6}
+            >✨</text>
           ))}
           
-          <g filter="url(#hornetGlow)">
-            <ellipse cx="150" cy="160" rx="50" ry="45" fill="#111" stroke="#222" strokeWidth="2"/>
-            
-            <ellipse cx="150" cy="160" rx="45" ry="35" fill="#ffcc00"/>
-            <ellipse cx="150" cy="160" rx="45" ry="35" fill="url(#hornetBody)"/>
-            
-            <rect x="105" y="145" width="90" height="30" fill="#111" rx="5"/>
-            <rect x="120" y="145" width="20" height="30" fill="#ffcc00"/>
-            <rect x="160" y="145" width="20" height="30" fill="#ffcc00"/>
-            
-            <ellipse cx="150" cy="115" rx="35" ry="30" fill="#ffcc00" stroke="#111" strokeWidth="2"/>
-            
-            <circle cx="130" cy="108" r="15" fill="#111"/>
-            <circle cx="170" cy="108" r="15" fill="#111"/>
-            <circle cx="128" cy="106" r="7" fill="#ff4400"/>
-            <circle cx="168" cy="106" r="7" fill="#ff4400"/>
-            <circle cx="126" cy="104" r="3" fill="#fff">
-              <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="166" cy="104" r="3" fill="#fff">
-              <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" repeatCount="indefinite"/>
-            </circle>
-            
-            <path d="M140 125 L135 145 L148 138 Z" fill="#111"/>
-            <path d="M160 125 L165 145 L152 138 Z" fill="#111"/>
-            
-            <path d="M130 135 L110 115" stroke="#111" strokeWidth="3" fill="none"/>
-            <path d="M130 138 L108 145" stroke="#111" strokeWidth="3" fill="none"/>
-            <path d="M170 135 L190 115" stroke="#111" strokeWidth="3" fill="none"/>
-            <path d="M170 138 L192 145" stroke="#111" strokeWidth="3" fill="none"/>
-            
-            <path d="M145 175 L140 220 L135 250" stroke="#111" strokeWidth="4" fill="none"/>
-            <path d="M155 175 L160 220 L165 250" stroke="#111" strokeWidth="4" fill="none"/>
-            
-            <ellipse cx="150" cy="255" rx="20" ry="25" fill="#ffcc00" stroke="#111" strokeWidth="2"/>
-            <rect x="135" y="255" width="30" height="15" fill="#111"/>
-            
-            <path d="M150 280 L150 295" stroke="#ff4444" strokeWidth="4" fill="none" strokeLinecap="round">
-              <animate attributeName="stroke-width" values="4;6;4" dur="0.8s" repeatCount="indefinite"/>
-            </path>
-          </g>
+          {/* Cute chubby body */}
+          <ellipse cx="150" cy="180" rx="50" ry="55" fill="#FFEB3B"/>
+          <rect x="105" y="150" width="90" height="20" fill="#424242" rx="10"/>
+          <rect x="100" y="190" width="100" height="20" fill="#424242" rx="10"/>
           
-          <g>
-            <ellipse cx="95" cy="100" rx="35" ry="20" fill="#2a2a2a" opacity="0.8" transform="rotate(-30 95 100)"/>
-            <ellipse cx="205" cy="100" rx="35" ry="20" fill="#2a2a2a" opacity="0.8" transform="rotate(30 205 100)"/>
-            <ellipse cx="95" cy="100" rx="30" ry="15" fill="#3a3a3a" transform="rotate(-30 95 100)"/>
-            <ellipse cx="205" cy="100" rx="30" ry="15" fill="#3a3a3a" transform="rotate(30 205 100)"/>
-          </g>
+          {/* Cute round head */}
+          <ellipse cx="150" cy="115" rx="48" ry="42" fill="#FFEB3B"/>
           
-          <circle cx="148" cy="170" r="4" fill="#ff6600" opacity="0.7">
-            <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
-            <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite"/>
-          </circle>
+          {/* Big adorable eyes */}
+          <ellipse cx="125" cy="110" rx="22" ry="25" fill="white"/>
+          <ellipse cx="175" cy="110" rx="22" ry="25" fill="white"/>
+          <circle cx="127" cy="115" r="12" fill="#33691E"/>
+          <circle cx="177" cy="115" r="12" fill="#33691E"/>
+          <circle cx="122" cy="107" r="5" fill="white"/>
+          <circle cx="172" cy="107" r="5" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="102" cy="128" rx="14" ry="10" fill="#FFCDD2" opacity="0.8"/>
+          <ellipse cx="198" cy="128" rx="14" ry="10" fill="#FFCDD2" opacity="0.8"/>
+          
+          {/* Cute little antennae */}
+          <ellipse cx="120" cy="75" rx="6" ry="20" fill="#FDD835" transform="rotate(-20 120 75)"/>
+          <ellipse cx="180" cy="75" rx="6" ry="20" fill="#FDD835" transform="rotate(20 180 75)"/>
+          <circle cx="115" cy="60" r="8" fill="#F44336"/>
+          <circle cx="185" cy="60" r="8" fill="#F44336"/>
+          
+          {/* Happy smile */}
+          <path d="M135 132 Q150 148 165 132" stroke="#F57F17" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute little wings */}
+          <ellipse cx="95" cy="145" rx="30" ry="20" fill="#B3E5FC" opacity="0.7" transform="rotate(-25 95 145)"/>
+          <ellipse cx="205" cy="145" rx="30" ry="20" fill="#B3E5FC" opacity="0.7" transform="rotate(25 205 145)"/>
+          
+          {/* Cute stinger (but harmless looking) */}
+          <ellipse cx="150" cy="245" rx="12" ry="20" fill="#FFEB3B"/>
+          <path d="M145 255 L150 275 L155 255" fill="#FF9800"/>
+          
+          {/* Sun decoration */}
+          <text x="150" y="55" textAnchor="middle" fontSize="26">🌻</text>
         </svg>
       );
     } else if (insect.name === '龙虱') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="divingArtBg" cx="50%" cy="60%" r="70%">
-              <stop offset="0%" stopColor="#052040"/>
-              <stop offset="50%" stopColor="#0a3060"/>
-              <stop offset="100%" stopColor="#021020"/>
+            <radialGradient id="divingCuteBg" cx="50%" cy="50%" r="75%">
+              <stop offset="0%" stopColor="#E1F5FE"/>
+              <stop offset="100%" stopColor="#B3E5FC"/>
             </radialGradient>
-            <filter id="divingGlow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
+          <rect fill="url(#divingCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#divingArtBg)" width="300" height="300"/>
-          
-          {[...Array(25)].map((_, i) => (
+          {/* Water bubbles */}
+          {[...Array(18)].map((_, i) => (
             <circle 
               key={i}
-              cx={10 + (i * 12) % 280}
-              cy={40 + (i * 10) % 220}
-              r={1 + (i % 3)}
-              fill={i % 2 === 0 ? '#00ffff' : '#00aaff'}
-              opacity={0.2 + (i % 5) * 0.1}
+              cx={25 + (i * 16) % 250}
+              cy={70 + (i * 13) % 180}
+              r={3 + (i % 4)}
+              fill={i % 2 === 0 ? '#4FC3F7' : '#81D4FA'}
+              opacity={0.5}
             >
-              <animate attributeName="cy" values={`${40 + (i * 10) % 220};${20 + (i * 10) % 220};${40 + (i * 10) % 220}`} dur={`${2 + i * 0.2}s`} repeatCount="indefinite"/>
+              <animate attributeName="cy" values={`${70 + (i * 13) % 180};${20 + (i * 13) % 180}`} dur={`${1.8 + i * 0.15}s`} repeatCount="indefinite"/>
             </circle>
           ))}
           
-          <g filter="url(#divingGlow)">
-            <ellipse cx="150" cy="170" rx="60" ry="35" fill="#1a3a5a" stroke="#2a5a7a" strokeWidth="2"/>
-            
-            <ellipse cx="150" cy="170" rx="55" ry="30" fill="#0a2a4a"/>
-            
-            <ellipse cx="110" cy="170" rx="30" ry="25" fill="#2a5a7a"/>
-            <ellipse cx="190" cy="170" rx="25" ry="20" fill="#3a7a9a"/>
-            
-            <rect x="95" y="155" width="30" height="30" fill="#1a3a5a" rx="15"/>
-            <ellipse cx="110" cy="170" rx="10" ry="8" fill="#3a6a8a"/>
-            
-            <rect x="170" y="160" width="30" height="20" fill="#2a5a7a" rx="10"/>
-            
-            <ellipse cx="150" cy="170" rx="45" ry="20" fill="#1a4a6a"/>
-            <rect x="105" y="162" width="30" height="16" fill="#0a3a5a" rx="5"/>
-            <rect x="165" y="162" width="30" height="16" fill="#0a3a5a" rx="5"/>
-            <rect x="135" y="162" width="30" height="16" fill="#0a3a5a" rx="5"/>
-            
-            <circle cx="125" cy="145" r="12" fill="#1a3a5a" stroke="#3a6a8a" strokeWidth="2"/>
-            <circle cx="175" cy="145" r="12" fill="#1a3a5a" stroke="#3a6a8a" strokeWidth="2"/>
-            <circle cx="123" cy="143" r="6" fill="#00ffff"/>
-            <circle cx="173" cy="143" r="6" fill="#00ffff"/>
-            <circle cx="121" cy="141" r="2" fill="#fff">
-              <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="171" cy="141" r="2" fill="#fff">
-              <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-            </circle>
-            
-            <path d="M135 135 L140 120" stroke="#3a6a8a" strokeWidth="2" fill="none"/>
-            <path d="M165 135 L160 120" stroke="#3a6a8a" strokeWidth="2" fill="none"/>
-            
-            <path d="M130 190 L125 220" stroke="#2a5a7a" strokeWidth="3" fill="none"/>
-            <path d="M140 192 L140 225" stroke="#2a5a7a" strokeWidth="3" fill="none"/>
-            <path d="M160 192 L160 225" stroke="#2a5a7a" strokeWidth="3" fill="none"/>
-            <path d="M170 190 L175 220" stroke="#2a5a7a" strokeWidth="3" fill="none"/>
-            
-            <ellipse cx="130" cy="225" rx="8" ry="4" fill="#3a6a8a" transform="rotate(-30 130 225)"/>
-            <ellipse cx="140" cy="230" rx="8" ry="4" fill="#3a6a8a"/>
-            <ellipse cx="160" cy="230" rx="8" ry="4" fill="#3a6a8a"/>
-            <ellipse cx="170" cy="225" rx="8" ry="4" fill="#3a6a8a" transform="rotate(30 170 225)"/>
-          </g>
+          {/* Cute oval beetle body */}
+          <ellipse cx="150" cy="165" rx="65" ry="55" fill="#1565C0"/>
+          <ellipse cx="150" cy="160" rx="55" ry="45" fill="#1976D2"/>
           
-          <circle cx="150" cy="170" r="3" fill="#00ffff" opacity="0.6">
-            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
-          </circle>
+          {/* Cute shell shine */}
+          <ellipse cx="130" cy="145" rx="20" ry="12" fill="#64B5F6" opacity="0.5"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="105" rx="40" ry="35" fill="#1976D2"/>
+          
+          {/* Big round eyes */}
+          <ellipse cx="128" cy="100" rx="18" ry="20" fill="white"/>
+          <ellipse cx="172" cy="100" rx="18" ry="20" fill="white"/>
+          <circle cx="130" cy="103" r="10" fill="#0D47A1"/>
+          <circle cx="174" cy="103" r="10" fill="#0D47A1"/>
+          <circle cx="125" cy="97" r="4" fill="white"/>
+          <circle cx="169" cy="97" r="4" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="110" cy="118" rx="12" ry="8" fill="#BBDEFB" opacity="0.8"/>
+          <ellipse cx="190" cy="118" rx="12" ry="8" fill="#BBDEFB" opacity="0.8"/>
+          
+          {/* Cute little smile */}
+          <path d="M138 118 Q150 130 162 118" stroke="#0D47A1" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Little antennae */}
+          <path d="M130 80 Q125 65 120 55" stroke="#1565C0" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          <path d="M170 80 Q175 65 180 55" stroke="#1565C0" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          <circle cx="120" cy="55" r="6" fill="#42A5F5"/>
+          <circle cx="180" cy="55" r="6" fill="#42A5F5"/>
+          
+          {/* Cute swimming legs */}
+          <ellipse cx="100" cy="200" rx="18" ry="12" fill="#1976D2" transform="rotate(-30 100 200)"/>
+          <ellipse cx="200" cy="200" rx="18" ry="12" fill="#1976D2" transform="rotate(30 200 200)"/>
+          <ellipse cx="115" cy="215" rx="15" ry="10" fill="#42A5F5" transform="rotate(-20 115 215)"/>
+          <ellipse cx="185" cy="215" rx="15" ry="10" fill="#42A5F5" transform="rotate(20 185 215)"/>
+          
+          {/* Water decorations */}
+          <text x="70" y="60" fontSize="20">🌊</text>
+          <text x="210" y="55" fontSize="22">🐟</text>
         </svg>
       );
     } else if (insect.name === '蜗牛') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="snailArtBg" cx="40%" cy="50%" r="60%">
-              <stop offset="0%" stopColor="#4a5a3a"/>
-              <stop offset="50%" stopColor="#3a4a2a"/>
-              <stop offset="100%" stopColor="#1a2a1a"/>
+            <radialGradient id="snailCuteBg" cx="40%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#F1F8E9"/>
+              <stop offset="100%" stopColor="#DCEDC8"/>
             </radialGradient>
-            <filter id="snailGlow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
+          <rect fill="url(#snailCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#snailArtBg)" width="300" height="300"/>
+          {/* Little flowers/leaves */}
+          {[...Array(8)].map((_, i) => (
+            <text 
+              key={i}
+              x={30 + (i * 30) % 240}
+              y={70 + (i * 25) % 180}
+              fontSize={14 + (i % 3) * 4}
+              opacity={0.5}
+            >🌿</text>
+          ))}
           
-          {[...Array(20)].map((_, i) => (
+          {/* Cute spiral shell */}
+          <ellipse cx="175" cy="155" rx="70" ry="65" fill="#8D6E63"/>
+          <ellipse cx="170" cy="150" rx="55" ry="50" fill="#A1887F"/>
+          <ellipse cx="165" cy="145" rx="40" ry="35" fill="#BCAAA4"/>
+          <ellipse cx="160" cy="140" rx="25" ry="20" fill="#D7CCC8"/>
+          
+          {/* Shell spiral decoration */}
+          <path d="M135 130 Q155 120 170 135 Q180 150 165 160 Q150 165 140 155" 
+                stroke="#6D4C41" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute snail body */}
+          <ellipse cx="95" cy="200" rx="55" ry="35" fill="#FFECB3"/>
+          <ellipse cx="95" cy="195" rx="45" ry="28" fill="#FFF8E1"/>
+          
+          {/* Head with tentacles */}
+          <ellipse cx="65" cy="180" rx="35" ry="30" fill="#FFF8E1"/>
+          
+          {/* Super cute eyes on stalks */}
+          <ellipse cx="50" cy="135" rx="8" ry="25" fill="#FFECB3"/>
+          <ellipse cx="80" cy="135" rx="8" ry="25" fill="#FFECB3"/>
+          <ellipse cx="50" cy="115" rx="16" ry="18" fill="white"/>
+          <ellipse cx="80" cy="115" rx="16" ry="18" fill="white"/>
+          <circle cx="52" cy="118" r="9" fill="#5D4037"/>
+          <circle cx="82" cy="118" r="9" fill="#5D4037"/>
+          <circle cx="48" cy="112" r="4" fill="white"/>
+          <circle cx="78" cy="112" r="4" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="45" cy="190" rx="12" ry="8" fill="#FFCCBC" opacity="0.8"/>
+          <ellipse cx="85" cy="190" rx="12" ry="8" fill="#FFCCBC" opacity="0.8"/>
+          
+          {/* Adorable smile */}
+          <path d="M52 198 Q65 210 78 198" stroke="#4E342E" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Little tentacles (lower) */}
+          <ellipse cx="45" cy="210" rx="6" ry="15" fill="#FFECB3" transform="rotate(-15 45 210)"/>
+          <ellipse cx="85" cy="210" rx="6" ry="15" fill="#FFECB3" transform="rotate(15 85 210)"/>
+          
+          {/* Slime trail (cute sparkly version) */}
+          {[...Array(5)].map((_, i) => (
             <ellipse 
               key={i}
-              cx={20 + (i * 14) % 260}
-              cy={50 + (i * 12) % 200}
-              rx={2 + (i % 3)}
-              ry={1 + (i % 2)}
-              fill={i % 2 === 0 ? '#8a9a6a' : '#6a7a4a'}
-              opacity={0.3}
+              cx={40 + i * 20}
+              cy={240 + (i % 2) * 5}
+              rx={10 - i}
+              ry={5}
+              fill="#E0E0E0"
+              opacity={0.5 - i * 0.08}
             />
           ))}
           
-          <g filter="url(#snailGlow)">
-            <ellipse cx="180" cy="160" rx="50" ry="45" fill="#5a4a3a" stroke="#6a5a4a" strokeWidth="3"/>
-            
-            <path d="M130 160 Q150 140 180 155" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
-            <path d="M130 170 Q150 150 180 165" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
-            <path d="M130 180 Q150 160 180 175" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
-            <path d="M130 190 Q150 170 180 185" fill="none" stroke="#6a5a4a" strokeWidth="2"/>
-            
-            <ellipse cx="195" cy="140" rx="20" ry="15" fill="#6a5a4a"/>
-            <ellipse cx="190" cy="135" rx="8" ry="6" fill="#7a6a5a"/>
-            
-            <ellipse cx="100" cy="190" rx="40" ry="25" fill="#8a7a5a"/>
-            <ellipse cx="100" cy="190" rx="35" ry="20" fill="#a99a7a"/>
-            
-            <ellipse cx="70" cy="200" rx="25" ry="15" fill="#b9aa8a"/>
-            <ellipse cx="70" cy="200" rx="20" ry="12" fill="#c9ba9a"/>
-            
-            <ellipse cx="50" cy="200" rx="15" ry="10" fill="#d9caaa"/>
-            
-            <circle cx="75" cy="180" r="8" fill="#d9caaa"/>
-            <circle cx="85" cy="180" r="8" fill="#d9caaa"/>
-            
-            <circle cx="75" cy="178" r="4" fill="#3a2a1a"/>
-            <circle cx="85" cy="178" r="4" fill="#3a2a1a"/>
-            <circle cx="73" cy="176" r="1.5" fill="#fff"/>
-            <circle cx="83" cy="176" r="1.5" fill="#fff">
-              <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
-            </circle>
-            
-            <path d="M78 188 Q80 192 82 188" stroke="#3a2a1a" strokeWidth="1.5" fill="none"/>
-            
-            <path d="M60 195 Q55 205 50 215" stroke="#6a5a4a" strokeWidth="1.5" fill="none"/>
-            <path d="M95 195 Q100 205 105 215" stroke="#6a5a4a" strokeWidth="1.5" fill="none"/>
-            
-            <ellipse cx="65" cy="220" rx="8" ry="4" fill="#a99a7a"/>
-            <ellipse cx="95" cy="220" rx="8" ry="4" fill="#a99a7a"/>
-            
-            <ellipse cx="70" cy="225" rx="15" ry="8" fill="#c9ba9a" opacity="0.7"/>
-          </g>
-          
-          {[...Array(6)].map((_, i) => (
-            <ellipse 
-              key={i}
-              cx={45 + i * 15}
-              cy={230 + (i % 2) * 5}
-              rx={6 + i}
-              ry={3}
-              fill="#a99a7a"
-              opacity={0.4 - i * 0.05}
-            />
-          ))}
-          
-          <circle cx="145" cy="180" r="2" fill="#8a9a6a" opacity="0.5">
-            <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite"/>
-          </circle>
+          {/* Cute mushroom/leaf */}
+          <text x="210" y="70" fontSize="24">🍄</text>
         </svg>
       );
-    } else {
+    } else if (insect.name === '仰泳蝽') {
       return (
         <svg viewBox="0 0 300 300" className="w-full h-full">
           <defs>
-            <radialGradient id="sunArtBg" cx="50%" cy="30%" r="80%">
-              <stop offset="0%" stopColor="#5a3010"/>
-              <stop offset="50%" stopColor="#3a1a05"/>
-              <stop offset="100%" stopColor="#1a0802"/>
-            </radialGradient>
+            <linearGradient id="backswimmerCuteBg" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#E3F2FD"/>
+              <stop offset="100%" stopColor="#BBDEFB"/>
+            </linearGradient>
           </defs>
+          <rect fill="url(#backswimmerCuteBg)" width="300" height="300"/>
           
-          <rect fill="url(#sunArtBg)" width="300" height="300"/>
-          
-          {[...Array(25)].map((_, i) => (
+          {/* Water ripples */}
+          {[...Array(10)].map((_, i) => (
             <ellipse 
               key={i}
-              cx={15 + (i * 12) % 270}
-              cy={160 + (i * 9) % 120}
-              rx={3 + (i % 3)}
-              fill={i % 2 === 0 ? '#8a6040' : '#6a4525'}
-              opacity="0.5"
+              cx="150"
+              cy={60 + i * 20}
+              rx={30 + i * 15}
+              ry={8}
+              fill="none"
+              stroke="#64B5F6"
+              strokeWidth="2"
+              opacity={0.4 - i * 0.03}
             />
           ))}
           
-          {[...Array(10)].map((_, i) => (
+          {/* Bubbles */}
+          {[...Array(12)].map((_, i) => (
             <circle 
               key={i}
-              cx={50 + (i * 22)}
-              cy={40 + (i * 8) % 80}
-              r={2 + (i % 3)}
-              fill="#ff8800"
-              opacity="0.3"
+              cx={40 + (i * 20) % 220}
+              cy={100 + (i * 15) % 150}
+              r={4 + (i % 3)}
+              fill="#90CAF9"
+              opacity={0.6}
             >
-              <animate attributeName="cy" values={`${40 + (i * 8) % 80};${20 + (i * 8) % 80};${40 + (i * 8) % 80}`} dur={`${1.2 + i * 0.2}s`} repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.3;0.7;0.3" dur={`${1.2 + i * 0.2}s`} repeatCount="indefinite"/>
+              <animate attributeName="cy" values={`${100 + (i * 15) % 150};${50 + (i * 15) % 150}`} dur={`${2 + i * 0.15}s`} repeatCount="indefinite"/>
             </circle>
           ))}
           
-          <g>
-            <ellipse cx="150" cy="155" rx="48" ry="42" fill="#8a5a30"/>
-            <ellipse cx="150" cy="105" rx="40" ry="34" fill="#a47840"/>
-            
-            <path d="M108 95 Q85 75 92 105 Q108 98 115 92" fill="#5a3515" stroke="#3a2010" strokeWidth="2"/>
-            <path d="M192 95 Q215 75 208 105 Q192 98 185 92" fill="#5a3515" stroke="#3a2010" strokeWidth="2"/>
-            
-            <path d="M82 88 L70 82" stroke="#4a2810" strokeWidth="4" fill="none" strokeLinecap="round"/>
-            <path d="M218 88 L230 82" stroke="#4a2810" strokeWidth="4" fill="none" strokeLinecap="round"/>
-            
-            <circle cx="130" cy="98" r="6" fill="#1a0802"/>
-            <circle cx="170" cy="98" r="6" fill="#1a0802"/>
-            <circle cx="140" cy="90" r="4" fill="#1a0802"/>
-            <circle cx="160" cy="90" r="4" fill="#1a0802"/>
-            <circle cx="128" cy="96" r="2" fill="#ffaa44" opacity="0.6"/>
-            <circle cx="172" cy="96" r="2" fill="#ffaa44" opacity="0.6"/>
-          </g>
+          {/* Cute backswimmer body (upside down!) */}
+          <ellipse cx="150" cy="160" rx="55" ry="45" fill="#42A5F5"/>
+          <ellipse cx="150" cy="155" rx="48" ry="38" fill="#64B5F6"/>
+          
+          {/* Belly (lighter color) */}
+          <ellipse cx="150" cy="150" rx="35" ry="25" fill="#BBDEFB"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="100" rx="40" ry="35" fill="#64B5F6"/>
+          
+          {/* Big cute eyes */}
+          <ellipse cx="125" cy="95" rx="20" ry="22" fill="white"/>
+          <ellipse cx="175" cy="95" rx="20" ry="22" fill="white"/>
+          <circle cx="127" cy="100" r="11" fill="#1565C0"/>
+          <circle cx="177" cy="100" r="11" fill="#1565C0"/>
+          <circle cx="122" cy="93" r="5" fill="white"/>
+          <circle cx="172" cy="93" r="5" fill="white"/>
+          
+          {/* Blush */}
+          <ellipse cx="105" cy="115" rx="14" ry="9" fill="#E3F2FD" opacity="0.8"/>
+          <ellipse cx="195" cy="115" rx="14" ry="9" fill="#E3F2FD" opacity="0.8"/>
+          
+          {/* Smile */}
+          <path d="M135 118 Q150 132 165 118" stroke="#0D47A1" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute swimming oar legs (big!) */}
+          <ellipse cx="90" cy="155" rx="25" ry="15" fill="#42A5F5" transform="rotate(-40 90 155)"/>
+          <ellipse cx="210" cy="155" rx="25" ry="15" fill="#42A5F5" transform="rotate(40 210 155)"/>
+          <ellipse cx="95" cy="175" rx="20" ry="12" fill="#64B5F6" transform="rotate(-30 95 175)"/>
+          <ellipse cx="205" cy="175" rx="20" ry="12" fill="#64B5F6" transform="rotate(30 205 175)"/>
+          
+          {/* Little antennae */}
+          <path d="M135 70 Q130 55 125 45" stroke="#1976D2" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          <path d="M165 70 Q170 55 175 45" stroke="#1976D2" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          <circle cx="125" cy="45" r="6" fill="#90CAF9"/>
+          <circle cx="175" cy="45" r="6" fill="#90CAF9"/>
+          
+          {/* Swimming decoration */}
+          <text x="70" y="60" fontSize="22">🏊</text>
+          <text x="210" y="55" fontSize="20">💦</text>
+        </svg>
+      );
+    } else if (insect.name === '屎壳郎') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="dungCuteBg" cx="50%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#EFEBE9"/>
+              <stop offset="100%" stopColor="#D7CCC8"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#dungCuteBg)" width="300" height="300"/>
+          
+          {/* Sparkles around the ball */}
+          {[...Array(10)].map((_, i) => (
+            <text 
+              key={i}
+              x={50 + Math.cos(i * 36 * Math.PI / 180) * 80}
+              y={180 + Math.sin(i * 36 * Math.PI / 180) * 60}
+              fontSize={12 + (i % 3) * 3}
+              opacity={0.6}
+            >✨</text>
+          ))}
+          
+          {/* Cute dung ball (shiny and round!) */}
+          <circle cx="150" cy="200" r="55" fill="#8D6E63"/>
+          <circle cx="150" cy="200" r="45" fill="#A1887F"/>
+          <circle cx="135" cy="185" r="20" fill="#BCAAA4" opacity="0.7"/>
+          <circle cx="125" cy="175" r="8" fill="#EFEBE9" opacity="0.6"/>
+          
+          {/* Cute beetle on top */}
+          <ellipse cx="150" cy="125" rx="50" ry="45" fill="#5D4037"/>
+          <ellipse cx="150" cy="120" rx="42" ry="38" fill="#795548"/>
+          
+          {/* Shell shine */}
+          <ellipse cx="135" cy="108" rx="18" ry="10" fill="#A1887F" opacity="0.6"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="75" rx="35" ry="30" fill="#795548"/>
+          
+          {/* Big cute eyes */}
+          <ellipse cx="128" cy="70" rx="16" ry="18" fill="white"/>
+          <ellipse cx="172" cy="70" rx="16" ry="18" fill="white"/>
+          <circle cx="130" cy="74" r="9" fill="#3E2723"/>
+          <circle cx="174" cy="74" r="9" fill="#3E2723"/>
+          <circle cx="125" cy="68" r="4" fill="white"/>
+          <circle cx="169" cy="68" r="4" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="110" cy="85" rx="12" ry="8" fill="#FFCCBC" opacity="0.8"/>
+          <ellipse cx="190" cy="85" rx="12" ry="8" fill="#FFCCBC" opacity="0.8"/>
+          
+          {/* Big happy smile */}
+          <path d="M135 90 Q150 105 165 90" stroke="#4E342E" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          
+          {/* Cute little horns */}
+          <ellipse cx="135" cy="48" rx="10" ry="18" fill="#6D4C41" transform="rotate(-15 135 48)"/>
+          <ellipse cx="165" cy="48" rx="10" ry="18" fill="#6D4C41" transform="rotate(15 165 48)"/>
+          <ellipse cx="150" cy="42" rx="12" ry="15" fill="#8D6E63"/>
+          
+          {/* Strong little arms pushing the ball */}
+          <ellipse cx="110" cy="160" rx="15" ry="25" fill="#795548" transform="rotate(-25 110 160)"/>
+          <ellipse cx="190" cy="160" rx="15" ry="25" fill="#795548" transform="rotate(25 190 160)"/>
+          
+          {/* Cute decoration */}
+          <text x="150" y="45" textAnchor="middle" fontSize="22">💪</text>
+          <text x="70" y="70" fontSize="18">🌟</text>
+        </svg>
+      );
+    } else if (insect.name === '螽斯') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="katydidCuteBg" cx="50%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#E8F5E9"/>
+              <stop offset="100%" stopColor="#C8E6C9"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#katydidCuteBg)" width="300" height="300"/>
+          
+          {/* Musical notes */}
+          {[...Array(8)].map((_, i) => (
+            <text 
+              key={i}
+              x={50 + (i * 28) % 200}
+              y={60 + (i * 22) % 160}
+              fontSize={18 + (i % 3) * 4}
+              opacity={0.6}
+            >🎵</text>
+          ))}
+          
+          {/* Cute katydid body */}
+          <ellipse cx="150" cy="175" rx="45" ry="60" fill="#66BB6A"/>
+          <ellipse cx="150" cy="170" rx="38" ry="52" fill="#81C784"/>
+          
+          {/* Leaf-like wings */}
+          <ellipse cx="110" cy="160" rx="35" ry="55" fill="#4CAF50" opacity="0.8" transform="rotate(-15 110 160)"/>
+          <ellipse cx="190" cy="160" rx="35" ry="55" fill="#4CAF50" opacity="0.8" transform="rotate(15 190 160)"/>
+          
+          {/* Leaf veins */}
+          <path d="M110 130 L110 190" stroke="#388E3C" strokeWidth="2" opacity="0.5"/>
+          <path d="M190 130 L190 190" stroke="#388E3C" strokeWidth="2" opacity="0.5"/>
+          
+          {/* Cute round head */}
+          <ellipse cx="150" cy="105" rx="42" ry="38" fill="#81C784"/>
+          
+          {/* Extra large cute eyes */}
+          <ellipse cx="125" cy="100" rx="22" ry="25" fill="white"/>
+          <ellipse cx="175" cy="100" rx="22" ry="25" fill="white"/>
+          <circle cx="127" cy="105" r="12" fill="#1B5E20"/>
+          <circle cx="177" cy="105" r="12" fill="#1B5E20"/>
+          <circle cx="122" cy="97" r="5" fill="white"/>
+          <circle cx="172" cy="97" r="5" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="102" cy="120" rx="14" ry="10" fill="#C8E6C9" opacity="0.8"/>
+          <ellipse cx="198" cy="120" rx="14" ry="10" fill="#C8E6C9" opacity="0.8"/>
+          
+          {/* Happy singing smile */}
+          <ellipse cx="150" cy="128" rx="15" ry="10" fill="#A5D6A7"/>
+          <path d="M138 125 Q150 138 162 125" stroke="#1B5E20" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          
+          {/* Long cute antennae */}
+          <path d="M130 75 Q110 45 95 25" stroke="#4CAF50" strokeWidth="5" fill="none" strokeLinecap="round"/>
+          <path d="M170 75 Q190 45 205 25" stroke="#4CAF50" strokeWidth="5" fill="none" strokeLinecap="round"/>
+          <circle cx="95" cy="25" r="8" fill="#81C784"/>
+          <circle cx="205" cy="25" r="8" fill="#81C784"/>
+          
+          {/* Big strong hind legs (cute version) */}
+          <ellipse cx="105" cy="220" rx="20" ry="40" fill="#66BB6A" transform="rotate(-20 105 220)"/>
+          <ellipse cx="195" cy="220" rx="20" ry="40" fill="#66BB6A" transform="rotate(20 195 220)"/>
+          
+          {/* Music decoration */}
+          <text x="150" y="50" textAnchor="middle" fontSize="26">🎤</text>
+        </svg>
+      );
+    } else if (insect.name === '独裁巨蝎') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="scorpionCuteBg" cx="50%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#FFF3E0"/>
+              <stop offset="100%" stopColor="#FFE0B2"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#scorpionCuteBg)" width="300" height="300"/>
+          
+          {/* Desert sand patterns */}
+          {[...Array(12)].map((_, i) => (
+            <ellipse 
+              key={i}
+              cx={30 + (i * 22) % 240}
+              cy={230 + (i % 3) * 10}
+              rx={20 + (i % 4) * 10}
+              ry={5}
+              fill="#D7CCC8"
+              opacity={0.5}
+            />
+          ))}
+          
+          {/* Cute scorpion body */}
+          <ellipse cx="150" cy="170" rx="55" ry="45" fill="#424242"/>
+          <ellipse cx="150" cy="165" rx="48" ry="38" fill="#616161"/>
+          
+          {/* Body segments */}
+          <rect x="115" y="150" width="25" height="35" fill="#424242" rx="5"/>
+          <rect x="145" y="150" width="25" height="35" fill="#424242" rx="5"/>
+          
+          {/* Big cute claws */}
+          <ellipse cx="90" cy="160" rx="35" ry="20" fill="#616161" transform="rotate(-30 90 160)"/>
+          <ellipse cx="210" cy="160" rx="35" ry="20" fill="#616161" transform="rotate(30 210 160)"/>
+          <ellipse cx="75" cy="155" rx="20" ry="12" fill="#757575" transform="rotate(-35 75 155)"/>
+          <ellipse cx="225" cy="155" rx="20" ry="12" fill="#757575" transform="rotate(35 225 155)"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="120" rx="40" ry="35" fill="#616161"/>
+          
+          {/* Super big cute eyes */}
+          <ellipse cx="125" cy="115" rx="20" ry="22" fill="white"/>
+          <ellipse cx="175" cy="115" rx="20" ry="22" fill="white"/>
+          <circle cx="127" cy="120" r="11" fill="#212121"/>
+          <circle cx="177" cy="120" r="11" fill="#212121"/>
+          <circle cx="122" cy="112" r="5" fill="white"/>
+          <circle cx="172" cy="112" r="5" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="105" cy="135" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          <ellipse cx="195" cy="135" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          
+          {/* Confident smile */}
+          <path d="M135 140 Q150 155 165 140" stroke="#424242" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          
+          {/* Curled tail with stinger */}
+          <path d="M150 205 Q170 220 190 200 Q210 175 195 155" stroke="#424242" strokeWidth="12" fill="none" strokeLinecap="round"/>
+          <path d="M195 150 L210 135" stroke="#FF5252" strokeWidth="8" fill="none" strokeLinecap="round"/>
+          <circle cx="210" cy="135" r="6" fill="#FF1744"/>
+          
+          {/* Little legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (50 + j * 15)}
+                cy={185 + j * 12}
+                rx="8"
+                ry="20"
+                fill="#616161"
+                transform={`rotate(${side * (15 - j * 5)} ${150 + side * (50 + j * 15)} ${185 + j * 12})`}
+              />
+            ))
+          ))}
+          
+          {/* Cute crown decoration */}
+          <text x="150" y="75" textAnchor="middle" fontSize="24">👑</text>
+          
+          {/* Sparkles */}
+          <text x="60" y="80" fontSize="18">✨</text>
+          <text x="220" y="90" fontSize="16">🌟</text>
+        </svg>
+      );
+    } else if (insect.name === '匆忙') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="hurryBg" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#E3F2FD"/>
+              <stop offset="100%" stopColor="#90CAF9"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#hurryBg)" width="300" height="300"/>
+          
+          {/* Motion lines */}
+          {[...Array(8)].map((_, i) => (
+            <ellipse 
+              key={i}
+              cx={50 + i * 30}
+              cy={80 + (i % 3) * 20}
+              rx={20}
+              ry={5}
+              fill="#42A5F5"
+              opacity={0.3 + (i % 4) * 0.1}
+            />
+          ))}
+          
+          {/* Cute fly body */}
+          <ellipse cx="150" cy="170" rx="45" ry="55" fill="#1565C0"/>
+          <ellipse cx="150" cy="165" rx="38" ry="45" fill="#1E88E5"/>
+          
+          {/* Big compound eyes */}
+          <ellipse cx="120" cy="120" rx="35" ry="40" fill="#FF5722"/>
+          <ellipse cx="180" cy="120" rx="35" ry="40" fill="#FF5722"/>
+          <ellipse cx="120" cy="120" rx="28" ry="32" fill="#FF9800"/>
+          <ellipse cx="180" cy="120" rx="28" ry="32" fill="#FF9800"/>
+          
+          {/* Eye details */}
+          <circle cx="115" cy="115" r="6" fill="#FFF" opacity="0.8"/>
+          <circle cx="185" cy="115" r="6" fill="#FFF" opacity="0.8"/>
+          
+          {/* Cute transparent wings */}
+          <ellipse cx="95" cy="140" rx="40" ry="25" fill="#90CAF9" opacity="0.5" transform="rotate(-25 95 140)"/>
+          <ellipse cx="205" cy="140" rx="40" ry="25" fill="#90CAF9" opacity="0.5" transform="rotate(25 205 140)"/>
+          
+          {/* Little legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (45 + j * 12)}
+                cy={185 + j * 15}
+                rx={8}
+                ry={22}
+                fill="#1565C0"
+                transform={`rotate(${side * (20 - j * 8)} ${150 + side * (45 + j * 12)} ${185 + j * 15})`}
+              />
+            ))
+          ))}
+          
+          {/* Blush */}
+          <ellipse cx="100" cy="150" rx="15" ry="10" fill="#FFCDD2" opacity="0.7"/>
+          <ellipse cx="200" cy="150" rx="15" ry="10" fill="#FFCDD2" opacity="0.7"/>
+          
+          {/* Bullet decoration */}
+          <text x="150" y="65" textAnchor="middle" fontSize="22">💨</text>
+          <text x="70" y="240" fontSize="16">🎯</text>
+        </svg>
+      );
+    } else if (insect.name === '蚁狮') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="antlionBg" cx="50%" cy="60%" r="70%">
+              <stop offset="0%" stopColor="#FFF8E1"/>
+              <stop offset="100%" stopColor="#FFE082"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#antlionBg)" width="300" height="300"/>
+          
+          {/* Sand pit */}
+          <ellipse cx="150" cy="220" rx="80" ry="30" fill="#D7CCC8"/>
+          <ellipse cx="150" cy="215" rx="65" ry="22" fill="#BCAAA4"/>
+          
+          {/* Cute antlion body */}
+          <ellipse cx="150" cy="175" rx="50" ry="45" fill="#795548"/>
+          <ellipse cx="150" cy="170" rx="42" ry="38" fill="#8D6E63"/>
+          
+          {/* Body segments */}
+          <rect x="120" y="155" width="60" height="35" fill="#6D4C41" rx="8"/>
+          
+          {/* Big scary but cute jaws */}
+          <ellipse cx="120" cy="135" rx="25" ry="18" fill="#5D4037" transform="rotate(-30 120 135)"/>
+          <ellipse cx="180" cy="135" rx="25" ry="18" fill="#5D4037" transform="rotate(30 180 135)"/>
+          <ellipse cx="110" cy="128" rx="18" ry="12" fill="#8D6E63" transform="rotate(-35 110 128)"/>
+          <ellipse cx="190" cy="128" rx="18" ry="12" fill="#8D6E63" transform="rotate(35 190 128)"/>
+          
+          {/* Cute little eyes */}
+          <ellipse cx="130" cy="105" rx="14" ry="16" fill="white"/>
+          <ellipse cx="170" cy="105" rx="14" ry="16" fill="white"/>
+          <circle cx="132" cy="108" r="7" fill="#3E2723"/>
+          <circle cx="172" cy="108" r="7" fill="#3E2723"/>
+          <circle cx="127" cy="102" r="3" fill="white"/>
+          <circle cx="167" cy="102" r="3" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="110" cy="120" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          <ellipse cx="190" cy="120" rx="12" ry="8" fill="#FFAB91" opacity="0.8"/>
+          
+          {/* 3 pairs of legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (50 + j * 15)}
+                cy={185 + j * 12}
+                rx={10}
+                ry={25}
+                fill="#795548"
+                transform={`rotate(${side * (18 - j * 6)} ${150 + side * (50 + j * 15)} ${185 + j * 12})`}
+              />
+            ))
+          ))}
+          
+          {/* Ant decoration */}
+          <text x="150" y="60" textAnchor="middle" fontSize="24">🐜</text>
+          <text x="80" y="250" fontSize="16">🏜️</text>
+        </svg>
+      );
+    } else if (insect.name === '黄蜂') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="waspBg" cx="50%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#FFFDE7"/>
+              <stop offset="100%" stopColor="#FFF59D"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#waspBg)" width="300" height="300"/>
+          
+          {/* Cute sparkles */}
+          {[...Array(10)].map((_, i) => (
+            <text 
+              key={i}
+              x={40 + (i * 25) % 220}
+              y={70 + (i * 18) % 160}
+              fontSize={12 + (i % 3) * 4}
+              opacity={0.6}
+            >✨</text>
+          ))}
+          
+          {/* Cute wasp body */}
+          <ellipse cx="150" cy="175" rx="48" ry="55" fill="#FFEB3B"/>
+          <rect x="108" y="150" width="84" height="25" fill="#424242" rx="10"/>
+          <rect x="103" y="190" width="94" height="25" fill="#424242" rx="10"/>
+          
+          {/* Head */}
+          <ellipse cx="150" cy="115" rx="45" ry="40" fill="#FFEB3B"/>
+          
+          {/* Big compound eyes */}
+          <ellipse cx="120" cy="110" rx="22" ry="26" fill="white"/>
+          <ellipse cx="180" cy="110" rx="22" ry="26" fill="white"/>
+          <circle cx="122" cy="115" r="12" fill="#1B5E20"/>
+          <circle cx="182" cy="115" r="12" fill="#1B5E20"/>
+          <circle cx="118" cy="107" r="5" fill="white"/>
+          <circle cx="178" cy="107" r="5" fill="white"/>
+          
+          {/* Blush */}
+          <ellipse cx="98" cy="130" rx="14" ry="10" fill="#FFCDD2" opacity="0.8"/>
+          <ellipse cx="202" cy="130" rx="14" ry="10" fill="#FFCDD2" opacity="0.8"/>
+          
+          {/* Cute antennae */}
+          <ellipse cx="130" cy="75" rx="7" ry="20" fill="#FDD835" transform="rotate(-20 130 75)"/>
+          <ellipse cx="170" cy="75" rx="7" ry="20" fill="#FDD835" transform="rotate(20 170 75)"/>
+          <circle cx="125" cy="60" r="8" fill="#FFC107"/>
+          <circle cx="175" cy="60" r="8" fill="#FFC107"/>
+          
+          {/* Wings (weak point!) */}
+          <ellipse cx="90" cy="150" rx="38" ry="24" fill="#B3E5FC" opacity="0.6" transform="rotate(-28 90 150)"/>
+          <ellipse cx="210" cy="150" rx="38" ry="24" fill="#B3E5FC" opacity="0.6" transform="rotate(28 210 150)"/>
+          
+          {/* Little legs */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (48 + j * 14)}
+                cy={190 + j * 14}
+                rx={9}
+                ry={23}
+                fill="#FFEB3B"
+                transform={`rotate(${side * (16 - j * 5)} ${150 + side * (48 + j * 14)} ${190 + j * 14})`}
+              />
+            ))
+          ))}
+          
+          {/* Cute stinger */}
+          <ellipse cx="150" cy="235" rx="14" ry="22" fill="#FFEB3B"/>
+          <path d="M145 248 L150 270 L155 248" fill="#FF9800"/>
+          
+          {/* Flower decoration */}
+          <text x="150" y="55" textAnchor="middle" fontSize="24">🌸</text>
+        </svg>
+      );
+    } else if (insect.name === '化蛛侠') {
+      return (
+        <svg viewBox="0 0 300 300" className="w-full h-full">
+          <defs>
+            <radialGradient id="spiderheroBg" cx="50%" cy="50%" r="75%">
+              <stop offset="0%" stopColor="#F3E5F5"/>
+              <stop offset="100%" stopColor="#CE93D8"/>
+            </radialGradient>
+          </defs>
+          <rect fill="url(#spiderheroBg)" width="300" height="300"/>
+          
+          {/* Web pattern */}
+          <path d="M50 50 Q150 100 50 250" stroke="#E1BEE7" strokeWidth="2" fill="none" opacity="0.5"/>
+          <path d="M100 30 Q150 130 100 270" stroke="#E1BEE7" strokeWidth="2" fill="none" opacity="0.5"/>
+          <path d="M200 50 Q150 100 200 250" stroke="#E1BEE7" strokeWidth="2" fill="none" opacity="0.5"/>
+          <path d="M250 30 Q150 130 250 270" stroke="#E1BEE7" strokeWidth="2" fill="none" opacity="0.5"/>
+          <path d="M30 150 Q150 150 270 150" stroke="#E1BEE7" strokeWidth="2" fill="none" opacity="0.5"/>
+          
+          {/* Cute sparkles */}
+          {[...Array(10)].map((_, i) => (
+            <circle 
+              key={i}
+              cx={35 + (i * 23) % 230}
+              cy={60 + (i * 18) % 180}
+              r={2 + (i % 3)}
+              fill={i % 2 === 0 ? "#E91E63" : "#9C27B0"}
+              opacity={0.6}
+            >
+              <animate attributeName="opacity" values={`${0.6};1;${0.6}`} dur={`${1.2 + i * 0.15}s`} repeatCount="indefinite"/>
+            </circle>
+          ))}
+          
+          {/* Cute chubby spider body */}
+          <ellipse cx="150" cy="180" rx="60" ry="65" fill="#424242"/>
+          <ellipse cx="150" cy="125" rx="48" ry="48" fill="#616161"/>
+          
+          {/* Spider symbol on belly */}
+          <ellipse cx="150" cy="175" rx="25" ry="20" fill="#E91E63"/>
+          <text x="150" y="180" textAnchor="middle" fontSize="20">🕷️</text>
+          
+          {/* Super big cute eyes */}
+          <ellipse cx="125" cy="115" rx="24" ry="28" fill="white"/>
+          <ellipse cx="175" cy="115" rx="24" ry="28" fill="white"/>
+          <circle cx="128" cy="122" r="13" fill="#212121"/>
+          <circle cx="178" cy="122" r="13" fill="#212121"/>
+          <circle cx="123" cy="114" r="5" fill="white"/>
+          <circle cx="173" cy="114" r="5" fill="white"/>
+          
+          {/* Blush cheeks */}
+          <ellipse cx="102" cy="135" rx="16" ry="11" fill="#F8BBD9" opacity="0.8"/>
+          <ellipse cx="198" cy="135" rx="16" ry="11" fill="#F8BBD9" opacity="0.8"/>
+          
+          {/* Little smile */}
+          <path d="M135 145 Q150 160 165 145" stroke="#424242" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          
+          {/* Fangs (cute version!) */}
+          <ellipse cx="138" cy="155" rx="5" ry="8" fill="#FFE0B2"/>
+          <ellipse cx="162" cy="155" rx="5" ry="8" fill="#FFE0B2"/>
+          
+          {/* 6 legs! */}
+          {[-1, 1].map((side, i) => (
+            [0, 1, 2].map((leg, j) => (
+              <ellipse 
+                key={`${i}-${j}`}
+                cx={150 + side * (60 + j * 10)}
+                cy={160 + j * 18}
+                rx={12}
+                ry={32}
+                fill="#616161"
+                transform={`rotate(${side * (22 - j * 7)} ${150 + side * (60 + j * 10)} ${160 + j * 18})`}
+              />
+            ))
+          ))}
+          
+          {/* Hero mask */}
+          <text x="150" y="65" textAnchor="middle" fontSize="28">🦸</text>
+          
+          {/* Hearts */}
+          <text x="70" y="75" fontSize="20">💜</text>
+          <text x="215" y="70" fontSize="18">💖</text>
         </svg>
       );
     }
+    return null;
   };
 
   const getUltimateAnimation = () => {
@@ -560,7 +1163,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
       return (
         <div className="relative w-full h-full">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-6xl animate-bounce">☠️</div>
+            <div className="text-6xl animate-bounce">💕</div>
           </div>
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(8)].map((_, i) => (
@@ -574,7 +1177,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
                   animationDelay: `${i * 0.1}s`
                 }}
               >
-                <div className="text-3xl">💚</div>
+                <div className="text-3xl">💖</div>
               </div>
             ))}
           </div>
@@ -584,7 +1187,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
       return (
         <div className="relative w-full h-full">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-6xl animate-pulse">🎭</div>
+            <div className="text-6xl animate-pulse">✨</div>
           </div>
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(5)].map((_, i) => (
@@ -598,7 +1201,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
                   animationDelay: `${i * 0.1}s`
                 }}
               >
-                <div className="text-2xl">💦</div>
+                <div className="text-2xl">💧</div>
               </div>
             ))}
           </div>
@@ -608,7 +1211,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
       return (
         <div className="relative w-full h-full">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-7xl animate-pulse">🕷️</div>
+            <div className="text-7xl animate-pulse">🥰</div>
           </div>
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(8)].map((_, i) => (
@@ -618,34 +1221,13 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
                 style={{
                   left: `${15 + (i % 4) * 20}%`,
                   top: `${35 + Math.floor(i / 4) * 30}%`,
-                  animation: `spin 1.5s linear infinite`,
+                  animation: `pulse 1.5s ease-in-out infinite`,
                   animationDelay: `${i * 0.15}s`
                 }}
               >
-                <div className="text-3xl" style={{color: '#ff0044'}}>❤️</div>
+                <div className="text-3xl">💗</div>
               </div>
             ))}
-          </div>
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(12)].map((_, i) => (
-              <div 
-                key={i}
-                className="absolute"
-                style={{
-                  left: `${50 + Math.cos(i * 30 * Math.PI / 180) * 30}%`,
-                  top: `${50 + Math.sin(i * 30 * Math.PI / 180) * 35}%`,
-                  animation: `pulse 0.8s ease-in-out infinite`,
-                  animationDelay: `${i * 0.05}s`
-                }}
-              >
-                <div className="text-xl">💜</div>
-              </div>
-            ))}
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-4xl font-bold text-red-500 animate-bounce" style={{textShadow: '0 0 20px #ff0044'}}>
-              毒牙穿刺！
-            </div>
           </div>
         </div>
       );
@@ -653,7 +1235,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
       return (
         <div className="relative w-full h-full">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-6xl animate-shake">🔥</div>
+            <div className="text-6xl animate-bounce">⭐</div>
           </div>
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(6)].map((_, i) => (
@@ -667,7 +1249,7 @@ const Card = ({ insect, onClick, isSelected, isEnemy, isSmall, isShowcase }) => 
                   animationDelay: `${i * 0.08}s`
                 }}
               >
-                <div className="text-2xl">⚔️</div>
+                <div className="text-2xl">✨</div>
               </div>
             ))}
           </div>

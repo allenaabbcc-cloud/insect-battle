@@ -6,6 +6,8 @@ import CardDetail from './components/CardDetail';
 import WorldMap from './components/WorldMap';
 import Achievements from './components/Achievements';
 import CreationCenter from './components/CreationCenter';
+import EvolutionCenter from './components/EvolutionCenter';
+import evolutionData from './data/evolution.json';
 
 function App() {
   const [gameState, setGameState] = useState('battle');
@@ -24,6 +26,9 @@ function App() {
     winStreak: 0,
     currentStreak: 0
   });
+  
+  // 昆虫经验值状态
+  const [insectExp, setInsectExp] = useState({});
   
   // 新增:战斗环境状态
   const [isUnderwater, setIsUnderwater] = useState(false);
@@ -96,7 +101,8 @@ function App() {
     setPlayerCard(card);
     
     // 获取敌方昆虫(排除玩家选择的)
-    const availableEnemies = insects.filter(i => i.id !== card.id);
+    const allInsects = [...insects, ...customInsects];
+    const availableEnemies = allInsects.filter(i => i.id !== card.id);
     const enemyIndex = Math.floor(Math.random() * availableEnemies.length);
     const enemy = availableEnemies[enemyIndex];
     setEnemyCard(enemy);
@@ -224,6 +230,22 @@ function App() {
             if (winner === card) {
               setGameResult('victory');
               setBattleLog(prev => [...prev, `🎉 胜利！${card.name} 获胜！`]);
+              
+              const baseExp = enemy.atk > 70 ? 35 : enemy.atk > 50 ? 20 : 10;
+              const bonusExp = Math.floor(Math.random() * 10) + 1;
+              const totalExp = baseExp + bonusExp;
+              
+              const savedStages = localStorage.getItem('insectStages');
+              if (savedStages) {
+                const stages = JSON.parse(savedStages);
+                const enemyEvolutionId = evolutionData.find(e => e.baseName === enemy.name)?.id;
+                if (enemyEvolutionId && stages[enemyEvolutionId]) {
+                  stages[enemyEvolutionId].exp = (stages[enemyEvolutionId].exp || 0) + totalExp;
+                  localStorage.setItem('insectStages', JSON.stringify(stages));
+                  setBattleLog(prev => [...prev, `🌟 获得 ${totalExp} EXP！（击败 ${enemy.name} 获得）`]);
+                }
+              }
+              
               setPlayerStats(prev => ({
                 ...prev,
                 totalBattles: prev.totalBattles + 1,
@@ -261,7 +283,7 @@ function App() {
   };
 
   if (gameState === 'gallery') {
-    return <CardGallery onBack={() => setGameState('battle')} onSelectCard={(card) => { setSelectedCard(card); setGameState('detail'); }} />;
+    return <CardGallery onBack={() => setGameState('battle')} onSelectCard={(card) => { setSelectedCard(card); setGameState('detail'); }} customInsects={customInsects} />;
   }
   
   if (gameState === 'detail') {
@@ -278,6 +300,10 @@ function App() {
 
   if (gameState === 'creation') {
     return <CreationCenter onBack={() => setGameState('battle')} customInsects={customInsects} setCustomInsects={setCustomInsects} />;
+  }
+
+  if (gameState === 'evolution') {
+    return <EvolutionCenter onBack={() => setGameState('battle')} />;
   }
 
   return (
@@ -305,6 +331,12 @@ function App() {
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
             >
               🏆 成就系统
+            </button>
+            <button
+              onClick={() => setGameState('evolution')}
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold py-3 px-5 rounded-xl shadow-lg transform hover:scale-105 transition-all"
+            >
+              🦋 进化中心
             </button>
             <button
               onClick={() => setGameState('creation')}
@@ -353,16 +385,34 @@ function App() {
               </div>
               
               <div className="flex flex-wrap justify-center gap-4">
-                {insects.map((insect) => (
+            {insects.map((insect) => (
+              <Card
+                key={insect.id}
+                insect={insect}
+                onClick={() => startBattle(insect)}
+                isSmall
+                isSelected={playerCard?.id === insect.id}
+              />
+            ))}
+          </div>
+          
+          {customInsects.length > 0 && (
+            <div className="mt-4">
+              <div className="text-green-300 font-bold mb-3 text-center">🎨 Sam 的自定义英雄</div>
+              <div className="flex flex-wrap justify-center gap-4">
+                {customInsects.map((insect) => (
                   <Card
                     key={insect.id}
                     insect={insect}
                     onClick={() => startBattle(insect)}
                     isSmall
                     isSelected={playerCard?.id === insect.id}
+                    isCustom
                   />
                 ))}
               </div>
+            </div>
+          )}
             </div>
           </div>
 
@@ -385,7 +435,7 @@ function App() {
                 <div className="flex justify-center">
                   {playerCard && (
                     <div className="relative">
-                      <Card insect={playerCard} isSmall />
+                      <Card insect={playerCard} isSmall isCustom={customInsects.some(i => i.id === playerCard.id)} />
                       {playerPoisoned && (
                         <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full animate-bounce">
                           ☠️ 中毒
@@ -404,7 +454,7 @@ function App() {
                 <div className="flex justify-center">
                   {enemyCard && (
                     <div className="relative">
-                      <Card insect={enemyCard} isEnemy isSmall />
+                      <Card insect={enemyCard} isEnemy isSmall isCustom={customInsects.some(i => i.id === enemyCard.id)} />
                       {enemyPoisoned && (
                         <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full animate-bounce">
                           ☠️ 中毒
