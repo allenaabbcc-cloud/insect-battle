@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import insects from '../data/insects';
 
 const MAP_ZONES = [
-  { id: 'school', name: '昆虫学校', top: '20%', left: '18%', effect: '学习升级', icon: '🏫', color: 'purple' },
-  { id: 'forest', name: '巨蛇森林', top: '40%', left: '55%', effect: '陆地昆虫栖息地', icon: '🌲', color: 'green' },
-  { id: 'swamp', name: '巨龙沼泽', top: '70%', left: '30%', effect: '水生昆虫栖息地', icon: '🌊', color: 'blue' },
-  { id: 'sky-island', name: '天空之岛', top: '70%', left: '75%', effect: '飞虫班栖息地', icon: '☁️', color: 'yellow' },
+  { id: 'school', name: '昆虫学校', top: '18%', left: '15%', effect: '学习升级', icon: '🏫', color: 'purple' },
+  { id: 'forest', name: '巨蛇森林', top: '35%', left: '60%', effect: '陆地昆虫栖息地', icon: '🌲', color: 'green' },
+  { id: 'swamp', name: '巨龙沼泽', top: '75%', left: '25%', effect: '水生昆虫栖息地', icon: '🌊', color: 'blue' },
+  { id: 'sky-island', name: '天空之岛', top: '75%', left: '75%', effect: '飞虫班栖息地', icon: '☁️', color: 'yellow' },
 ];
 
 const getZoneInsects = (zoneId) => {
@@ -135,150 +135,204 @@ const WorldMap = ({ onSelectZone, onSelectInsect }) => {
           </div>
         )}
 
-        <div className="relative w-full max-w-5xl mx-auto border-8 border-amber-600 rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-amber-100 via-yellow-50 to-orange-100">
+        <div className="relative w-full max-w-5xl mx-auto border-8 border-amber-700 rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
           
           <div className="relative w-full aspect-[4/3]">
-            <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-yellow-100 to-green-100"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-amber-100 to-green-100"></div>
 
-            <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+            <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
 
-            <div className="absolute" style={{ top: '5%', left: '5%', width: '30%', height: '45%' }}>
-              <div className="relative w-full h-full bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-200 rounded-3xl border-4 border-purple-400 shadow-xl p-4">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
-                  🏫 昆虫学校
+            <div className="absolute" style={{ top: '3%', left: '3%', width: '45%', height: '25%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-100 rounded-2xl border-3 border-amber-600 shadow-lg">
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-amber-700 text-white px-3 py-1 rounded-full font-bold text-xs z-10">
+                  🏫 学校建筑
                 </div>
                 
-                <div className="absolute top-12 left-4 right-4 h-20 bg-gradient-to-b from-red-400 to-red-600 rounded-lg border-2 border-red-700">
-                  <div className="absolute top-0 left-0 right-0 bg-yellow-500 text-xs text-center py-1">5楼</div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-yellow-500 text-xs text-center py-1">4楼</div>
-                  <div className="grid grid-cols-4 gap-1 p-2">
-                    {[...Array(8)].map((_, i) => (
-                      <div key={i} className="bg-yellow-200 h-5 rounded"></div>
-                    ))}
+                <div className="absolute inset-2 flex flex-col">
+                  <div className="flex-1 flex">
+                    <div className="flex-1 bg-gradient-to-b from-red-300 to-red-400 border-2 border-red-600 m-0.5 rounded flex flex-col justify-center items-center">
+                      <span className="text-xs font-bold text-red-900">5楼</span>
+                      <div className="flex gap-1 mt-1">
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-gradient-to-b from-orange-300 to-orange-400 border-2 border-orange-600 m-0.5 rounded flex flex-col justify-center items-center">
+                      <span className="text-xs font-bold text-orange-900">4楼</span>
+                      <div className="flex gap-1 mt-1">
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-gradient-to-b from-yellow-300 to-yellow-400 border-2 border-yellow-600 m-0.5 rounded flex flex-col justify-center items-center">
+                      <span className="text-xs font-bold text-yellow-900">3楼</span>
+                      <div className="flex gap-1 mt-1">
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-gradient-to-b from-green-300 to-green-400 border-2 border-green-600 m-0.5 rounded flex flex-col justify-center items-center">
+                      <span className="text-xs font-bold text-green-900">2楼</span>
+                      <div className="flex gap-1 mt-1">
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="absolute top-32 left-4 right-4 h-16 bg-gradient-to-b from-orange-400 to-orange-600 rounded-lg border-2 border-orange-700">
-                  <div className="absolute top-0 left-0 right-0 bg-yellow-500 text-xs text-center py-1">3楼</div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-yellow-500 text-xs text-center py-1">2楼</div>
-                  <div className="grid grid-cols-4 gap-1 p-2">
-                    {[...Array(8)].map((_, i) => (
-                      <div key={i} className="bg-yellow-200 h-5 rounded"></div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="absolute top-48 left-4 right-4 h-12 bg-gradient-to-b from-blue-400 to-blue-600 rounded-lg border-2 border-blue-700">
-                  <div className="absolute top-0 left-0 right-0 bg-yellow-500 text-xs text-center py-1">1楼</div>
-                  <div className="grid grid-cols-4 gap-1 p-2">
-                    {[...Array(4)].map((_, i) => (
-                      <div key={i} className="bg-yellow-200 h-5 rounded"></div>
-                    ))}
+                  <div className="flex">
+                    <div className="flex-1 bg-gradient-to-b from-blue-300 to-blue-400 border-2 border-blue-600 m-0.5 rounded flex flex-col justify-center items-center">
+                      <span className="text-xs font-bold text-blue-900">1楼</span>
+                      <div className="flex gap-1 mt-1">
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                        <div className="w-3 h-3 bg-yellow-200 rounded"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-gray-500 w-6 h-10 rounded-t"></div>
-
-                <div className="absolute" style={{ top: '45%', left: '75%' }}>
-                  <div className="text-xl animate-bounce">🛗</div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-8 bg-gray-600 rounded-t"></div>
+                
+                <div className="absolute" style={{ top: '10%', left: '85%' }}>
+                  <div className="text-lg animate-bounce">🛗</div>
                   <div className="text-xs text-purple-800 font-bold bg-white/80 rounded px-1">电梯</div>
-                </div>
-                <div className="absolute" style={{ top: '35%', left: '20%' }}>
-                  <div className="text-xl animate-bounce">🏠</div>
-                  <div className="text-xs text-purple-800 font-bold bg-white/80 rounded px-1">宿舍</div>
-                </div>
-                <div className="absolute" style={{ top: '30%', left: '50%' }}>
-                  <div className="text-xl animate-bounce">📚</div>
-                  <div className="text-xs text-purple-800 font-bold bg-white/80 rounded px-1">校室</div>
                 </div>
               </div>
             </div>
 
-            <div className="absolute" style={{ top: '15%', left: '35%', width: '55%', height: '40%' }}>
-              <div className="relative w-full h-full bg-gradient-to-br from-green-300 via-green-400 to-emerald-500 rounded-3xl border-4 border-green-600 shadow-xl p-4">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
+            <div className="absolute" style={{ top: '5%', left: '50%', width: '47%', height: '40%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-green-200 via-emerald-300 to-green-400 rounded-3xl border-4 border-green-600 shadow-lg">
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-green-700 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
                   🌲 巨蛇森林
                 </div>
                 
-                <div className="absolute inset-0 overflow-hidden">
-                  {[...Array(12)].map((_, i) => (
+                <div className="absolute inset-3 overflow-hidden">
+                  {[...Array(15)].map((_, i) => (
                     <div
                       key={i}
-                      className="absolute text-2xl"
+                      className="absolute text-xl"
                       style={{
-                        top: `${15 + Math.random() * 70}%`,
-                        left: `${10 + Math.random() * 80}%`
+                        top: `${10 + Math.random() * 70}%`,
+                        left: `${5 + Math.random() * 85}%`
                       }}
                     >
-                      {['🌲', '🌳', '🌴', '🌿', '🍀', '🌱'][i % 6]}
+                      {['🌲', '🌳', '🌴', '🌿', '🍀', '🌱', '🌸', '🌺'][i % 8]}
                     </div>
                   ))}
                 </div>
 
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <svg width="120" height="120" viewBox="0 0 200 200">
+                  <svg width="80" height="80" viewBox="0 0 200 200">
                     <path
                       d="M100,20 Q150,50 140,100 Q130,150 100,180 Q70,150 60,100 Q50,50 100,20"
                       fill="none"
                       stroke="#059669"
-                      strokeWidth="15"
+                      strokeWidth="12"
                       strokeLinecap="round"
                     />
-                    <circle cx="100" cy="30" r="12" fill="#059669" />
-                    <circle cx="96" cy="27" r="3" fill="#FFD700" />
-                    <circle cx="104" cy="27" r="3" fill="#FFD700" />
+                    <circle cx="100" cy="30" r="10" fill="#059669" />
+                    <circle cx="96" cy="28" r="2.5" fill="#FFD700" />
+                    <circle cx="104" cy="28" r="2.5" fill="#FFD700" />
                   </svg>
+                </div>
+
+                <div className="absolute" style={{ top: '40%', left: '30%' }}>
+                  <div className="bg-amber-100/80 rounded-xl p-2 border-2 border-amber-400">
+                    <span className="text-xs font-bold text-amber-800">操场</span>
+                  </div>
+                  <div className="w-10 h-10 bg-amber-300 rounded-full border-3 border-amber-600 mt-1"></div>
+                </div>
+
+                <div className="absolute" style={{ top: '20%', left: '60%' }}>
+                  <div className="bg-pink-100/80 rounded-xl p-2 border-2 border-pink-400">
+                    <span className="text-xs font-bold text-pink-800">食堂</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="absolute" style={{ top: '55%', left: '5%', width: '40%', height: '40%' }}>
-              <div className="relative w-full h-full bg-gradient-to-br from-blue-300 via-cyan-400 to-teal-500 rounded-3xl border-4 border-cyan-600 shadow-xl p-4">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-cyan-600 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
+            <div className="absolute" style={{ top: '30%', left: '5%', width: '30%', height: '20%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 rounded-2xl border-3 border-blue-400 shadow-lg">
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="text-xs font-bold text-blue-800 mb-2">宿舍</div>
+                  <div className="flex gap-1">
+                    <div className="w-6 h-8 bg-orange-200 border-2 border-orange-400 rounded-t"></div>
+                    <div className="w-6 h-8 bg-blue-200 border-2 border-blue-400 rounded-t"></div>
+                    <div className="w-6 h-8 bg-green-200 border-2 border-green-400 rounded-t"></div>
+                  </div>
+                  <div className="mt-1">
+                    <div className="text-xs text-blue-700">教室</div>
+                    <div className="flex gap-1 mt-1">
+                      <div className="w-5 h-4 bg-amber-200 border border-amber-400 rounded"></div>
+                      <div className="w-5 h-4 bg-amber-200 border border-amber-400 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute" style={{ top: '50%', left: '15%', width: '60%', height: '45%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-blue-200 via-cyan-300 to-teal-400 rounded-[60px] border-4 border-cyan-600 shadow-lg">
+                <div className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-cyan-700 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
                   🌊 巨龙沼泽
                 </div>
                 
-                <div className="absolute inset-0 overflow-hidden">
-                  {[...Array(8)].map((_, i) => (
+                <div className="absolute inset-4 overflow-hidden">
+                  {[...Array(10)].map((_, i) => (
                     <div
                       key={i}
-                      className="absolute text-xl opacity-60"
+                      className="absolute text-lg"
                       style={{
-                        top: `${20 + Math.random() * 60}%`,
-                        left: `${10 + Math.random() * 80}%`
+                        top: `${10 + Math.random() * 70}%`,
+                        left: `${5 + Math.random() * 85}%`,
+                        animation: `float ${2 + i * 0.3}s ease-in-out infinite`
                       }}
                     >
-                      {['🌿', '💧', '🐸', '🍃'][i % 4]}
+                      {['🌿', '💧', '🐸', '🍃', '🐟', '🦆'][i % 6]}
                     </div>
                   ))}
                 </div>
 
-                <svg className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" width="100" height="100" viewBox="0 0 150 150">
-                  <ellipse cx="75" cy="75" rx="50" ry="40" fill="none" stroke="#0891B2" strokeWidth="10" strokeLinecap="round" strokeDasharray="15 8" />
-                  <path
-                    d="M75,30 Q105,40 100,75 Q95,110 75,120 Q55,110 50,75 Q45,40 75,30"
-                    fill="none"
-                    stroke="#06B6D4"
-                    strokeWidth="6"
-                  />
-                </svg>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <svg width="70" height="70" viewBox="0 0 150 150">
+                    <ellipse cx="75" cy="75" rx="45" ry="35" fill="none" stroke="#0891B2" strokeWidth="8" strokeLinecap="round" strokeDasharray="12 6" />
+                    <path
+                      d="M75,30 Q100,40 95,75 Q90,110 75,120 Q60,110 55,75 Q50,40 75,30"
+                      fill="none"
+                      stroke="#06B6D4"
+                      strokeWidth="5"
+                    />
+                  </svg>
+                </div>
+
+                <div className="absolute" style={{ bottom: '15%', right: '25%' }}>
+                  <div className="w-8 h-8 bg-amber-800 rounded-full border-3 border-amber-900 flex items-center justify-center">
+                    <div className="w-5 h-5 bg-amber-700 rounded-full flex flex-col">
+                      <div className="flex-1 bg-amber-600 rounded-t"></div>
+                      <div className="flex-1 bg-amber-700 rounded-b"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="absolute" style={{ top: '55%', left: '50%', width: '45%', height: '40%' }}>
-              <div className="relative w-full h-full bg-gradient-to-br from-yellow-200 via-orange-200 to-pink-200 rounded-3xl border-4 border-orange-400 shadow-xl p-4">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full font-bold text-sm z-10">
+            <div className="absolute" style={{ top: '50%', left: '65%', width: '32%', height: '45%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-yellow-200 via-orange-200 to-pink-200 rounded-[50%] border-4 border-orange-400 shadow-lg">
+                <div className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-orange-600 text-white px-3 py-1 rounded-full font-bold text-xs z-10">
                   ☁️ 天空之岛
                 </div>
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-orange-800 z-10">
+                  (飞虫的家)
+                </div>
                 
-                <div className="absolute inset-0 overflow-hidden">
-                  {[...Array(6)].map((_, i) => (
+                <div className="absolute inset-4 overflow-hidden">
+                  {[...Array(8)].map((_, i) => (
                     <div
                       key={i}
-                      className="absolute text-3xl opacity-70"
+                      className="absolute text-2xl opacity-80"
                       style={{
                         top: `${10 + Math.random() * 60}%`,
-                        left: `${10 + Math.random() * 75}%`
+                        left: `${10 + Math.random() * 70}%`,
+                        animation: `float ${2.5 + i * 0.4}s ease-in-out infinite`
                       }}
                     >
                       ☁️
@@ -286,12 +340,23 @@ const WorldMap = ({ onSelectZone, onSelectInsect }) => {
                   ))}
                 </div>
 
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-                  <svg width="140" height="50" viewBox="0 0 180 60">
-                    <ellipse cx="90" cy="30" rx="65" ry="18" fill="#92400E" />
-                    <ellipse cx="90" cy="25" rx="60" ry="15" fill="#B45309" />
-                    <ellipse cx="90" cy="20" rx="55" ry="12" fill="#D97706" />
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                  <svg width="100" height="40" viewBox="0 0 180 60">
+                    <ellipse cx="90" cy="30" rx="55" ry="15" fill="#78350F" />
+                    <ellipse cx="90" cy="25" rx="50" ry="12" fill="#92400E" />
+                    <ellipse cx="90" cy="20" rx="45" ry="10" fill="#B45309" />
                   </svg>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute" style={{ bottom: '2%', left: '2%', width: '18%', height: '45%' }}>
+              <div className="relative w-full h-full bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 rounded-xl border-3 border-amber-600 shadow-lg">
+                <div className="absolute inset-2 flex flex-col items-center justify-start">
+                  <div className="text-lg mb-1">🏠</div>
+                  <div className="text-xs font-bold text-amber-800 mb-2">您的家</div>
+                  <div className="text-4xl mb-1">🗺️</div>
+                  <div className="text-xs font-bold text-amber-700">所有地方</div>
                 </div>
               </div>
             </div>
@@ -300,10 +365,10 @@ const WorldMap = ({ onSelectZone, onSelectInsect }) => {
               <button
                 key={zone.id}
                 className={`
-                  absolute w-12 h-12 ${colorClasses[zone.color]} 
-                  rounded-full animate-pulse border-4 border-white 
+                  absolute w-10 h-10 ${colorClasses[zone.color]} 
+                  rounded-full animate-pulse border-3 border-white 
                   hover:scale-150 transition-transform cursor-pointer
-                  flex items-center justify-center text-2xl
+                  flex items-center justify-center text-xl
                   shadow-lg z-20
                 `}
                 style={{ top: zone.top, left: zone.left }}
@@ -340,22 +405,22 @@ const WorldMap = ({ onSelectZone, onSelectInsect }) => {
             <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl p-4">
               <div className="text-3xl mb-2">🏫</div>
               <h3 className="font-bold text-gray-800">昆虫学校</h3>
-              <p className="text-sm text-gray-600 mt-2">所有昆虫学习和成长的地方</p>
+              <p className="text-sm text-gray-600 mt-2">5层教学楼，教室和宿舍</p>
             </div>
             <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl p-4">
               <div className="text-3xl mb-2">🌲</div>
               <h3 className="font-bold text-gray-800">巨蛇森林</h3>
-              <p className="text-sm text-gray-600 mt-2">陆地昆虫的乐园，生机勃勃的大森林</p>
+              <p className="text-sm text-gray-600 mt-2">陆地昆虫的乐园，有操场和食堂</p>
             </div>
             <div className="bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl p-4">
               <div className="text-3xl mb-2">🌊</div>
               <h3 className="font-bold text-gray-800">巨龙沼泽</h3>
-              <p className="text-sm text-gray-600 mt-2">水生昆虫的栖息地，水草丰美的沼泽地</p>
+              <p className="text-sm text-gray-600 mt-2">水生昆虫的栖息地</p>
             </div>
             <div className="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-xl p-4">
               <div className="text-3xl mb-2">☁️</div>
               <h3 className="font-bold text-gray-800">天空之岛</h3>
-              <p className="text-sm text-gray-600 mt-2">飞虫班的家园，漂浮在云端的神奇岛屿</p>
+              <p className="text-sm text-gray-600 mt-2">飞虫班的家园，漂浮的岛</p>
             </div>
           </div>
         </div>
